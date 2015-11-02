@@ -24,35 +24,33 @@ class CallsCommand(RESTCommand):
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
     def make_call(self, token=None, **kwargs):
-        url = '{base_url}/calls'.format(base_url=self.base_url)
-
         headers = {'X-Auth-Token': token}
-        r = self.session.post(url,
-                              headers=self.headers,
+        r = self.session.post(self.base_url,
+                              headers=headers,
                               params=kwargs
                              )
 
         if r.status_code != 200:
             self.raise_from_response(r)
 
-        return r.json()['data']
+        return r.json()
 
     def get_call(self, call_id=None, token=None):
-        url = '{base_url}/calls/{call_id}'.format(base_url=self.base_url,
-                                                  call_id=call_id
-                                                 )
+        url = '{base_url}/{call_id}'.format(base_url=self.base_url,
+                                            call_id=call_id
+                                           )
 
         headers = {'X-Auth-Token': token}
-        r = self.session.get(url, headers=self.headers)
+        r = self.session.get(url, headers=headers)
 
         if r.status_code != 200:
             self.raise_from_response(r)
 
-        return r.json()['data']
+        return r.json()
 
     def hangup(self, call_id=None, token=None):
-        url = '{base_url}/calls/{call_id}'.format(base_url=self.base_url,
+        url = '{base_url}/{call_id}'.format(base_url=self.base_url,
                                                   call_id=call_id)
 
         headers = {'X-Auth-Token': token}
-        self.session.get(url, headers=self.headers)
+        self.session.get(url, headers=headers)
