@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
+import json
+
 from xivo_lib_rest_client import RESTCommand
 
 
@@ -23,11 +25,12 @@ class CallsCommand(RESTCommand):
     resource = 'calls'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-    def make_call(self, token=None, **kwargs):
-        headers = {'X-Auth-Token': token}
+    def make_call(self, call, token=None, **kwargs):
+        self.headers['X-Auth-Token'] = token
         r = self.session.post(self.base_url,
-                              headers=headers,
-                              params=kwargs
+                              data=json.dumps(call),
+                              params=kwargs,
+                              headers=self.headers
                              )
 
         if r.status_code != 200:
@@ -40,8 +43,8 @@ class CallsCommand(RESTCommand):
                                             call_id=call_id
                                            )
 
-        headers = {'X-Auth-Token': token}
-        r = self.session.get(url, headers=headers)
+        self.headers['X-Auth-Token'] = token
+        r = self.session.get(url, headers=self.headers)
 
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -52,5 +55,5 @@ class CallsCommand(RESTCommand):
         url = '{base_url}/{call_id}'.format(base_url=self.base_url,
                                                   call_id=call_id)
 
-        headers = {'X-Auth-Token': token}
-        self.session.get(url, headers=headers)
+        self.headers['X-Auth-Token'] = token
+        self.session.get(url, headers=self.headers)
