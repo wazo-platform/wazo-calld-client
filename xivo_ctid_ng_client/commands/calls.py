@@ -56,4 +56,4 @@ class CallsCommand(RESTCommand):
                                                   call_id=call_id)
 
         self.headers['X-Auth-Token'] = token
-        self.session.get(url, headers=self.headers)
+        self.session.delete(url, headers=self.headers)
