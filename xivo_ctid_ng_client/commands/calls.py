@@ -33,7 +33,7 @@ class CallsCommand(RESTCommand):
                               headers=self.headers
                              )
 
-        if r.status_code != 200:
+        if r.status_code != 201:
             self.raise_from_response(r)
 
         return r.json()
