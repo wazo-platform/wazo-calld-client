@@ -36,10 +36,9 @@ class CallsCommand(RESTCommand):
 
         return r.json()
 
-    def get_call(self, call_id=None, token=None):
+    def get_call(self, call_id, token):
         url = '{base_url}/{call_id}'.format(base_url=self.base_url,
-                                            call_id=call_id
-                                           )
+                                            call_id=call_id)
 
         self.headers['X-Auth-Token'] = token
         r = self.session.get(url, headers=self.headers)
@@ -49,9 +48,34 @@ class CallsCommand(RESTCommand):
 
         return r.json()
 
-    def hangup(self, call_id=None, token=None):
+    def make_call(self, call, token, **kwargs):
+        self.headers['X-Auth-Token'] = token
+        r = self.session.post(self.base_url,
+                              data=json.dumps(call),
+                              params=kwargs,
+                              headers=self.headers)
+
+        if r.status_code != 201:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def hangup(self, call_id, token):
         url = '{base_url}/{call_id}'.format(base_url=self.base_url,
-                                                  call_id=call_id)
+                                            call_id=call_id)
 
         self.headers['X-Auth-Token'] = token
         self.session.delete(url, headers=self.headers)
+
+    def connect_user(self, call_id, user_id, token):
+        url = '{base_url}/{call_id}/user/{user_id}'.format(base_url=self.base_url,
+                                                           call_id=call_id,
+                                                           user_id=user_id)
+
+        self.headers['X-Auth-Token'] = token
+        r = self.session.put(url, headers=self.headers)
+
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()

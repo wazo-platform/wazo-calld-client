@@ -45,6 +45,7 @@ mycall
 }
 
 c.calls.hangup('call_id', token='one_ring')
+c.calls.connect_user('call_id', 'user_uuid', token='one_ring')
 
 ```
 
