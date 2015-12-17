@@ -25,15 +25,13 @@ class CallsCommand(RESTCommand):
     resource = 'calls'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-    def make_call(self, call, token=None, **kwargs):
-        self.headers['X-Auth-Token'] = token
-        r = self.session.post(self.base_url,
-                              data=json.dumps(call),
-                              params=kwargs,
-                              headers=self.headers
-                             )
+    def list_calls(self, token):
+        url = self.base_url
 
-        if r.status_code != 201:
+        self.headers['X-Auth-Token'] = token
+        r = self.session.get(url, headers=self.headers)
+
+        if r.status_code != 200:
             self.raise_from_response(r)
 
         return r.json()
