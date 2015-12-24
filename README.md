@@ -12,6 +12,8 @@ from xivo_ctid_ng_client import Client
 
 c = Client('localhost', verify_certificate='</path/to/trusted/certificate>')
 
+mycalls = c.calls.list_calls(token='one_ring')
+
 params = {
   "destination": {
     "extension": "8001",
@@ -43,6 +45,7 @@ mycall
 }
 
 c.calls.hangup('call_id', token='one_ring')
+c.calls.connect_user('call_id', 'user_uuid', token='one_ring')
 
 ```
 
