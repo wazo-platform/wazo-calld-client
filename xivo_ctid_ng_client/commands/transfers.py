@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 # Copyright (C) 2015 Avencall
@@ -16,26 +15,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-from setuptools import setup
-from setuptools import find_packages
+import json
 
-setup(
-    name='xivo_ctid_ng_client',
-    version='0.1',
+from xivo_lib_rest_client import RESTCommand
 
-    description='a simple client library for the xivo-ctid-ng HTTP interface',
 
-    author='Avencall',
-    author_email='dev@avencall.com',
+class TransfersCommand(RESTCommand):
 
-    url='https://github.com/xivo-pbx/xivo-ctid-ng-client',
+    resource = 'transfers'
+    headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-    packages=find_packages(),
+    def make_transfer(self, transfer, token, **kwargs):
+        self.headers['X-Auth-Token'] = token
+        r = self.session.post(self.base_url,
+                              data=json.dumps(transfer),
+                              params=kwargs,
+                              headers=self.headers)
 
-    entry_points={
-        'ctid_ng_client.commands': [
-            'calls = xivo_ctid_ng_client.commands.calls:CallsCommand',
-            'transfers = xivo_ctid_ng_client.commands.transfers:TransfersCommand'
-        ],
-    }
-)
+        if r.status_code != 201:
+            self.raise_from_response(r)
+
+        return r.json()
