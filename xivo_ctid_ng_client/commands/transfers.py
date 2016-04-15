@@ -25,6 +25,15 @@ class TransfersCommand(RESTCommand):
     resource = 'transfers'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
+    def get_transfer(self, transfer_id, token, **kwargs):
+        self.headers['X-Auth-Token'] = token
+        r = self.session.get('{url}/{transfer_id}'.format(url=self.base_url, transfer_id=transfer_id),
+                             headers=self.headers)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def make_transfer(self, transfer, token, **kwargs):
         self.headers['X-Auth-Token'] = token
         r = self.session.post(self.base_url,
@@ -36,3 +45,13 @@ class TransfersCommand(RESTCommand):
             self.raise_from_response(r)
 
         return r.json()
+
+    def complete_transfer(self, transfer_id, token, **kwargs):
+        self.headers['X-Auth-Token'] = token
+        self.session.put('{url}/{transfer_id}/complete'.format(url=self.base_url, transfer_id=transfer_id),
+                         headers=self.headers)
+
+    def cancel_transfer(self, transfer_id, token, **kwargs):
+        self.headers['X-Auth-Token'] = token
+        self.session.delete('{url}/{transfer_id}'.format(url=self.base_url, transfer_id=transfer_id),
+                            headers=self.headers)
