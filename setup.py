@@ -34,7 +34,8 @@ setup(
 
     entry_points={
         'ctid_ng_client.commands': [
-            'calls = xivo_ctid_ng_client.commands.calls:CallsCommand'
+            'calls = xivo_ctid_ng_client.commands.calls:CallsCommand',
+            'transfers = xivo_ctid_ng_client.commands.transfers:TransfersCommand'
         ],
     }
 )
