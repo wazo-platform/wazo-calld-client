@@ -55,8 +55,8 @@ params = {
 }
 transfer = c.transfers.make_transfer(params, token='one_ring')
 transfer = c.transfers.get_transfer(transfer['id'], token='one_ring')
-c.transfers.cancel(transfer['id'], token='one_ring')
-c.transfers.complete(transfer['id'], token='one_ring')
+c.transfers.cancel_transfer(transfer['id'], token='one_ring')
+c.transfers.complete_transfer(transfer['id'], token='one_ring')
 
 ```
 
