@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2015 Avencall
+# Copyright (C) 2015-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -52,6 +52,21 @@ class CallsCommand(RESTCommand):
         self.headers['X-Auth-Token'] = token
         r = self.session.post(self.base_url,
                               data=json.dumps(call),
+                              params=kwargs,
+                              headers=self.headers)
+
+        if r.status_code != 201:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def make_call_from_user(self, extension, variables, token, **kwargs):
+        self.headers['X-Auth-Token'] = token
+        body = {'extension': extension}
+        if variables:
+            body['variables'] = variables
+        r = self.session.post(self._client.url('users', 'me', self.resource),
+                              data=json.dumps(body),
                               params=kwargs,
                               headers=self.headers)
 
