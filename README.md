@@ -26,6 +26,7 @@ params = {
 }
 
 call = c.calls.make_call(params, token='one_ring')
+call = c.calls.make_from_user(extension='1234', variables={'key': 'value'}, token='my-user-token')
 
 call
 {u'call_id': u'1446422660.20'}

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2015 Avencall
+# Copyright (C) 2015-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,6 +14,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
+
+import json
 
 from hamcrest import assert_that
 from hamcrest import equal_to
@@ -60,6 +62,24 @@ class TestCalls(RESTCommandTestCase):
         self.session.post.assert_called_once_with(
             self.base_url,
             data='"my-call"',
+            params={},
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/json',
+                     'X-Auth-Token': s.token})
+        assert_that(result, equal_to({'return': 'value'}))
+
+    def test_make_call_from_user(self):
+        self.session.post.return_value = self.new_response(201, json={'return': 'value'})
+
+        result = self.command.make_call_from_user('1234', variables={'key': 'value'}, token=s.token)
+
+        expected_body = {
+            'extension': '1234',
+            'variables': {'key': 'value'},
+        }
+        self.session.post.assert_called_once_with(
+            self.client.url('users', 'me', 'calls'),
+            data=json.dumps(expected_body),
             params={},
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json',
