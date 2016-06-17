@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-import json
-
 from xivo_lib_rest_client import RESTCommand
 
 
@@ -35,7 +33,7 @@ class ChatsCommand(RESTCommand):
         if to_xivo_uuid:
             body['to_xivo_uuid'] = to_xivo_uuid
         r = self.session.post(self.base_url,
-                              data=json.dumps(body),
+                              json=body,
                               headers=self.headers)
 
         if r.status_code != 204:
@@ -50,7 +48,7 @@ class ChatsCommand(RESTCommand):
         if to_xivo_uuid:
             body['to_xivo_uuid'] = to_xivo_uuid
         r = self.session.post(self._client.url('users', 'me', self.resource),
-                              data=json.dumps(body),
+                              json=body,
                               headers=self.headers)
 
         if r.status_code != 204:

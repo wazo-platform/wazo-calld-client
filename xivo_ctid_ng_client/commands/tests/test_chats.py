@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-import json
-
 from xivo_lib_rest_client.tests.command import RESTCommandTestCase
 
 from ..chats import ChatsCommand
@@ -39,7 +37,7 @@ class TestCalls(RESTCommandTestCase):
         }
         self.session.post.assert_called_once_with(
             self.base_url,
-            data=json.dumps(expected_body),
+            json=expected_body,
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})
 
@@ -55,6 +53,6 @@ class TestCalls(RESTCommandTestCase):
         }
         self.session.post.assert_called_once_with(
             self.base_url,
-            data=json.dumps(expected_body),
+            json=expected_body,
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})
