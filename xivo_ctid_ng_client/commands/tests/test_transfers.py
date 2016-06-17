@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2015 Avencall
+# Copyright (C) 2015-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -49,6 +49,24 @@ class TestTransfers(RESTCommandTestCase):
             self.base_url,
             data='"my-transfer"',
             params={},
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/json',
+                     'X-Auth-Token': s.token})
+        assert_that(result, equal_to({'return': 'value'}))
+
+    def test_make_transfer_from_user(self):
+        self.session.post.return_value = self.new_response(201, json={'return': 'value'})
+
+        result = self.command.make_transfer_from_user('extension', 'initiator', 'blind', token=s.token)
+
+        expected_body = {
+            'exten': 'extension',
+            'initiator_call': 'initiator',
+            'flow': 'blind'
+        }
+        self.session.post.assert_called_once_with(
+            self.client.url('users', 'me', 'transfers'),
+            json=expected_body,
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json',
                      'X-Auth-Token': s.token})

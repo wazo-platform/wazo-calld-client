@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2015 Avencall
+# Copyright (C) 2015-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -39,6 +39,22 @@ class TransfersCommand(RESTCommand):
         r = self.session.post(self.base_url,
                               data=json.dumps(transfer),
                               params=kwargs,
+                              headers=self.headers)
+
+        if r.status_code != 201:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def make_transfer_from_user(self, exten, initiator, flow, token):
+        self.headers['X-Auth-Token'] = token
+        body = {
+            'exten': exten,
+            'initiator_call': initiator,
+            'flow': flow,
+        }
+        r = self.session.post(self._client.url('users', 'me', self.resource),
+                              json=body,
                               headers=self.headers)
 
         if r.status_code != 201:

@@ -55,6 +55,7 @@ params = {
   "exten": "1001"
 }
 transfer = c.transfers.make_transfer(params, token='one_ring')
+transfer = c.transfers.make_transfer_from_user(exten='1001', initiator='call-id', flow='blind', token='one_ring')
 transfer = c.transfers.get_transfer(transfer['id'], token='one_ring')
 c.transfers.cancel_transfer(transfer['id'], token='one_ring')
 c.transfers.complete_transfer(transfer['id'], token='one_ring')
