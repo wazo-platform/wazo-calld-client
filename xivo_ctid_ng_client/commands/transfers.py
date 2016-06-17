@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2015 Avencall
+# Copyright (C) 2015-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -25,8 +25,7 @@ class TransfersCommand(RESTCommand):
     resource = 'transfers'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-    def get_transfer(self, transfer_id, token, **kwargs):
-        self.headers['X-Auth-Token'] = token
+    def get_transfer(self, transfer_id):
         r = self.session.get('{url}/{transfer_id}'.format(url=self.base_url, transfer_id=transfer_id),
                              headers=self.headers)
         if r.status_code != 200:
@@ -34,11 +33,9 @@ class TransfersCommand(RESTCommand):
 
         return r.json()
 
-    def make_transfer(self, transfer, token, **kwargs):
-        self.headers['X-Auth-Token'] = token
+    def make_transfer(self, transfer):
         r = self.session.post(self.base_url,
                               data=json.dumps(transfer),
-                              params=kwargs,
                               headers=self.headers)
 
         if r.status_code != 201:
@@ -46,12 +43,10 @@ class TransfersCommand(RESTCommand):
 
         return r.json()
 
-    def complete_transfer(self, transfer_id, token, **kwargs):
-        self.headers['X-Auth-Token'] = token
+    def complete_transfer(self, transfer_id):
         self.session.put('{url}/{transfer_id}/complete'.format(url=self.base_url, transfer_id=transfer_id),
                          headers=self.headers)
 
-    def cancel_transfer(self, transfer_id, token, **kwargs):
-        self.headers['X-Auth-Token'] = token
+    def cancel_transfer(self, transfer_id):
         self.session.delete('{url}/{transfer_id}'.format(url=self.base_url, transfer_id=transfer_id),
                             headers=self.headers)

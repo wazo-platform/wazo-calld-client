@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2015 Avencall
+# Copyright (C) 2015-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +17,6 @@
 
 from hamcrest import assert_that
 from hamcrest import equal_to
-from mock import sentinel as s
 from xivo_lib_rest_client.tests.command import RESTCommandTestCase
 
 from ..transfers import TransfersCommand
@@ -31,47 +30,42 @@ class TestTransfers(RESTCommandTestCase):
         transfer_id = 'transfer-id'
         self.session.get.return_value = self.new_response(200, json={'return': 'value'})
 
-        result = self.command.get_transfer(transfer_id, token=s.token)
+        result = self.command.get_transfer(transfer_id)
 
         self.session.get.assert_called_once_with(
             '{base}/{transfer_id}'.format(base=self.base_url, transfer_id=transfer_id),
             headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json',
-                     'X-Auth-Token': s.token})
+                     'Content-Type': 'application/json'})
         assert_that(result, equal_to({'return': 'value'}))
 
     def test_make_transfer(self):
         self.session.post.return_value = self.new_response(201, json={'return': 'value'})
 
-        result = self.command.make_transfer('my-transfer', token=s.token)
+        result = self.command.make_transfer('my-transfer')
 
         self.session.post.assert_called_once_with(
             self.base_url,
             data='"my-transfer"',
-            params={},
             headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json',
-                     'X-Auth-Token': s.token})
+                     'Content-Type': 'application/json'})
         assert_that(result, equal_to({'return': 'value'}))
 
     def test_cancel_transfer(self):
         transfer_id = 'transfer-id'
 
-        self.command.cancel_transfer(transfer_id, token=s.token)
+        self.command.cancel_transfer(transfer_id)
 
         self.session.delete.assert_called_once_with(
             '{base}/{transfer_id}'.format(base=self.base_url, transfer_id=transfer_id),
             headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json',
-                     'X-Auth-Token': s.token})
+                     'Content-Type': 'application/json'})
 
     def test_complete_transfer(self):
         transfer_id = 'transfer-id'
 
-        self.command.complete_transfer(transfer_id, s.token)
+        self.command.complete_transfer(transfer_id)
 
         self.session.put.assert_called_once_with(
             '{base}/{transfer_id}/complete'.format(base=self.base_url, transfer_id=transfer_id),
             headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json',
-                     'X-Auth-Token': s.token})
+                     'Content-Type': 'application/json'})

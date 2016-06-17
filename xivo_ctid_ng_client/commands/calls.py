@@ -25,10 +25,9 @@ class CallsCommand(RESTCommand):
     resource = 'calls'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-    def list_calls(self, token):
+    def list_calls(self):
         url = self.base_url
 
-        self.headers['X-Auth-Token'] = token
         r = self.session.get(url, headers=self.headers)
 
         if r.status_code != 200:
@@ -36,11 +35,10 @@ class CallsCommand(RESTCommand):
 
         return r.json()
 
-    def get_call(self, call_id, token):
+    def get_call(self, call_id):
         url = '{base_url}/{call_id}'.format(base_url=self.base_url,
                                             call_id=call_id)
 
-        self.headers['X-Auth-Token'] = token
         r = self.session.get(url, headers=self.headers)
 
         if r.status_code != 200:
@@ -48,11 +46,9 @@ class CallsCommand(RESTCommand):
 
         return r.json()
 
-    def make_call(self, call, token, **kwargs):
-        self.headers['X-Auth-Token'] = token
+    def make_call(self, call):
         r = self.session.post(self.base_url,
                               data=json.dumps(call),
-                              params=kwargs,
                               headers=self.headers)
 
         if r.status_code != 201:
@@ -60,14 +56,12 @@ class CallsCommand(RESTCommand):
 
         return r.json()
 
-    def make_call_from_user(self, extension, variables, token, **kwargs):
-        self.headers['X-Auth-Token'] = token
+    def make_call_from_user(self, extension, variables):
         body = {'extension': extension}
         if variables:
             body['variables'] = variables
         r = self.session.post(self._client.url('users', 'me', self.resource),
                               data=json.dumps(body),
-                              params=kwargs,
                               headers=self.headers)
 
         if r.status_code != 201:
@@ -75,19 +69,17 @@ class CallsCommand(RESTCommand):
 
         return r.json()
 
-    def hangup(self, call_id, token):
+    def hangup(self, call_id):
         url = '{base_url}/{call_id}'.format(base_url=self.base_url,
                                             call_id=call_id)
 
-        self.headers['X-Auth-Token'] = token
         self.session.delete(url, headers=self.headers)
 
-    def connect_user(self, call_id, user_id, token):
+    def connect_user(self, call_id, user_id):
         url = '{base_url}/{call_id}/user/{user_id}'.format(base_url=self.base_url,
                                                            call_id=call_id,
                                                            user_id=user_id)
 
-        self.headers['X-Auth-Token'] = token
         r = self.session.put(url, headers=self.headers)
 
         if r.status_code != 200:
