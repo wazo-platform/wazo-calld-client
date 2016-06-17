@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-import json
-
 from xivo_lib_rest_client import RESTCommand
 
 
@@ -35,7 +33,7 @@ class TransfersCommand(RESTCommand):
 
     def make_transfer(self, transfer):
         r = self.session.post(self.base_url,
-                              data=json.dumps(transfer),
+                              json=transfer,
                               headers=self.headers)
 
         if r.status_code != 201:

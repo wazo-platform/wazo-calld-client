@@ -45,7 +45,7 @@ class TestTransfers(RESTCommandTestCase):
 
         self.session.post.assert_called_once_with(
             self.base_url,
-            data='"my-transfer"',
+            json='my-transfer',
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})
         assert_that(result, equal_to({'return': 'value'}))

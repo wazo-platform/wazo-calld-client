@@ -15,8 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
 
-import json
-
 from hamcrest import assert_that
 from hamcrest import equal_to
 from xivo_lib_rest_client.tests.command import RESTCommandTestCase
@@ -58,7 +56,7 @@ class TestCalls(RESTCommandTestCase):
 
         self.session.post.assert_called_once_with(
             self.base_url,
-            data='"my-call"',
+            json='my-call',
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})
         assert_that(result, equal_to({'return': 'value'}))
@@ -74,7 +72,7 @@ class TestCalls(RESTCommandTestCase):
         }
         self.session.post.assert_called_once_with(
             self.client.url('users', 'me', 'calls'),
-            data=json.dumps(expected_body),
+            json=expected_body,
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})
         assert_that(result, equal_to({'return': 'value'}))
