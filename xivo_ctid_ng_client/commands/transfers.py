@@ -46,8 +46,7 @@ class TransfersCommand(RESTCommand):
 
         return r.json()
 
-    def make_transfer_from_user(self, exten, initiator, flow, token):
-        self.headers['X-Auth-Token'] = token
+    def make_transfer_from_user(self, exten, initiator, flow):
         body = {
             'exten': exten,
             'initiator_call': initiator,

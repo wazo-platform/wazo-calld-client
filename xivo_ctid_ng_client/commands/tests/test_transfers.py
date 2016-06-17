@@ -57,7 +57,7 @@ class TestTransfers(RESTCommandTestCase):
     def test_make_transfer_from_user(self):
         self.session.post.return_value = self.new_response(201, json={'return': 'value'})
 
-        result = self.command.make_transfer_from_user('extension', 'initiator', 'blind', token=s.token)
+        result = self.command.make_transfer_from_user('extension', 'initiator', 'blind')
 
         expected_body = {
             'exten': 'extension',
@@ -68,8 +68,7 @@ class TestTransfers(RESTCommandTestCase):
             self.client.url('users', 'me', 'transfers'),
             json=expected_body,
             headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json',
-                     'X-Auth-Token': s.token})
+                     'Content-Type': 'application/json'})
         assert_that(result, equal_to({'return': 'value'}))
 
     def test_cancel_transfer(self):
