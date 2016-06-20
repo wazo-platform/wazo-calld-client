@@ -10,9 +10,9 @@ Usage:
 ```python
 from xivo_ctid_ng_client import Client
 
-c = Client('localhost', verify_certificate='</path/to/trusted/certificate>')
+c = Client('localhost', token='the-one-ring', verify_certificate='</path/to/trusted/certificate>')
 
-mycalls = c.calls.list_calls(token='one_ring')
+mycalls = c.calls.list_calls()
 
 params = {
   "destination": {
@@ -25,14 +25,14 @@ params = {
   }
 }
 
-call = c.calls.make_call(params, token='one_ring')
-call = c.calls.make_from_user(extension='1234', variables={'key': 'value'}, token='my-user-token')
+call = c.calls.make_call(params)
+call = c.calls.make_from_user(extension='1234', variables={'key': 'value'})
 
 call
 {u'call_id': u'1446422660.20'}
 
 
-mycall = c.calls.get_call('call_id', token='one_ring')
+mycall = c.calls.get_call('call_id')
 
 mycall
 {
@@ -45,25 +45,18 @@ mycall
   ]
 }
 
-c.calls.hangup('call_id', token='one_ring')
-c.calls.connect_user('call_id', 'user_uuid', token='one_ring')
+c.calls.hangup('call_id')
+c.calls.connect_user('call_id', 'user_uuid')
 
-params = {
-  "transferred_call": "call_id",
-  "initiator_call": "call_id",
-  "context": "default",
-  "exten": "1001"
-}
 transfer = c.transfers.make_transfer(transferred='call_id',
                                      initiator='call_id',
                                      context='default',
                                      exten='1001',
                                      flow='blind',
-                                     variables={'key': 'value'},
-                                     token='one_ring')
-transfer = c.transfers.get_transfer(transfer['id'], token='one_ring')
-c.transfers.cancel_transfer(transfer['id'], token='one_ring')
-c.transfers.complete_transfer(transfer['id'], token='one_ring')
+                                     variables={'key': 'value'})
+transfer = c.transfers.get_transfer(transfer['id'])
+c.transfers.cancel_transfer(transfer['id'])
+c.transfers.complete_transfer(transfer['id'])
 
 ```
 
