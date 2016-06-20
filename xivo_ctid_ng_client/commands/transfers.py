@@ -31,9 +31,18 @@ class TransfersCommand(RESTCommand):
 
         return r.json()
 
-    def make_transfer(self, transfer):
+    def make_transfer(self, transferred, initiator, context, exten, flow='attended', variables=None):
+        variables = variables or {}
+        body = {
+            'transferred_call': transferred,
+            'initiator_call': initiator,
+            'context': context,
+            'exten': exten,
+            'flow': flow,
+            'variables': variables
+        }
         r = self.session.post(self.base_url,
-                              json=transfer,
+                              json=body,
                               headers=self.headers)
 
         if r.status_code != 201:

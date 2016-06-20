@@ -41,11 +41,19 @@ class TestTransfers(RESTCommandTestCase):
     def test_make_transfer(self):
         self.session.post.return_value = self.new_response(201, json={'return': 'value'})
 
-        result = self.command.make_transfer('my-transfer')
+        result = self.command.make_transfer('transferred', 'initiator', 'context', 'exten', 'blind', {'key': 'value'})
 
+        expected_body = {
+            'transferred_call': 'transferred',
+            'initiator_call': 'initiator',
+            'context': 'context',
+            'exten': 'exten',
+            'flow': 'blind',
+            'variables': {'key': 'value'},
+        }
         self.session.post.assert_called_once_with(
             self.base_url,
-            json='my-transfer',
+            json=expected_body,
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})
         assert_that(result, equal_to({'return': 'value'}))
