@@ -25,11 +25,10 @@ class PresencesCommand(RESTCommand):
 
     def update_presence(self, user_uuid, status_name):
         body = {
-            'user_uuid': user_uuid,
             'status_name': status_name,
         }
 
-        r = self.session.put(self.base_url,
+        r = self.session.put(self._client.url('users', user_uuid, self.resource),
                              json=body,
                              headers=self.headers)
 
