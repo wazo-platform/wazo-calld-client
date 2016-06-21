@@ -41,8 +41,8 @@ class PresencesCommand(RESTCommand):
         }
 
         r = self.session.put(self._client.url('users', 'me', self.resource),
-                              json=body,
-                              headers=self.headers)
+                             json=body,
+                             headers=self.headers)
 
         if r.status_code != 204:
             self.raise_from_response(r)
