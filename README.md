@@ -55,6 +55,8 @@ transfer = c.transfers.make_transfer(transferred='call_id',
                                      flow='blind',
                                      variables={'key': 'value'})
 transfer = c.transfers.get_transfer(transfer['id'])
+transfer = c.transfers.make_transfer_from_user(exten='1001', initiator='call-id', flow='blind')
+transfer = c.transfers.get_transfer(transfer['id'])
 c.transfers.cancel_transfer(transfer['id'])
 c.transfers.complete_transfer(transfer['id'])
 

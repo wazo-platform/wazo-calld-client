@@ -58,6 +58,23 @@ class TestTransfers(RESTCommandTestCase):
                      'Content-Type': 'application/json'})
         assert_that(result, equal_to({'return': 'value'}))
 
+    def test_make_transfer_from_user(self):
+        self.session.post.return_value = self.new_response(201, json={'return': 'value'})
+
+        result = self.command.make_transfer_from_user('extension', 'initiator', 'blind')
+
+        expected_body = {
+            'exten': 'extension',
+            'initiator_call': 'initiator',
+            'flow': 'blind'
+        }
+        self.session.post.assert_called_once_with(
+            self.client.url('users', 'me', 'transfers'),
+            json=expected_body,
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/json'})
+        assert_that(result, equal_to({'return': 'value'}))
+
     def test_cancel_transfer(self):
         transfer_id = 'transfer-id'
 

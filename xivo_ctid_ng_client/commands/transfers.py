@@ -50,7 +50,22 @@ class TransfersCommand(RESTCommand):
 
         return r.json()
 
-    def complete_transfer(self, transfer_id):
+    def make_transfer_from_user(self, exten, initiator, flow):
+        body = {
+            'exten': exten,
+            'initiator_call': initiator,
+            'flow': flow,
+        }
+        r = self.session.post(self._client.url('users', 'me', self.resource),
+                              json=body,
+                              headers=self.headers)
+
+        if r.status_code != 201:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def complete_transfer(self, transfer_id, **kwargs):
         self.session.put('{url}/{transfer_id}/complete'.format(url=self.base_url, transfer_id=transfer_id),
                          headers=self.headers)
 
