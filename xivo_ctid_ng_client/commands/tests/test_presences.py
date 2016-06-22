@@ -25,6 +25,7 @@ class TestPresences(RESTCommandTestCase):
     Command = PresencesCommand
 
     def test_get_presence(self):
+        user_id = 1
         user_uuid = 'user-uuid'
 
         self.session.get.return_value = self.new_response(200)
@@ -33,7 +34,8 @@ class TestPresences(RESTCommandTestCase):
 
         expected_body = {
             'id': user_uuid,
-            'origin-uuid': 'xivo-uuid',
+            'user_uuid': user_uuid,
+            'origin_uuid': 'xivo-uuid',
             'presence': 'available'
         }
         self.session.get.assert_called_once_with(
@@ -42,6 +44,7 @@ class TestPresences(RESTCommandTestCase):
                      'Content-Type': 'application/json'})
 
     def test_get_presence_from_user(self):
+        user_id = 1
         user_uuid = 'user-uuid'
 
         self.session.get.return_value = self.new_response(200)
@@ -49,8 +52,9 @@ class TestPresences(RESTCommandTestCase):
         self.command.get_presence_from_user()
 
         expected_body = {
-            'id': user_uuid,
-            'origin-uuid': 'xivo-uuid',
+            'id': user_id,
+            'user_uuid': user_uuid,
+            'origin_uuid': 'xivo-uuid',
             'presence': 'available'
         }
         self.session.get.assert_called_once_with(

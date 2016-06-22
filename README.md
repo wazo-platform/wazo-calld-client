@@ -62,12 +62,12 @@ c.transfers.complete_transfer(transfer['id'])
 
 ## Tests
 
-to run the tests
+Running unit tests
+------------------
 
-```sh
-cd integration_tests
-make test-setup
-nosetests
+```
+pip install tox
+tox --recreate -e py27
 ```
 
 ## How to implement a new command
