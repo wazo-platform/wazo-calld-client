@@ -24,12 +24,46 @@ class TestPresences(RESTCommandTestCase):
 
     Command = PresencesCommand
 
+    def test_get_presence(self):
+        user_uuid = 'user-uuid'
+
+        self.session.get.return_value = self.new_response(200)
+
+        self.command.get_presence(user_uuid)
+
+        expected_body = {
+            'id': user_uuid,
+            'origin-uuid': 'xivo-uuid',
+            'presence': 'available'
+        }
+        self.session.get.assert_called_once_with(
+            self.client.url('users', user_uuid, 'presences'),
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/json'})
+
+    def test_get_presence_from_user(self):
+        user_uuid = 'user-uuid'
+
+        self.session.get.return_value = self.new_response(200)
+
+        self.command.get_presence_from_user()
+
+        expected_body = {
+            'id': user_uuid,
+            'origin-uuid': 'xivo-uuid',
+            'presence': 'available'
+        }
+        self.session.get.assert_called_once_with(
+            self.client.url('users', 'me', 'presences'),
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/json'})
+
     def test_update_presence(self):
         user_uuid = 'user-uuid'
 
         self.session.put.return_value = self.new_response(204)
 
-        self.command.update_presence('user-uuid', 'available')
+        self.command.update_presence(user_uuid, 'available')
 
         expected_body = {
             'status_name': 'available',
