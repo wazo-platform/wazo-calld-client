@@ -30,12 +30,16 @@ class PresencesCommand(RESTCommand):
         if r.status_code != 200:
             self.raise_from_response(r)
 
+        return r.json()
+
     def get_presence_from_user(self):
         r = self.session.get(self._client.url('users', 'me', self.resource),
                              headers=self.headers)
 
         if r.status_code != 200:
             self.raise_from_response(r)
+
+        return r.json()
 
     def update_presence(self, user_uuid, status_name):
         body = {
