@@ -54,7 +54,7 @@ class CallsCommand(RESTCommand):
 
         return r.json()
 
-    def make_call_from_user(self, extension, variables):
+    def make_call_from_user(self, extension, variables=None):
         body = {'extension': extension}
         if variables:
             body['variables'] = variables
