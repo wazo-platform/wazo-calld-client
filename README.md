@@ -1,9 +1,7 @@
 xivo-ctid-ng-client
 ===================
 
-A python library to connect to xivo-ctid-ng. HTTPS is used by default. Certificates
-are not verified by default. To check if the certificates are valid, use the
-verify_certificate argument when instantiating the client.
+A python library to connect to xivo-ctid-ng. HTTPS is used by default. Certificates are not verified by default. To check if the certificates are valid, use the verify_certificate argument when instantiating the client.
 
 Usage:
 
@@ -60,25 +58,32 @@ transfer = c.transfers.get_transfer(transfer['id'])
 c.transfers.cancel_transfer(transfer['id'])
 c.transfers.complete_transfer(transfer['id'])
 
+c.chats.send_message('sender-uuid', 'recipient-uuid', 'Sender Name', 'hello world!', to_xivo_uuid='optional-xivo-uuid')
+# This does the same thing, but derives the user UUID from the auth token
+c.chats.send_message_from_user('recipient-uuid', 'Sender Name', 'hello world!', to_xivo_uuid='optional-xivo-uuid')
+
+presence = c.presences.get_presence('my-user-uuid')
+c.presences.update_presence('my-user-uuid', 'available')
+
+# This does the same thing, but derives the user UUID from the auth token
+presence = c.presences.get_presence_from_user()
+c.presences.update_presence_from_user('available')
+
 ```
 
 ## Tests
 
-to run the tests
+Running unit tests
+------------------
 
-```sh
-cd integration_tests
-make test-setup
-nosetests
+```
+pip install tox
+tox --recreate -e py27
 ```
 
 ## How to implement a new command
 
-Someone trying to implement a new command to the client would have to implement
-a new class, sub-classing the RESTCommand (available in
-xivo-lib-rest-client). The new class must be in the setup.py in the entry points
-under ctid_ng_client.commands. The name of the entry point is used as the handle on
-the client. For example, if your new entry point entry looks like this:
+Someone trying to implement a new command to the client would have to implement a new class, sub-classing the RESTCommand (available in xivo-lib-rest-client). The new class must be in the setup.py in the entry points under ctid_ng_client.commands. The name of the entry point is used as the handle on the client. For example, if your new entry point entry looks like this:
 
 ```python
 entry_points={

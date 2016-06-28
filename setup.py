@@ -36,6 +36,7 @@ setup(
         'ctid_ng_client.commands': [
             'calls = xivo_ctid_ng_client.commands.calls:CallsCommand',
             'chats = xivo_ctid_ng_client.commands.chats:ChatsCommand',
+            'presences = xivo_ctid_ng_client.commands.presences:PresencesCommand',
             'transfers = xivo_ctid_ng_client.commands.transfers:TransfersCommand'
         ],
     }
