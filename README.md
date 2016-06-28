@@ -56,6 +56,10 @@ transfer = c.transfers.get_transfer(transfer['id'])
 c.transfers.cancel_transfer(transfer['id'])
 c.transfers.complete_transfer(transfer['id'])
 
+c.chats.send_message('sender-uuid', 'recipient-uuid', 'Sender Name', 'hello world!', to_xivo_uuid='optional-xivo-uuid')
+# This does the same thing, but derives the user UUID from the auth token
+c.chats.send_message_from_user('recipient-uuid', 'Sender Name', 'hello world!', to_xivo_uuid='optional-xivo-uuid')
+
 presence = c.presences.get_presence('my-user-uuid')
 c.presences.update_presence('my-user-uuid', 'available')
 
