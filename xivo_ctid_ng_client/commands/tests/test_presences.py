@@ -70,7 +70,7 @@ class TestPresences(RESTCommandTestCase):
         self.command.update_presence(user_uuid, 'available')
 
         expected_body = {
-            'status_name': 'available',
+            'presence': 'available',
         }
         self.session.put.assert_called_once_with(
             self.client.url('users', user_uuid, 'presences'),
@@ -84,7 +84,7 @@ class TestPresences(RESTCommandTestCase):
         self.command.update_presence_from_user('available')
 
         expected_body = {
-            'status_name': 'available',
+            'presence': 'available',
         }
         self.session.put.assert_called_once_with(
             self.client.url('users', 'me', 'presences'),

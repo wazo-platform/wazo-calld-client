@@ -43,7 +43,7 @@ class PresencesCommand(RESTCommand):
 
     def update_presence(self, user_uuid, status_name):
         body = {
-            'status_name': status_name,
+            'presence': status_name,
         }
 
         r = self.session.put(self._client.url('users', user_uuid, self.resource),
@@ -55,7 +55,7 @@ class PresencesCommand(RESTCommand):
 
     def update_presence_from_user(self, status_name):
         body = {
-            'status_name': status_name,
+            'presence': status_name,
         }
 
         r = self.session.put(self._client.url('users', 'me', self.resource),
