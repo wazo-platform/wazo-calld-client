@@ -28,7 +28,7 @@ class TestPresences(RESTCommandTestCase):
         user_id = 1
         user_uuid = 'user-uuid'
 
-        self.session.get.return_value = self.new_response(200)
+        self.session.get.return_value = self.new_response(200, dict())
 
         self.command.get_presence(user_uuid)
 
@@ -47,7 +47,7 @@ class TestPresences(RESTCommandTestCase):
         user_id = 1
         user_uuid = 'user-uuid'
 
-        self.session.get.return_value = self.new_response(200)
+        self.session.get.return_value = self.new_response(200, dict())
 
         self.command.get_presence_from_user()
 
