@@ -56,6 +56,13 @@ transfer = c.transfers.get_transfer(transfer['id'])
 c.transfers.cancel_transfer(transfer['id'])
 c.transfers.complete_transfer(transfer['id'])
 
+presence = c.presences.get_presence('my-user-uuid')
+c.presences.update_presence('my-user-uuid', 'available')
+
+# This does the same thing, but derives the user UUID from the auth token
+presence = c.presences.get_presence_from_user()
+c.presences.update_presence_from_user('available')
+
 ```
 
 ## Tests
