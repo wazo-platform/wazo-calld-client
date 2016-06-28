@@ -1,9 +1,7 @@
 xivo-ctid-ng-client
 ===================
 
-A python library to connect to xivo-ctid-ng. HTTPS is used by default. Certificates
-are not verified by default. To check if the certificates are valid, use the
-verify_certificate argument when instantiating the client.
+A python library to connect to xivo-ctid-ng. HTTPS is used by default. Certificates are not verified by default. To check if the certificates are valid, use the verify_certificate argument when instantiating the client.
 
 Usage:
 
@@ -72,11 +70,7 @@ tox --recreate -e py27
 
 ## How to implement a new command
 
-Someone trying to implement a new command to the client would have to implement
-a new class, sub-classing the RESTCommand (available in
-xivo-lib-rest-client). The new class must be in the setup.py in the entry points
-under ctid_ng_client.commands. The name of the entry point is used as the handle on
-the client. For example, if your new entry point entry looks like this:
+Someone trying to implement a new command to the client would have to implement a new class, sub-classing the RESTCommand (available in xivo-lib-rest-client). The new class must be in the setup.py in the entry points under ctid_ng_client.commands. The name of the entry point is used as the handle on the client. For example, if your new entry point entry looks like this:
 
 ```python
 entry_points={
