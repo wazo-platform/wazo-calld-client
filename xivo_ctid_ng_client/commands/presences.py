@@ -41,9 +41,9 @@ class PresencesCommand(RESTCommand):
 
         return r.json()
 
-    def update_presence(self, user_uuid, status_name):
+    def update_presence(self, user_uuid, presence):
         body = {
-            'presence': status_name,
+            'presence': presence,
         }
 
         r = self.session.put(self._client.url('users', user_uuid, self.resource),
@@ -53,9 +53,9 @@ class PresencesCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def update_presence_from_user(self, status_name):
+    def update_presence_from_user(self, presence):
         body = {
-            'presence': status_name,
+            'presence': presence,
         }
 
         r = self.session.put(self._client.url('users', 'me', self.resource),
