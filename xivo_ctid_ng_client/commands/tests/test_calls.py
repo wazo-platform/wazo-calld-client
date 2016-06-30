@@ -88,6 +88,15 @@ class TestCalls(RESTCommandTestCase):
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})
 
+    def test_hangup_from_user(self):
+        call_id = 'call-id'
+        self.session.delete.return_value = self.new_response(204)
+
+        self.command.hangup_from_user(call_id)
+
+        expected_url = self.client.url('users', 'me', 'calls', call_id)
+        self.session.delete.assert_called_once_with(expected_url)
+
     def test_connect_user(self):
         call_id = 'call-id'
         user_id = 'user-id'
