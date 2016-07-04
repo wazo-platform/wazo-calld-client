@@ -24,6 +24,7 @@ params = {
 }
 
 call = c.calls.make_call(params)
+# This does the same thing, but derives the user UUID from the auth token
 call = c.calls.make_from_user(extension='1234', variables={'key': 'value'})
 
 call
@@ -44,6 +45,9 @@ mycall
 }
 
 c.calls.hangup('call_id')
+# This does the same thing, but derives the user UUID from the auth token
+c.calls.hangup_from_user('call_id')
+
 c.calls.connect_user('call_id', 'user_uuid')
 
 transfer = c.transfers.make_transfer(transferred='call_id',

@@ -73,6 +73,11 @@ class CallsCommand(RESTCommand):
 
         self.session.delete(url, headers=self.headers)
 
+    def hangup_from_user(self, call_id):
+        url = self._client.url('users', 'me', self.resource, call_id)
+
+        self.session.delete(url)
+
     def connect_user(self, call_id, user_id):
         url = '{base_url}/{call_id}/user/{user_id}'.format(base_url=self.base_url,
                                                            call_id=call_id,
