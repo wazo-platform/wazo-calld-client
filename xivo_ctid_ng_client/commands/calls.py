@@ -33,6 +33,21 @@ class CallsCommand(RESTCommand):
 
         return r.json()
 
+    def list_calls_from_user(self, application=None, application_instance=None):
+        url = self._client.url('users', 'me', self.resource)
+        params = {}
+        if application:
+            params['application'] = application
+        if application_instance:
+            params['application_instance'] = application_instance
+
+        r = self.session.get(url, headers=self.headers, params=params)
+
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def get_call(self, call_id):
         url = '{base_url}/{call_id}'.format(base_url=self.base_url,
                                             call_id=call_id)

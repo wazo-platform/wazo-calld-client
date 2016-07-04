@@ -10,7 +10,8 @@ from xivo_ctid_ng_client import Client
 
 c = Client('localhost', token='the-one-ring', verify_certificate='</path/to/trusted/certificate>')
 
-mycalls = c.calls.list_calls()
+calls = c.calls.list_calls()
+mycalls = c.calls.list_calls_from_user()  # Lists calls of the authenticated user
 
 params = {
   "destination": {
