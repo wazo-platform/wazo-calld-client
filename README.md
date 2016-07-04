@@ -51,6 +51,7 @@ c.calls.hangup_from_user('call_id')
 
 c.calls.connect_user('call_id', 'user_uuid')
 
+transfers = c.transfers.list_transfers_from_user()  # Lists transfers of the authenticated user
 transfer = c.transfers.make_transfer(transferred='call_id',
                                      initiator='call_id',
                                      context='default',

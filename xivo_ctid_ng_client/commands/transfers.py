@@ -23,6 +23,15 @@ class TransfersCommand(RESTCommand):
     resource = 'transfers'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
+    def list_transfers_from_user(self):
+        url = self._client.url('users', 'me', self.resource)
+        r = self.session.get(url,
+                             headers=self.headers)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def get_transfer(self, transfer_id):
         r = self.session.get('{url}/{transfer_id}'.format(url=self.base_url, transfer_id=transfer_id),
                              headers=self.headers)

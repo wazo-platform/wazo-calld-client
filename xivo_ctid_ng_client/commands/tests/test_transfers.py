@@ -26,6 +26,17 @@ class TestTransfers(RESTCommandTestCase):
 
     Command = TransfersCommand
 
+    def test_list_transfers_from_user(self):
+        self.session.get.return_value = self.new_response(200, json={'return': 'value'})
+
+        result = self.command.list_transfers_from_user()
+
+        self.session.get.assert_called_once_with(
+            self.client.url('users', 'me', 'transfers'),
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/json'})
+        assert_that(result, equal_to({'return': 'value'}))
+
     def test_get_transfer(self):
         transfer_id = 'transfer-id'
         self.session.get.return_value = self.new_response(200, json={'return': 'value'})
