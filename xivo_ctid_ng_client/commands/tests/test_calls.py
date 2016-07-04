@@ -37,6 +37,19 @@ class TestCalls(RESTCommandTestCase):
                      'Content-Type': 'application/json'})
         assert_that(result, equal_to({'return': 'value'}))
 
+    def test_list_calls_from_user(self):
+        self.session.get.return_value = self.new_response(200, json={'return': 'value'})
+
+        result = self.command.list_calls_from_user('my-app', 'my-app-instance')
+
+        self.session.get.assert_called_once_with(
+            self.client.url('users', 'me', 'calls'),
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/json'},
+            params={'application': 'my-app',
+                    'application_instance': 'my-app-instance'})
+        assert_that(result, equal_to({'return': 'value'}))
+
     def test_get_call(self):
         call_id = 'call-id'
         self.session.get.return_value = self.new_response(200, json={'return': 'value'})
