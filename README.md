@@ -11,7 +11,7 @@ from xivo_ctid_ng_client import Client
 c = Client('localhost', token='the-one-ring', verify_certificate='</path/to/trusted/certificate>')
 
 calls = c.calls.list_calls()
-mycalls = c.calls.list_calls_from_user()  # Lists calls of the authenticated user
+mycalls = c.calls.list_calls_from_user()  # List calls of the authenticated user
 
 params = {
   "destination": {
@@ -46,8 +46,7 @@ mycall
 }
 
 c.calls.hangup('call_id')
-# This does the same thing, but derives the user UUID from the auth token
-c.calls.hangup_from_user('call_id')
+c.calls.hangup_from_user('call_id')   # Hangup calls of the authenticated user
 
 c.calls.connect_user('call_id', 'user_uuid')
 
@@ -62,7 +61,9 @@ transfer = c.transfers.get_transfer(transfer['id'])
 transfer = c.transfers.make_transfer_from_user(exten='1001', initiator='call-id', flow='blind')
 transfer = c.transfers.get_transfer(transfer['id'])
 c.transfers.cancel_transfer(transfer['id'])
+c.transfers.cancel_transfer_from_user(transfer['id'])  # Cancel transfers of the authenticated user
 c.transfers.complete_transfer(transfer['id'])
+c.transfers.complete_transfer_from_user(transfer['id'])  # Complete transfers of the authenticated user
 
 c.chats.send_message('sender-uuid', 'recipient-uuid', 'Sender Name', 'hello world!', to_xivo_uuid='optional-xivo-uuid')
 # This does the same thing, but derives the user UUID from the auth token
