@@ -96,6 +96,16 @@ class TestTransfers(RESTCommandTestCase):
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})
 
+    def test_cancel_transfer_from_user(self):
+        transfer_id = 'transfer-id'
+
+        self.command.cancel_transfer_from_user(transfer_id)
+
+        self.session.delete.assert_called_once_with(
+            self.client.url('users', 'me', 'transfers', transfer_id),
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/json'})
+
     def test_complete_transfer(self):
         transfer_id = 'transfer-id'
 
@@ -103,5 +113,15 @@ class TestTransfers(RESTCommandTestCase):
 
         self.session.put.assert_called_once_with(
             '{base}/{transfer_id}/complete'.format(base=self.base_url, transfer_id=transfer_id),
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/json'})
+
+    def test_complete_transfer_from_user(self):
+        transfer_id = 'transfer-id'
+
+        self.command.complete_transfer_from_user(transfer_id)
+
+        self.session.put.assert_called_once_with(
+            self.client.url('users', 'me', 'transfers', transfer_id, 'complete'),
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})

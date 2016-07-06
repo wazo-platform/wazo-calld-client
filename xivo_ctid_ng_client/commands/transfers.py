@@ -74,10 +74,18 @@ class TransfersCommand(RESTCommand):
 
         return r.json()
 
-    def complete_transfer(self, transfer_id, **kwargs):
+    def complete_transfer(self, transfer_id):
         self.session.put('{url}/{transfer_id}/complete'.format(url=self.base_url, transfer_id=transfer_id),
                          headers=self.headers)
+
+    def complete_transfer_from_user(self, transfer_id):
+        url = self._client.url('users', 'me', self.resource, transfer_id, 'complete')
+        self.session.put(url, headers=self.headers)
 
     def cancel_transfer(self, transfer_id):
         self.session.delete('{url}/{transfer_id}'.format(url=self.base_url, transfer_id=transfer_id),
                             headers=self.headers)
+
+    def cancel_transfer_from_user(self, transfer_id):
+        url = self._client.url('users', 'me', self.resource, transfer_id)
+        self.session.delete(url, headers=self.headers)
