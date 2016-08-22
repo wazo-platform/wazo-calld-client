@@ -69,12 +69,14 @@ c.chats.send_message('sender-uuid', 'recipient-uuid', 'Sender Name', 'hello worl
 # This does the same thing, but derives the user UUID from the auth token
 c.chats.send_message_from_user('recipient-uuid', 'Sender Name', 'hello world!', to_xivo_uuid='optional-xivo-uuid')
 
-presence = c.presences.get_presence('my-user-uuid')
-c.presences.update_presence('my-user-uuid', 'available')
+presence = c.user_presences.get_presence('my-user-uuid')
+c.user_presences.update_presence('my-user-uuid', 'available')
 
 # This does the same thing, but derives the user UUID from the auth token
-presence = c.presences.get_presence_from_user()
-c.presences.update_presence_from_user('available')
+presence = c.user_presences.get_presence_from_user()
+c.user_presences.update_presence_from_user('available')
+
+presence = c.line_presences.get_presence('my-line-id')
 
 ```
 

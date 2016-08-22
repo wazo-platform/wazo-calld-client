@@ -18,7 +18,7 @@
 from xivo_lib_rest_client import RESTCommand
 
 
-class PresencesCommand(RESTCommand):
+class UserPresencesCommand(RESTCommand):
 
     resource = 'presences'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}

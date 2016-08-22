@@ -17,46 +17,30 @@
 
 from xivo_lib_rest_client.tests.command import RESTCommandTestCase
 
-from ..presences import PresencesCommand
+from ..user_presences import UserPresencesCommand
 
 
-class TestPresences(RESTCommandTestCase):
+class TestUserPresences(RESTCommandTestCase):
 
-    Command = PresencesCommand
+    Command = UserPresencesCommand
 
     def test_get_presence(self):
-        user_id = 1
         user_uuid = 'user-uuid'
 
         self.session.get.return_value = self.new_response(200, dict())
 
         self.command.get_presence(user_uuid)
 
-        expected_body = {
-            'id': user_uuid,
-            'user_uuid': user_uuid,
-            'origin_uuid': 'xivo-uuid',
-            'presence': 'available'
-        }
         self.session.get.assert_called_once_with(
             self.client.url('users', user_uuid, 'presences'),
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})
 
     def test_get_presence_from_user(self):
-        user_id = 1
-        user_uuid = 'user-uuid'
-
         self.session.get.return_value = self.new_response(200, dict())
 
         self.command.get_presence_from_user()
 
-        expected_body = {
-            'id': user_id,
-            'user_uuid': user_uuid,
-            'origin_uuid': 'xivo-uuid',
-            'presence': 'available'
-        }
         self.session.get.assert_called_once_with(
             self.client.url('users', 'me', 'presences'),
             headers={'Accept': 'application/json',
