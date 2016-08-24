@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2015 Avencall
+# Copyright (C) 2015-2016 Avencall
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -36,7 +36,8 @@ setup(
         'ctid_ng_client.commands': [
             'calls = xivo_ctid_ng_client.commands.calls:CallsCommand',
             'chats = xivo_ctid_ng_client.commands.chats:ChatsCommand',
-            'presences = xivo_ctid_ng_client.commands.presences:PresencesCommand',
+            'user_presences = xivo_ctid_ng_client.commands.user_presences:UserPresencesCommand',
+            'line_presences = xivo_ctid_ng_client.commands.line_presences:LinePresencesCommand',
             'transfers = xivo_ctid_ng_client.commands.transfers:TransfersCommand'
         ],
     }
