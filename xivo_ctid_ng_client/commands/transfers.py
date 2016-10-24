@@ -40,7 +40,7 @@ class TransfersCommand(RESTCommand):
 
         return r.json()
 
-    def make_transfer(self, transferred, initiator, context, exten, flow='attended', variables=None):
+    def make_transfer(self, transferred, initiator, context, exten, flow='attended', variables=None, timeout=None):
         variables = variables or {}
         body = {
             'transferred_call': transferred,
@@ -48,7 +48,8 @@ class TransfersCommand(RESTCommand):
             'context': context,
             'exten': exten,
             'flow': flow,
-            'variables': variables
+            'variables': variables,
+            'timeout': timeout,
         }
         r = self.session.post(self.base_url,
                               json=body,
@@ -59,11 +60,12 @@ class TransfersCommand(RESTCommand):
 
         return r.json()
 
-    def make_transfer_from_user(self, exten, initiator, flow):
+    def make_transfer_from_user(self, exten, initiator, flow, timeout=None):
         body = {
             'exten': exten,
             'initiator_call': initiator,
             'flow': flow,
+            'timeout': timeout,
         }
         r = self.session.post(self._client.url('users', 'me', self.resource),
                               json=body,
