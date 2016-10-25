@@ -52,7 +52,7 @@ class TestTransfers(RESTCommandTestCase):
     def test_make_transfer(self):
         self.session.post.return_value = self.new_response(201, json={'return': 'value'})
 
-        result = self.command.make_transfer('transferred', 'initiator', 'context', 'exten', 'blind', {'key': 'value'})
+        result = self.command.make_transfer('transferred', 'initiator', 'context', 'exten', 'blind', {'key': 'value'}, timeout=42)
 
         expected_body = {
             'transferred_call': 'transferred',
@@ -61,6 +61,7 @@ class TestTransfers(RESTCommandTestCase):
             'exten': 'exten',
             'flow': 'blind',
             'variables': {'key': 'value'},
+            'timeout': 42,
         }
         self.session.post.assert_called_once_with(
             self.base_url,
@@ -72,12 +73,13 @@ class TestTransfers(RESTCommandTestCase):
     def test_make_transfer_from_user(self):
         self.session.post.return_value = self.new_response(201, json={'return': 'value'})
 
-        result = self.command.make_transfer_from_user('extension', 'initiator', 'blind')
+        result = self.command.make_transfer_from_user('extension', 'initiator', 'blind', timeout=42)
 
         expected_body = {
             'exten': 'extension',
             'initiator_call': 'initiator',
-            'flow': 'blind'
+            'flow': 'blind',
+            'timeout': 42,
         }
         self.session.post.assert_called_once_with(
             self.client.url('users', 'me', 'transfers'),
