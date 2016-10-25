@@ -20,13 +20,14 @@ params = {
     "priority": 1
   },
   "source": {
-    "user": "ec008fd8-df3c-427a-8cb7-f94c1d238ad3"
+    "user": "ec008fd8-df3c-427a-8cb7-f94c1d238ad3",
+    "line_id": 54
   }
 }
 
 call = c.calls.make_call(params)
 # This does the same thing, but derives the user UUID from the auth token
-call = c.calls.make_from_user(extension='1234', variables={'key': 'value'})
+call = c.calls.make_from_user(extension='1234', variables={'key': 'value'}, line_id=54)
 
 call
 {u'call_id': u'1446422660.20'}

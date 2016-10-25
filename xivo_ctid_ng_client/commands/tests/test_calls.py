@@ -77,11 +77,12 @@ class TestCalls(RESTCommandTestCase):
     def test_make_call_from_user(self):
         self.session.post.return_value = self.new_response(201, json={'return': 'value'})
 
-        result = self.command.make_call_from_user('1234', variables={'key': 'value'})
+        result = self.command.make_call_from_user('1234', variables={'key': 'value'}, line_id=43)
 
         expected_body = {
             'extension': '1234',
             'variables': {'key': 'value'},
+            'line_id': 43,
         }
         self.session.post.assert_called_once_with(
             self.client.url('users', 'me', 'calls'),

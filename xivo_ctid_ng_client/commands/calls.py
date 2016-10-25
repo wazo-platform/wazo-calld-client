@@ -69,10 +69,12 @@ class CallsCommand(RESTCommand):
 
         return r.json()
 
-    def make_call_from_user(self, extension, variables=None):
+    def make_call_from_user(self, extension, variables=None, line_id=None):
         body = {'extension': extension}
         if variables:
             body['variables'] = variables
+        if line_id:
+            body['line_id'] = line_id
         r = self.session.post(self._client.url('users', 'me', self.resource),
                               json=body,
                               headers=self.headers)
