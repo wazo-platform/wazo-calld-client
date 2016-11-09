@@ -145,25 +145,3 @@ class TestTransfers(RESTCommandTestCase):
             ANY,
             headers={'Accept': 'audio/wav'})
         assert_that(result, equal_to('blob'))
-
-    def test_listen_voicemail_message(self):
-        self.session.post.return_value = self.new_response(204)
-
-        self.command.listen_voicemail_message(42, '123', 'user_uuid')
-
-        self.session.post.assert_called_once_with(
-            '{url}/voicemails/42/messages/123/listen'.format(url=self.base_url),
-            json={'user': 'user_uuid'},
-            headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json'})
-
-    def test_listen_voicemail_message_from_user(self):
-        self.session.post.return_value = self.new_response(204)
-
-        self.command.listen_voicemail_message_from_user('123')
-
-        self.session.post.assert_called_once_with(
-            ANY,
-            json={},
-            headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json'})

@@ -84,24 +84,6 @@ class VoicemailsCommand(RESTCommand):
 
         return r.content
 
-    def listen_voicemail_message(self, voicemail_id, message_id, user_uuid, line_id=None):
-        url = '{url}/voicemails/{voicemail_id}/messages/{message_id}/listen'.format(url=self.base_url, voicemail_id=voicemail_id, message_id=message_id)
-        body = {u'user': user_uuid}
-        if line_id:
-            body[u'line_id'] = line_id
-        r = self.session.post(url, json=body, headers=self.headers)
-        if r.status_code != 204:
-            self.raise_from_response(r)
-
-    def listen_voicemail_message_from_user(self, message_id, line_id=None):
-        url = self._client.url('users', 'me', 'voicemails', 'messages', message_id, 'listen')
-        body = {}
-        if line_id:
-            body[u'line_id'] = line_id
-        r = self.session.post(url, json=body, headers=self.headers)
-        if r.status_code != 204:
-            self.raise_from_response(r)
-
     def _get(self, url):
         r = self.session.get(url, headers=self.headers)
         if r.status_code != 200:
