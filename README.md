@@ -80,6 +80,9 @@ c.user_presences.update_presence_from_user('available')
 
 presence = c.line_presences.get_presence('my-line-id')
 
+voicemail = c.voicemails.get_voicemail('my-voicemail-id')
+voicemail = c.voicemails.get_voicemail_from_user()
+
 ```
 
 ## Tests

@@ -38,7 +38,8 @@ setup(
             'chats = xivo_ctid_ng_client.commands.chats:ChatsCommand',
             'user_presences = xivo_ctid_ng_client.commands.user_presences:UserPresencesCommand',
             'line_presences = xivo_ctid_ng_client.commands.line_presences:LinePresencesCommand',
-            'transfers = xivo_ctid_ng_client.commands.transfers:TransfersCommand'
+            'transfers = xivo_ctid_ng_client.commands.transfers:TransfersCommand',
+            'voicemails = xivo_ctid_ng_client.commands.voicemails:VoicemailsCommand',
         ],
     }
 )
