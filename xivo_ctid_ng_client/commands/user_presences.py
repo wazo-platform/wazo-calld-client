@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Copyright (C) 2016 Avencall
+# Copyright (C) 2016 Proformatique, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,9 +24,13 @@ class UserPresencesCommand(RESTCommand):
     resource = 'presences'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-    def get_presence(self, user_uuid):
-        r = self.session.get(self._client.url('users', user_uuid, self.resource),
-                             headers=self.headers)
+    def get_presence(self, user_uuid, xivo_uuid=None):
+        kwargs = {'headers': self.headers}
+        if xivo_uuid:
+            params = {'xivo_uuid': xivo_uuid}
+            kwargs['params'] = params
+
+        r = self.session.get(self._client.url('users', user_uuid, self.resource), **kwargs)
 
         if r.status_code != 200:
             self.raise_from_response(r)

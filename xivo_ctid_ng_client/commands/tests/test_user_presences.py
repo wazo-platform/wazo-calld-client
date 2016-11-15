@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # Copyright (C) 2016 Avencall
+# Copyright (C) 2016 Proformatique, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,6 +15,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>
+
+from mock import sentinel as s
 
 from xivo_lib_rest_client.tests.command import RESTCommandTestCase
 
@@ -35,6 +38,29 @@ class TestUserPresences(RESTCommandTestCase):
             self.client.url('users', user_uuid, 'presences'),
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})
+
+    def test_get_presence_with_xivo_uuid(self):
+        self.session.get.return_value = self.new_response(200, dict())
+
+        self.command.get_presence(s.user_uuid, s.xivo_uuid)
+
+        self.session.get.assert_called_once_with(
+            self.client.url('users', s.user_uuid, 'presences'),
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/json'},
+            params={'xivo_uuid': s.xivo_uuid}
+        )
+
+    def test_get_presence_with_xivo_uuid_set_to_none(self):
+        self.session.get.return_value = self.new_response(200, dict())
+
+        self.command.get_presence(s.user_uuid, None)
+
+        self.session.get.assert_called_once_with(
+            self.client.url('users', s.user_uuid, 'presences'),
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/json'},
+        )
 
     def test_get_presence_from_user(self):
         self.session.get.return_value = self.new_response(200, dict())
