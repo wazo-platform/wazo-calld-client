@@ -33,7 +33,7 @@ class TestTransfers(RESTCommandTestCase):
         result = self.command.get_voicemail(42)
 
         self.session.get.assert_called_once_with(
-            '{url}/voicemails/42'.format(url=self.base_url),
+            '{url}/42'.format(url=self.base_url),
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})
         assert_that(result, equal_to({'return': 'value'}))
@@ -55,7 +55,7 @@ class TestTransfers(RESTCommandTestCase):
         result = self.command.get_voicemail_folder(42, 1)
 
         self.session.get.assert_called_once_with(
-            '{url}/voicemails/42/folders/1'.format(url=self.base_url),
+            '{url}/42/folders/1'.format(url=self.base_url),
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})
         assert_that(result, equal_to({'return': 'value'}))
@@ -77,7 +77,7 @@ class TestTransfers(RESTCommandTestCase):
         result = self.command.get_voicemail_message(42, '123')
 
         self.session.get.assert_called_once_with(
-            '{url}/voicemails/42/messages/123'.format(url=self.base_url),
+            '{url}/42/messages/123'.format(url=self.base_url),
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})
         assert_that(result, equal_to({'return': 'value'}))
@@ -97,7 +97,7 @@ class TestTransfers(RESTCommandTestCase):
         self.command.delete_voicemail_message(42, '123')
 
         self.session.delete.assert_called_once_with(
-            '{url}/voicemails/42/messages/123'.format(url=self.base_url))
+            '{url}/42/messages/123'.format(url=self.base_url))
 
     def test_delete_voicemail_message_from_user(self):
         self.command.delete_voicemail_message_from_user('123')
@@ -110,7 +110,7 @@ class TestTransfers(RESTCommandTestCase):
         self.command.move_voicemail_message(42, '123', 1337)
 
         self.session.put.assert_called_once_with(
-            '{url}/voicemails/42/messages/123'.format(url=self.base_url),
+            '{url}/42/messages/123'.format(url=self.base_url),
             json={'folder_id': 1337},
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})
@@ -132,7 +132,7 @@ class TestTransfers(RESTCommandTestCase):
         result = self.command.get_voicemail_recording(42, '123')
 
         self.session.get.assert_called_once_with(
-            '{url}/voicemails/42/messages/123/recording'.format(url=self.base_url),
+            '{url}/42/messages/123/recording'.format(url=self.base_url),
             headers={'Accept': 'audio/wav'})
         assert_that(result, equal_to('blob'))
 
