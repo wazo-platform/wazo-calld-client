@@ -28,7 +28,7 @@ setup(
     author='Avencall',
     author_email='dev@avencall.com',
 
-    url='https://github.com/xivo-pbx/xivo-ctid-ng-client',
+    url='https://github.com/wazo-pbx/xivo-ctid-ng-client',
 
     packages=find_packages(),
 
