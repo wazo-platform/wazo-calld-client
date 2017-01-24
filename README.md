@@ -84,6 +84,9 @@ presence = c.line_presences.get_presence('my-line-id')
 voicemail = c.voicemails.get_voicemail('my-voicemail-id')
 voicemail = c.voicemails.get_voicemail_from_user()
 
+calls = c.switchboards.list_queued_calls('my-switchboard-uuid')
+c.switchboards.answer_queued_call_from_user('my-switchboard-uuid', 'a-call-id')
+
 ```
 
 ## Tests
