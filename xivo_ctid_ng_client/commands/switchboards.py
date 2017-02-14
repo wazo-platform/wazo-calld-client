@@ -25,3 +25,25 @@ class SwitchboardsCommand(RESTCommand):
             self.raise_from_response(r)
 
         return r.json()
+
+    def hold_call(self, switchboard_uuid, call_id):
+        url = self._client.url(self.resource, switchboard_uuid, 'calls', 'held', call_id)
+        r = self.session.put(url)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def list_held_calls(self, switchboard_uuid):
+        url = self._client.url(self.resource, switchboard_uuid, 'calls', 'held')
+        r = self.session.get(url, headers=self.headers)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def answer_held_call_from_user(self, switchboard_uuid, call_id):
+        url = self._client.url(self.resource, switchboard_uuid, 'calls', 'held', call_id, 'answer')
+        r = self.session.put(url)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()

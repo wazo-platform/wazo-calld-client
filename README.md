@@ -85,7 +85,10 @@ voicemail = c.voicemails.get_voicemail('my-voicemail-id')
 voicemail = c.voicemails.get_voicemail_from_user()
 
 calls = c.switchboards.list_queued_calls('my-switchboard-uuid')
-c.switchboards.answer_queued_call_from_user('my-switchboard-uuid', 'a-call-id')
+new_call = c.switchboards.answer_queued_call_from_user('my-switchboard-uuid', 'a-call-id')
+c.switchboards.hold_call('my-switchboard-uuid', 'a-call-id')
+calls = c.switchboards.list_held_calls('my-switchboard-uuid')
+new_call = c.switchboards.answer_held_call_from_user('my-switchboard-uuid', 'a-call-id')
 
 ```
 
