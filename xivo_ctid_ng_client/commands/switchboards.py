@@ -21,5 +21,7 @@ class SwitchboardsCommand(RESTCommand):
     def answer_queued_call_from_user(self, switchboard_uuid, call_id):
         url = self._client.url(self.resource, switchboard_uuid, 'calls', 'queued', call_id, 'answer')
         r = self.session.put(url)
-        if r.status_code != 204:
+        if r.status_code != 200:
             self.raise_from_response(r)
+
+        return r.json()
