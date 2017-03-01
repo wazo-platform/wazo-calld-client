@@ -1,7 +1,7 @@
 xivo-ctid-ng-client
 ===================
 
-A python library to connect to xivo-ctid-ng. HTTPS is used by default. Certificates are not verified by default. To check if the certificates are valid, use the verify_certificate argument when instantiating the client.
+A python library to connect to xivo-ctid-ng. HTTPS is used by default. Certificates are verified by default. To disable certificate verification, use the verify_certificate=False argument when instantiating the client.
 
 Usage:
 
