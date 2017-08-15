@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2016 Avencall
+# Copyright 2016-2017 The Wazo Authors  (see the AUTHORS file)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -54,5 +54,18 @@ class TestCalls(RESTCommandTestCase):
         self.session.post.assert_called_once_with(
             self.base_url,
             json=expected_body,
+            headers={'Accept': 'application/json',
+                     'Content-Type': 'application/json'})
+
+    def test_get_history_from_user(self):
+        self.session.get.return_value = self.new_response(200, dict())
+
+        self.command.get_history_from_user('bob-uuid', 'bob-server', 20)
+
+        self.session.get.assert_called_once_with(
+            self.base_url,
+            params={'participant_user_uuid': 'bob-uuid',
+                    'participant_server_uuid': 'bob-server',
+                    'limit': 20},
             headers={'Accept': 'application/json',
                      'Content-Type': 'application/json'})

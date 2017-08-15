@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2016 Avencall
+# Copyright 2016-2017 The Wazo Authors  (see the AUTHORS file)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -53,3 +53,20 @@ class ChatsCommand(RESTCommand):
 
         if r.status_code != 204:
             self.raise_from_response(r)
+
+    def get_history_from_user(self, participant_user_uuid=None, participant_server_uuid=None, limit=None):
+        params = {}
+        if participant_user_uuid:
+            params['participant_user_uuid'] = participant_user_uuid
+            params['participant_server_uuid'] = participant_server_uuid
+        if limit:
+            params['limit'] = limit
+
+        r = self.session.get(self._client.url('users', 'me', self.resource),
+                             params=params,
+                             headers=self.headers)
+
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
