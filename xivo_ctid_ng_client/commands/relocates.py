@@ -10,12 +10,14 @@ class RelocatesCommand(RESTCommand):
     resource = 'relocates'
     rw_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-    def create_from_user(self, initiator, destination, location):
+    def create_from_user(self, initiator, destination, location=None):
         body = {
             'initiator_call': initiator,
             'destination': destination,
-            'location': location,
         }
+        if location:
+            body['location'] = location
+
         r = self.session.post(self._client.url('users', 'me', self.resource),
                               json=body,
                               headers=self.rw_headers)
