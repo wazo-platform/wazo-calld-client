@@ -27,6 +27,7 @@ setup(
             'chats = xivo_ctid_ng_client.commands.chats:ChatsCommand',
             'user_presences = xivo_ctid_ng_client.commands.user_presences:UserPresencesCommand',
             'line_presences = xivo_ctid_ng_client.commands.line_presences:LinePresencesCommand',
+            'relocates = xivo_ctid_ng_client.commands.relocates:RelocatesCommand',
             'transfers = xivo_ctid_ng_client.commands.transfers:TransfersCommand',
             'switchboards = xivo_ctid_ng_client.commands.switchboards:SwitchboardsCommand',
             'voicemails = xivo_ctid_ng_client.commands.voicemails:VoicemailsCommand',
