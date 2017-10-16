@@ -2,10 +2,10 @@
 # Copyright 2017 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
-from xivo_lib_rest_client import RESTCommand
+from xivo_ctid_ng_client.command import CtidNGCommand
 
 
-class RelocatesCommand(RESTCommand):
+class RelocatesCommand(CtidNGCommand):
 
     resource = 'relocates'
     rw_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
