@@ -19,6 +19,14 @@ class RelocatesCommand(CtidNGCommand):
 
         return r.json()
 
+    def get_from_user(self, relocate_uuid):
+        url = self._client.url('users', 'me', self.resource, relocate_uuid)
+        r = self.session.get(url, headers=self.ro_headers)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def create_from_user(self, initiator, destination, location=None):
         body = {
             'initiator_call': initiator,
