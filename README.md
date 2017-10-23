@@ -91,7 +91,7 @@ c.switchboards.hold_call('my-switchboard-uuid', 'a-call-id')
 calls = c.switchboards.list_held_calls('my-switchboard-uuid')
 new_call = c.switchboards.answer_held_call_from_user('my-switchboard-uuid', 'a-call-id')
 
-relocate = c.relocates.create_from_user(initiator_call, destination, location)
+relocate = c.relocates.create_from_user(initiator_call, destination, location, completions=['api'])
 relocates = c.relocates.list_from_user()
 relocate = c.relocates.get_from_user(relocate_uuid)
 ```
