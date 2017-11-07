@@ -27,7 +27,7 @@ class RelocatesCommand(CtidNGCommand):
 
         return r.json()
 
-    def create_from_user(self, initiator, destination, location=None, completions=None):
+    def create_from_user(self, initiator, destination, location=None, completions=None, timeout=None):
         body = {
             'initiator_call': initiator,
             'destination': destination,
@@ -36,6 +36,8 @@ class RelocatesCommand(CtidNGCommand):
             body['location'] = location
         if completions:
             body['completions'] = completions
+        if timeout:
+            body['timeout'] = timeout
 
         r = self.session.post(self._client.url('users', 'me', self.resource),
                               json=body,
