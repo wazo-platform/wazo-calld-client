@@ -54,3 +54,10 @@ class RelocatesCommand(CtidNGCommand):
 
         if r.status_code != 204:
             self.raise_from_response(r)
+
+    def cancel_from_user(self, relocate_uuid):
+        url = self._client.url('users', 'me', self.resource, relocate_uuid, 'cancel')
+        r = self.session.put(url, headers=self.rw_headers)
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
