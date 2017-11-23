@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2015-2016 Avencall
+# Copyright 2015-2017 The Wazo Authors  (see the AUTHORS file)
 #
 # SPDX-License-Identifier: GPL-3.0+
 
@@ -12,8 +12,13 @@ class CallsCommand(RESTCommand):
     resource = 'calls'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-    def list_calls(self):
+    def list_calls(self, application=None, application_instance=None):
         url = self.base_url
+        params = {}
+        if application:
+            params['application'] = application
+        if application_instance:
+            params['application_instance'] = application_instance
 
         r = self.session.get(url, headers=self.headers)
 
