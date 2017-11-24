@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2015-2016 Avencall
+# Copyright 2015-2017 The Wazo Authors  (see the AUTHORS file)
 #
 # SPDX-License-Identifier: GPL-3.0+
 
@@ -18,12 +18,14 @@ class TestCalls(RESTCommandTestCase):
     def test_list_calls(self):
         self.session.get.return_value = self.new_response(200, json={'return': 'value'})
 
-        result = self.command.list_calls()
+        result = self.command.list_calls('my-app', 'my-app-instance')
 
         self.session.get.assert_called_once_with(
             self.base_url,
             headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json'})
+                     'Content-Type': 'application/json'},
+            params={'application': 'my-app',
+                    'application_instance': 'my-app-instance'})
         assert_that(result, equal_to({'return': 'value'}))
 
     def test_list_calls_from_user(self):

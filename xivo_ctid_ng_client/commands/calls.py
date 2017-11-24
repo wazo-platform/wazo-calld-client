@@ -20,7 +20,7 @@ class CallsCommand(RESTCommand):
         if application_instance:
             params['application_instance'] = application_instance
 
-        r = self.session.get(url, headers=self.headers)
+        r = self.session.get(url, headers=self.headers, params=params)
 
         if r.status_code != 200:
             self.raise_from_response(r)
