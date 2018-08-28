@@ -23,6 +23,14 @@ class ApplicationsCommand(RESTCommand):
 
         return r.json()
 
+    def get(self, application_uuid):
+        url = self._client.url(self.resource, application_uuid)
+        r = self.session.get(url, headers=self.ro_headers)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def join_node(self, application_uuid, node_uuid, exten, context, auto_answer=False):
         url = self._client.url(self.resource, application_uuid, 'nodes', node_uuid, 'calls')
         body = {

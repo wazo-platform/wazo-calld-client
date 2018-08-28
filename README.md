@@ -100,6 +100,8 @@ relocates = c.relocates.list_from_user()
 relocate = c.relocates.get_from_user(relocate_uuid)
 c.relocates.complete_from_user(relocate_uuid)
 c.relocates.cancel_from_user(relocate_uuid)
+
+application = c.applications.get('my-application-uuid')
 ```
 
 ## Tests
