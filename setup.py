@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright 2015-2017 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
-from setuptools import setup
-from setuptools import find_packages
+from setuptools import (
+    setup,
+    find_packages,
+)
 
 setup(
     name='xivo_ctid_ng_client',
@@ -13,7 +15,7 @@ setup(
     description='a simple client library for the xivo-ctid-ng HTTP interface',
 
     author='Wazo Authors',
-    author_email='dev.wazo@gmail.com',
+    author_email='dev@wazo.community',
 
     url='http://wazo.community',
 
@@ -21,6 +23,7 @@ setup(
 
     entry_points={
         'ctid_ng_client.commands': [
+            'applications = xivo_ctid_ng_client.commands.applications:ApplicationsCommand',
             'calls = xivo_ctid_ng_client.commands.calls:CallsCommand',
             'chats = xivo_ctid_ng_client.commands.chats:ChatsCommand',
             'user_presences = xivo_ctid_ng_client.commands.user_presences:UserPresencesCommand',
