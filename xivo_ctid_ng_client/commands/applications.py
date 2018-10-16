@@ -31,6 +31,12 @@ class ApplicationsCommand(RESTCommand):
 
         return r.json()
 
+    def hangup_call(self, application_uuid, call_id):
+        url = self._client.url(self.resource, application_uuid, 'calls', call_id)
+        r = self.session.delete(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
     def join_node(self, application_uuid, node_uuid, exten, context, auto_answer=False):
         url = self._client.url(self.resource, application_uuid, 'nodes', node_uuid, 'calls')
         body = {
@@ -50,6 +56,24 @@ class ApplicationsCommand(RESTCommand):
 
         r = self.session.get(url, headers=self.ro_headers)
         if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def make_call_to_node(self, application_uuid, node_uuid, call):
+        url = self._client.url(self.resource, application_uuid, 'nodes', node_uuid, 'calls')
+        r = self.session.post(url, json=call, headers=self.rw_headers)
+
+        if r.status_code != 201:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def send_playback(self, application_uuid, call_id, playback):
+        url = self._client.url(self.resource, application_uuid, 'calls', call_id, 'playbacks')
+        r = self.session.post(url, json=playback, headers=self.rw_headers)
+
+        if r.status_code != 201:
             self.raise_from_response(r)
 
         return r.json()
