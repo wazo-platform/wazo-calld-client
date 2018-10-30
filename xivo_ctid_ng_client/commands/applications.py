@@ -60,6 +60,15 @@ class ApplicationsCommand(RESTCommand):
 
         return r.json()
 
+    def make_call(self, application_uuid, call):
+        url = self._client.url(self.resource, application_uuid, 'calls')
+        r = self.session.post(url, json=call, headers=self.rw_headers)
+
+        if r.status_code != 201:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def make_call_to_node(self, application_uuid, node_uuid, call):
         url = self._client.url(self.resource, application_uuid, 'nodes', node_uuid, 'calls')
         r = self.session.post(url, json=call, headers=self.rw_headers)
@@ -74,6 +83,15 @@ class ApplicationsCommand(RESTCommand):
         r = self.session.post(url, json=playback, headers=self.rw_headers)
 
         if r.status_code != 201:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def snoops(self, application_uuid, call_id, snoop):
+        url = self._client.url(self.resource, application_uuid, 'calls', call_id, 'snoops')
+        r = self.session.post(url, json=snoop, headers=self.rw_headers)
+
+        if r.status_code != 200:
             self.raise_from_response(r)
 
         return r.json()
