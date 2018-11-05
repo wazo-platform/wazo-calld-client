@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2016 Proformatique Inc.
+# Copyright 2016-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
 from xivo_lib_rest_client import RESTCommand
@@ -51,7 +51,7 @@ class VoicemailsCommand(RESTCommand):
         return self._move_message(url, dest_folder_id)
 
     def _move_message(self, url, dest_folder_id):
-        body = {u'folder_id': dest_folder_id}
+        body = {'folder_id': dest_folder_id}
         r = self.session.put(url, json=body, headers=self.headers)
         if r.status_code != 204:
             self.raise_from_response(r)
