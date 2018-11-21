@@ -102,6 +102,27 @@ c.relocates.complete_from_user(relocate_uuid)
 c.relocates.cancel_from_user(relocate_uuid)
 
 application = c.applications.get('my-application-uuid')
+
+call_args = {
+    'context': 'my-context',
+    'exten': '1001',
+    'autoanswer': False,  # Defaults to False
+}
+call = c.applications.make_call(application['uuid'], call_args)
+
+node = c.applications.create_node(application['uuid'], [call['id']])
+
+snooping_call_args = {
+    'context': 'my-context',
+    'exten': '1002',
+    'autoanswer': True,
+}
+snooping_call = c.applications.make_call(application['uuid'], snooping_call_args)
+snoop_args = {
+    'snooping_call_id': snooping_call['id'],
+    'whisper_mode': None,
+}
+snoop = c.applications.snoops(application['uuid'], call['id'], snoop_args)
 ```
 
 ## Tests
