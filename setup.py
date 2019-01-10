@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
 from setuptools import (
@@ -26,6 +26,7 @@ setup(
             'applications = xivo_ctid_ng_client.commands.applications:ApplicationsCommand',
             'calls = xivo_ctid_ng_client.commands.calls:CallsCommand',
             'chats = xivo_ctid_ng_client.commands.chats:ChatsCommand',
+            'conferences = xivo_ctid_ng_client.commands.conferences:ConferencesCommand',
             'user_presences = xivo_ctid_ng_client.commands.user_presences:UserPresencesCommand',
             'line_presences = xivo_ctid_ng_client.commands.line_presences:LinePresencesCommand',
             'relocates = xivo_ctid_ng_client.commands.relocates:RelocatesCommand',
