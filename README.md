@@ -123,6 +123,8 @@ snoop_args = {
     'whisper_mode': None,
 }
 snoop = c.applications.snoops(application['uuid'], call['id'], snoop_args)
+
+participants = c.conferences.list_participants(conference_id)
 ```
 
 ## Tests
