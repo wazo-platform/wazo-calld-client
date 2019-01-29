@@ -27,12 +27,12 @@ class ConferencesCommand(CtidNGCommand):
 
     def mute_participant(self, conference_id, participant_id):
         url = self._client.url(self.resource, conference_id, 'participants', participant_id, 'mute')
-        r = self.session.post(url, headers=self.ro_headers)
+        r = self.session.put(url, headers=self.ro_headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def unmute_participant(self, conference_id, participant_id):
-        url = self._client.url(self.resource, conference_id, 'participants', participant_id, 'mute')
-        r = self.session.delete(url, headers=self.ro_headers)
+        url = self._client.url(self.resource, conference_id, 'participants', participant_id, 'unmute')
+        r = self.session.put(url, headers=self.ro_headers)
         if r.status_code != 204:
             self.raise_from_response(r)
