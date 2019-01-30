@@ -127,6 +127,8 @@ snoop = c.applications.snoops(application['uuid'], call['id'], snoop_args)
 participants = c.conferences.list_participants(conference_id)
 c.conferences.kick_participant(conference_id, participant_id)
 c.conferences.mute_participant(conference_id, participant_id)
+c.conferences.record(conference_id)
+c.conferences.stop_record(conference_id)
 ```
 
 ## Tests
