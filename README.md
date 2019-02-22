@@ -77,15 +77,6 @@ c.chats.send_message('sender-uuid', 'recipient-uuid', 'Sender Name', 'hello worl
 c.chats.send_message_from_user('recipient-uuid', 'Sender Name', 'hello world!', to_xivo_uuid='optional-xivo-uuid')
 c.chats.get_history_from_user(participant_user_uuid='optional-recipient-uuid', participant_server_uuid='optional-xivo-uuid', limit=50)
 
-presence = c.user_presences.get_presence('my-user-uuid')
-c.user_presences.update_presence('my-user-uuid', 'available')
-
-# This does the same thing, but derives the user UUID from the auth token
-presence = c.user_presences.get_presence_from_user()
-c.user_presences.update_presence_from_user('available')
-
-presence = c.line_presences.get_presence('my-line-id')
-
 voicemail = c.voicemails.get_voicemail('my-voicemail-id')
 voicemail = c.voicemails.get_voicemail_from_user()
 
