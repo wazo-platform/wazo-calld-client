@@ -21,7 +21,7 @@ class FaxesCommand(CtidNGCommand):
         }
         if caller_id:
             fax_infos['caller_id'] = caller_id
-        r = self.session.post(url, headers=headers, params=fax_infos)
+        r = self.session.post(url, headers=headers, params=fax_infos, data=fax_content)
         if r.status_code != 204:
             self.raise_from_response(r)
 
@@ -34,6 +34,6 @@ class FaxesCommand(CtidNGCommand):
         }
         if caller_id:
             fax_infos['caller_id'] = caller_id
-        r = self.session.post(url, headers=headers, params=fax_infos)
+        r = self.session.post(url, headers=headers, params=fax_infos, data=fax_content)
         if r.status_code != 204:
             self.raise_from_response(r)
