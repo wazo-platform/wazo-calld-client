@@ -14,7 +14,7 @@ class FaxesCommand(CtidNGCommand):
     def send(self, fax_content, context, extension, caller_id=None):
         url = self._client.url(self.resource)
         headers = dict(self.ro_headers)
-        headers['Content-Type'] = 'image/tiff'
+        headers['Content-Type'] = 'application/pdf'
         fax_infos = {
             'context': context,
             'extension': extension,
@@ -28,7 +28,7 @@ class FaxesCommand(CtidNGCommand):
     def send_from_user(self, fax_content, extension, caller_id=None):
         url = self._client.url('users', 'me', self.resource)
         headers = dict(self.ro_headers)
-        headers['Content-Type'] = 'image/tiff'
+        headers['Content-Type'] = 'application/pdf'
         fax_infos = {
             'extension': extension,
         }
