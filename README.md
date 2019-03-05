@@ -129,6 +129,11 @@ c.conferences.kick_participant(conference_id, participant_id)
 c.conferences.mute_participant(conference_id, participant_id)
 c.conferences.record(conference_id)
 c.conferences.stop_record(conference_id)
+
+c.faxes.send(pdf_content, context, extension, caller_id='number 12 <12>')
+
+# This does the same thing, but derives the user UUID from the auth token
+c.faxes.send_from_user(pdf_content, extension, caller_id='number 12 <12>')
 ```
 
 ## Tests
