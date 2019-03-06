@@ -22,8 +22,9 @@ class FaxesCommand(CtidNGCommand):
         if caller_id:
             fax_infos['caller_id'] = caller_id
         r = self.session.post(url, headers=headers, params=fax_infos, data=fax_content)
-        if r.status_code != 204:
+        if r.status_code != 201:
             self.raise_from_response(r)
+        return r.json()
 
     def send_from_user(self, fax_content, extension, caller_id=None):
         url = self._client.url('users', 'me', self.resource)
@@ -35,5 +36,6 @@ class FaxesCommand(CtidNGCommand):
         if caller_id:
             fax_infos['caller_id'] = caller_id
         r = self.session.post(url, headers=headers, params=fax_infos, data=fax_content)
-        if r.status_code != 204:
+        if r.status_code != 201:
             self.raise_from_response(r)
+        return r.json()
