@@ -32,7 +32,7 @@ params = {
 
 call = c.calls.make_call(params)
 # This does the same thing, but derives the user UUID from the auth token
-call = c.calls.make_from_user(extension='1234', variables={'key': 'value'}, line_id=54, from_mobile=False)
+call = c.calls.make_call_from_user(extension='1234', variables={'key': 'value'}, line_id=54, from_mobile=False)
 
 call
 {u'call_id': u'1446422660.20'}
