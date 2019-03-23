@@ -72,11 +72,6 @@ c.transfers.cancel_transfer_from_user(transfer['id'])  # Cancel transfers of the
 c.transfers.complete_transfer(transfer['id'])
 c.transfers.complete_transfer_from_user(transfer['id'])  # Complete transfers of the authenticated user
 
-c.chats.send_message('sender-uuid', 'recipient-uuid', 'Sender Name', 'hello world!', to_xivo_uuid='optional-xivo-uuid')
-# This does the same thing, but derives the user UUID from the auth token
-c.chats.send_message_from_user('recipient-uuid', 'Sender Name', 'hello world!', to_xivo_uuid='optional-xivo-uuid')
-c.chats.get_history_from_user(participant_user_uuid='optional-recipient-uuid', participant_server_uuid='optional-xivo-uuid', limit=50)
-
 voicemail = c.voicemails.get_voicemail('my-voicemail-id')
 voicemail = c.voicemails.get_voicemail_from_user()
 

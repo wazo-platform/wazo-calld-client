@@ -25,7 +25,6 @@ setup(
         'ctid_ng_client.commands': [
             'applications = xivo_ctid_ng_client.commands.applications:ApplicationsCommand',
             'calls = xivo_ctid_ng_client.commands.calls:CallsCommand',
-            'chats = xivo_ctid_ng_client.commands.chats:ChatsCommand',
             'conferences = xivo_ctid_ng_client.commands.conferences:ConferencesCommand',
             'faxes = xivo_ctid_ng_client.commands.faxes:FaxesCommand',
             'relocates = xivo_ctid_ng_client.commands.relocates:RelocatesCommand',

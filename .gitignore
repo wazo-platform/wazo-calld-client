@@ -42,6 +42,8 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *,cover
+pycodestyle.txt
+pylint.txt
 
 # Translations
 *.mo
