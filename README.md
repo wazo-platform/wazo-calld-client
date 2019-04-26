@@ -1,5 +1,4 @@
-xivo-ctid-ng-client [![Build Status](https://jenkins.wazo.community/buildStatus/icon?job=xivo-ctid-ng-client)](https://jenkins.wazo.community/job/xivo-ctid-ng-client)
-===================
+# xivo-ctid-ng-client [![Build Status](https://jenkins.wazo.community/buildStatus/icon?job=xivo-ctid-ng-client)](https://jenkins.wazo.community/job/xivo-ctid-ng-client)
 
 A python library to connect to xivo-ctid-ng. HTTPS is used by default. Certificates are verified by default. To disable certificate verification, use the verify_certificate=False argument when instantiating the client.
 
@@ -122,10 +121,7 @@ c.faxes.send(pdf_content, context, extension, caller_id='number 12 <12>')
 c.faxes.send_from_user(pdf_content, extension, caller_id='number 12 <12>')
 ```
 
-## Tests
-
-Running unit tests
-------------------
+## Running unit tests
 
 ```
 pip install tox
