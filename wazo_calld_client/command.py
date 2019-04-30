@@ -4,15 +4,15 @@
 
 from xivo_lib_rest_client.command import RESTCommand
 
-from .exceptions import CtidNGError
-from .exceptions import InvalidCtidNGError
+from .exceptions import CalldError
+from .exceptions import InvalidCalldError
 
 
-class CtidNGCommand(RESTCommand):
+class CalldCommand(RESTCommand):
 
     @staticmethod
     def raise_from_response(response):
         try:
-            raise CtidNGError(response)
-        except InvalidCtidNGError:
+            raise CalldError(response)
+        except InvalidCalldError:
             RESTCommand.raise_from_response(response)

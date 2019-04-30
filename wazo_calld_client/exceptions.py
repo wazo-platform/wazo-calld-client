@@ -5,13 +5,13 @@
 from requests import HTTPError
 
 
-class CtidNGError(HTTPError):
+class CalldError(HTTPError):
 
     def __init__(self, response):
         try:
             body = response.json()
         except ValueError:
-            raise InvalidCtidNGError()
+            raise InvalidCalldError()
 
         self.status_code = response.status_code
         try:
@@ -20,11 +20,11 @@ class CtidNGError(HTTPError):
             self.details = body['details']
             self.timestamp = body['timestamp']
         except KeyError:
-            raise InvalidCtidNGError()
+            raise InvalidCalldError()
 
         exception_message = '{e.message}: {e.details}'.format(e=self)
-        super(CtidNGError, self).__init__(exception_message, response=response)
+        super(CalldError, self).__init__(exception_message, response=response)
 
 
-class InvalidCtidNGError(Exception):
+class InvalidCalldError(Exception):
     pass

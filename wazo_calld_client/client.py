@@ -5,16 +5,16 @@
 from xivo_lib_rest_client.client import BaseClient
 
 
-class CtidNGClient(BaseClient):
+class CalldClient(BaseClient):
 
-    namespace = 'ctid_ng_client.commands'
+    namespace = 'calld_client.commands'
 
     def __init__(self,
                  host,
                  port=9500,
                  version='1.0',
                  **kwargs):
-        super(CtidNGClient, self).__init__(
+        super(CalldClient, self).__init__(
             host=host,
             port=port,
             version=version,

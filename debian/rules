@@ -1,9 +1,9 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
-export PYBUILD_NAME=xivo_ctid_ng_client
-export PYBUILD_DESTDIR_python2=debian/xivo-ctid-ng-client/
-export PYBUILD_DESTDIR_python3=debian/xivo-ctid-ng-client-python3/
+export PYBUILD_NAME=wazo_calld_client
+export PYBUILD_DESTDIR_python2=debian/wazo-calld-client/
+export PYBUILD_DESTDIR_python3=debian/wazo-calld-client-python3/
 export PYBUILD_DISABLE=test
 
 %:

@@ -1,3 +1,9 @@
+wazo-calld-client (19.07) UNRELEASED; urgency=medium
+
+  * Renamed to wazo-calld-client 
+
+ -- Wazo Maintainers <dev@wazo.community>  Fri, 26 Apr 2019 14:53:45 -0400
+
 xivo-ctid-ng-client (0.1-1) xivo-dev; urgency=low
 
   * Initial release.

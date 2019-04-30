@@ -2,10 +2,10 @@
 # Copyright 2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
-from ..command import CtidNGCommand
+from ..command import CalldCommand
 
 
-class FaxesCommand(CtidNGCommand):
+class FaxesCommand(CalldCommand):
 
     resource = 'faxes'
 

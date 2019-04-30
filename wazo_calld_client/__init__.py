@@ -2,4 +2,4 @@
 # Copyright (C) 2015 Avencall
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from xivo_ctid_ng_client.client import CtidNGClient as Client
+from wazo_calld_client.client import CalldClient as Client

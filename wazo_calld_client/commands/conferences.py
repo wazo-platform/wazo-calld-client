@@ -2,10 +2,10 @@
 # Copyright 2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from ..command import CtidNGCommand
+from ..command import CalldCommand
 
 
-class ConferencesCommand(CtidNGCommand):
+class ConferencesCommand(CalldCommand):
 
     resource = 'conferences'
     ro_headers = {'Accept': 'application/json'}

@@ -9,10 +9,10 @@ from setuptools import (
 )
 
 setup(
-    name='xivo_ctid_ng_client',
+    name='wazo_calld_client',
     version='0.1',
 
-    description='a simple client library for the xivo-ctid-ng HTTP interface',
+    description='a simple client library for the wazo-calld HTTP interface',
 
     author='Wazo Authors',
     author_email='dev@wazo.community',
@@ -22,15 +22,15 @@ setup(
     packages=find_packages(),
 
     entry_points={
-        'ctid_ng_client.commands': [
-            'applications = xivo_ctid_ng_client.commands.applications:ApplicationsCommand',
-            'calls = xivo_ctid_ng_client.commands.calls:CallsCommand',
-            'conferences = xivo_ctid_ng_client.commands.conferences:ConferencesCommand',
-            'faxes = xivo_ctid_ng_client.commands.faxes:FaxesCommand',
-            'relocates = xivo_ctid_ng_client.commands.relocates:RelocatesCommand',
-            'transfers = xivo_ctid_ng_client.commands.transfers:TransfersCommand',
-            'switchboards = xivo_ctid_ng_client.commands.switchboards:SwitchboardsCommand',
-            'voicemails = xivo_ctid_ng_client.commands.voicemails:VoicemailsCommand',
+        'calld_client.commands': [
+            'applications = wazo_calld_client.commands.applications:ApplicationsCommand',
+            'calls = wazo_calld_client.commands.calls:CallsCommand',
+            'conferences = wazo_calld_client.commands.conferences:ConferencesCommand',
+            'faxes = wazo_calld_client.commands.faxes:FaxesCommand',
+            'relocates = wazo_calld_client.commands.relocates:RelocatesCommand',
+            'transfers = wazo_calld_client.commands.transfers:TransfersCommand',
+            'switchboards = wazo_calld_client.commands.switchboards:SwitchboardsCommand',
+            'voicemails = wazo_calld_client.commands.voicemails:VoicemailsCommand',
         ],
     }
 )
