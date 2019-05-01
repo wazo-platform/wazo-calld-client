@@ -22,6 +22,9 @@ Depends:
  xivo-lib-rest-client,
  python-requests,
  python-stevedore
+Provides: xivo-ctid-ng-client
+Replaces: xivo-ctid-ng-client
+Conflicts: xivo-ctid-ng-client
 Description: wazo-calld client library in python
  Wazo is a system based on a powerful IPBX, to bring an easy to
  install solution for telephony and related services.
@@ -35,6 +38,9 @@ Depends:
  xivo-lib-rest-client-python3,
  python3-requests,
  python3-stevedore
+Provides: xivo-ctid-ng-client-python3
+Replaces: xivo-ctid-ng-client-python3
+Conflicts: xivo-ctid-ng-client-python3
 Description: wazo-calld client library in python
  Wazo is a system based on a powerful IPBX, to bring an easy to
  install solution for telephony and related services.
