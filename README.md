@@ -110,6 +110,7 @@ snoop_args = {
 snoop = c.applications.snoops(application['uuid'], call['id'], snoop_args)
 
 participants = c.conferences.list_participants(conference_id)
+participants = c.conferences.user_list_participants(conference_id)  # user may only list if participant himself
 c.conferences.kick_participant(conference_id, participant_id)
 c.conferences.mute_participant(conference_id, participant_id)
 c.conferences.record(conference_id)
