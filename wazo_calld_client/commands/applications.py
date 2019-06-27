@@ -84,6 +84,15 @@ class ApplicationsCommand(RESTCommand):
 
         return r.json()
 
+    def make_call_user_to_node(self, application_uuid, node_uuid, call):
+        url = self._client.url(self.resource, application_uuid, 'nodes', node_uuid, 'calls', 'user')
+        r = self.session.post(url, json=call, headers=self.rw_headers)
+
+        if r.status_code != 201:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def send_playback(self, application_uuid, call_id, playback):
         url = self._client.url(self.resource, application_uuid, 'calls', call_id, 'playbacks')
         r = self.session.post(url, json=playback, headers=self.rw_headers)

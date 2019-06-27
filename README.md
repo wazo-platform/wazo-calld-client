@@ -97,6 +97,11 @@ call = c.applications.make_call(application['uuid'], call_args)
 c.applications.answer_call(application['uuid'], call['id'])
 
 node = c.applications.create_node(application['uuid'], [call['id']])
+call_args = {
+    'user_uuid': 'my-user-uuid',
+    'autoanswer': False,  # Defaults to False
+}
+call = c.applications.make_call_user_to_node(application['uuid'], node['uuid'], call_args)
 
 snooping_call_args = {
     'context': 'my-context',
