@@ -94,6 +94,7 @@ call_args = {
     'autoanswer': False,  # Defaults to False
 }
 call = c.applications.make_call(application['uuid'], call_args)
+c.applications.ring_call(application['uuid'], call['id'])
 c.applications.answer_call(application['uuid'], call['id'])
 
 node = c.applications.create_node(application['uuid'], [call['id']])

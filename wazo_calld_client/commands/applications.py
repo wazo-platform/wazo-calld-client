@@ -84,6 +84,12 @@ class ApplicationsCommand(RESTCommand):
 
         return r.json()
 
+    def ring_call(self, application_uuid, call_id):
+        url = self._client.url(self.resource, application_uuid, 'calls', call_id, 'ring')
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
     def send_playback(self, application_uuid, call_id, playback):
         url = self._client.url(self.resource, application_uuid, 'calls', call_id, 'playbacks')
         r = self.session.post(url, json=playback, headers=self.rw_headers)
