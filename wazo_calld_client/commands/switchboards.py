@@ -19,11 +19,12 @@ class SwitchboardsCommand(CalldCommand):
 
         return r.json()
 
-    def answer_queued_call_from_user(self, switchboard_uuid, call_id):
+    def answer_queued_call_from_user(self, switchboard_uuid, call_id, line_id=None):
         url = self._client.url(
             self.resource, switchboard_uuid, 'calls', 'queued', call_id, 'answer'
         )
-        r = self.session.put(url)
+        params = {'line_id': line_id} if line_id else None
+        r = self.session.put(url, params=params)
         if r.status_code != 200:
             self.raise_from_response(r)
 
@@ -47,11 +48,12 @@ class SwitchboardsCommand(CalldCommand):
 
         return r.json()
 
-    def answer_held_call_from_user(self, switchboard_uuid, call_id):
+    def answer_held_call_from_user(self, switchboard_uuid, call_id, line_id=None):
         url = self._client.url(
             self.resource, switchboard_uuid, 'calls', 'held', call_id, 'answer'
         )
-        r = self.session.put(url)
+        params = {'line_id': line_id} if line_id else None
+        r = self.session.put(url, params=params)
         if r.status_code != 200:
             self.raise_from_response(r)
 

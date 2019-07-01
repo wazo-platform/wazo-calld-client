@@ -32,7 +32,23 @@ class TestSwitchboards(RESTCommandTestCase):
         self.session.put.assert_called_once_with(
             self.client.url(
                 'switchboards', 'my-switchboard', 'calls', 'queued', 'call-id', 'answer'
-            )
+            ),
+            json=None,
+        )
+        assert_that(result, equal_to({'return': 'value'}))
+
+    def test_answer_queued_call_with_line_from_user(self):
+        self.session.put.return_value = self.new_response(200, json={'return': 'value'})
+
+        result = self.command.answer_queued_call_from_user(
+            'my-switchboard', 'call-id', line_id=1
+        )
+
+        self.session.put.assert_called_once_with(
+            self.client.url(
+                'switchboards', 'my-switchboard', 'calls', 'queued', 'call-id', 'answer'
+            ),
+            params={'line_id': 1},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -67,6 +83,22 @@ class TestSwitchboards(RESTCommandTestCase):
         self.session.put.assert_called_once_with(
             self.client.url(
                 'switchboards', 'my-switchboard', 'calls', 'held', 'call-id', 'answer'
-            )
+            ),
+            json=None,
+        )
+        assert_that(result, equal_to({'return': 'value'}))
+
+    def test_answer_held_call_with_line_from_user(self):
+        self.session.put.return_value = self.new_response(200, json={'return': 'value'})
+
+        result = self.command.answer_held_call_from_user(
+            'my-switchboard', 'call-id', line_id=1
+        )
+
+        self.session.put.assert_called_once_with(
+            self.client.url(
+                'switchboards', 'my-switchboard', 'calls', 'held', 'call-id', 'answer'
+            ),
+            params={'line_id': 1},
         )
         assert_that(result, equal_to({'return': 'value'}))
