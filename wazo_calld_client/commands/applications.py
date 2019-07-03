@@ -111,14 +111,14 @@ class ApplicationsCommand(RESTCommand):
 
         return r.json()
 
-    def start_contacting(self, application_uuid, call_id):
-        url = self._client.url(self.resource, application_uuid, 'calls', call_id, 'contacting', 'start')
+    def start_progress(self, application_uuid, call_id):
+        url = self._client.url(self.resource, application_uuid, 'calls', call_id, 'progress', 'start')
         r = self.session.put(url, headers=self.ro_headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def stop_contacting(self, application_uuid, call_id):
-        url = self._client.url(self.resource, application_uuid, 'calls', call_id, 'contacting', 'stop')
+    def stop_progress(self, application_uuid, call_id):
+        url = self._client.url(self.resource, application_uuid, 'calls', call_id, 'progress', 'stop')
         r = self.session.put(url, headers=self.ro_headers)
         if r.status_code != 204:
             self.raise_from_response(r)

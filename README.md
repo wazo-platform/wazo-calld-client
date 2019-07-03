@@ -95,8 +95,8 @@ call_args = {
 }
 call = c.applications.make_call(application['uuid'], call_args)
 c.applications.answer_call(application['uuid'], call['id'])
-c.applications.start_contacting(application['uuid'], call['id'])
-c.applications.stop_contacting(application['uuid'], call['id'])
+c.applications.start_progress(application['uuid'], call['id'])
+c.applications.stop_progress(application['uuid'], call['id'])
 
 node = c.applications.create_node(application['uuid'], [call['id']])
 call_args = {
