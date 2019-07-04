@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017 The Wazo Authors  (see AUTHORS file)
+# Copyright 2017-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from hamcrest import assert_that
@@ -41,6 +41,7 @@ class TestSwitchboards(RESTCommandTestCase):
 
         self.session.put.assert_called_once_with(
             self.client.url('switchboards', 'my-switchboard', 'calls', 'queued', 'call-id'),
+            headers={}
         )
 
     def test_list_held_calls(self):
