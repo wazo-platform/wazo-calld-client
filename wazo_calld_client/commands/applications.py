@@ -13,9 +13,7 @@ class ApplicationsCommand(RESTCommand):
 
     def create_node(self, application_uuid, call_ids):
         url = self._client.url(self.resource, application_uuid, 'nodes')
-        body = {
-            'calls': [{'id': call_id} for call_id in call_ids],
-        }
+        body = {'calls': [{'id': call_id} for call_id in call_ids]}
 
         r = self.session.post(url, json=body, headers=self.rw_headers)
         if r.status_code != 200:
@@ -32,7 +30,9 @@ class ApplicationsCommand(RESTCommand):
         return r.json()
 
     def answer_call(self, application_uuid, call_id):
-        url = self._client.url(self.resource, application_uuid, 'calls', call_id, 'answer')
+        url = self._client.url(
+            self.resource, application_uuid, 'calls', call_id, 'answer'
+        )
         r = self.session.put(url, headers=self.ro_headers)
         if r.status_code != 204:
             self.raise_from_response(r)
@@ -44,12 +44,10 @@ class ApplicationsCommand(RESTCommand):
             self.raise_from_response(r)
 
     def join_node(self, application_uuid, node_uuid, exten, context, auto_answer=False):
-        url = self._client.url(self.resource, application_uuid, 'nodes', node_uuid, 'calls')
-        body = {
-            'exten': exten,
-            'context': context,
-            'auto_answer': auto_answer,
-        }
+        url = self._client.url(
+            self.resource, application_uuid, 'nodes', node_uuid, 'calls'
+        )
+        body = {'exten': exten, 'context': context, 'auto_answer': auto_answer}
 
         r = self.session.post(url, json=body, headers=self.rw_headers)
         if r.status_code != 200:
@@ -76,7 +74,9 @@ class ApplicationsCommand(RESTCommand):
         return r.json()
 
     def make_call_to_node(self, application_uuid, node_uuid, call):
-        url = self._client.url(self.resource, application_uuid, 'nodes', node_uuid, 'calls')
+        url = self._client.url(
+            self.resource, application_uuid, 'nodes', node_uuid, 'calls'
+        )
         r = self.session.post(url, json=call, headers=self.rw_headers)
 
         if r.status_code != 201:
@@ -85,7 +85,9 @@ class ApplicationsCommand(RESTCommand):
         return r.json()
 
     def make_call_user_to_node(self, application_uuid, node_uuid, call):
-        url = self._client.url(self.resource, application_uuid, 'nodes', node_uuid, 'calls', 'user')
+        url = self._client.url(
+            self.resource, application_uuid, 'nodes', node_uuid, 'calls', 'user'
+        )
         r = self.session.post(url, json=call, headers=self.rw_headers)
 
         if r.status_code != 201:
@@ -94,7 +96,9 @@ class ApplicationsCommand(RESTCommand):
         return r.json()
 
     def send_playback(self, application_uuid, call_id, playback):
-        url = self._client.url(self.resource, application_uuid, 'calls', call_id, 'playbacks')
+        url = self._client.url(
+            self.resource, application_uuid, 'calls', call_id, 'playbacks'
+        )
         r = self.session.post(url, json=playback, headers=self.rw_headers)
 
         if r.status_code != 201:
@@ -103,7 +107,9 @@ class ApplicationsCommand(RESTCommand):
         return r.json()
 
     def snoops(self, application_uuid, call_id, snoop):
-        url = self._client.url(self.resource, application_uuid, 'calls', call_id, 'snoops')
+        url = self._client.url(
+            self.resource, application_uuid, 'calls', call_id, 'snoops'
+        )
         r = self.session.post(url, json=snoop, headers=self.rw_headers)
 
         if r.status_code != 200:
@@ -112,13 +118,17 @@ class ApplicationsCommand(RESTCommand):
         return r.json()
 
     def start_progress(self, application_uuid, call_id):
-        url = self._client.url(self.resource, application_uuid, 'calls', call_id, 'progress', 'start')
+        url = self._client.url(
+            self.resource, application_uuid, 'calls', call_id, 'progress', 'start'
+        )
         r = self.session.put(url, headers=self.ro_headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def stop_progress(self, application_uuid, call_id):
-        url = self._client.url(self.resource, application_uuid, 'calls', call_id, 'progress', 'stop')
+        url = self._client.url(
+            self.resource, application_uuid, 'calls', call_id, 'progress', 'stop'
+        )
         r = self.session.put(url, headers=self.ro_headers)
         if r.status_code != 204:
             self.raise_from_response(r)

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2017 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from xivo_lib_rest_client import RESTCommand
@@ -41,8 +41,7 @@ class CallsCommand(RESTCommand):
         return r.json()
 
     def get_call(self, call_id):
-        url = '{base_url}/{call_id}'.format(base_url=self.base_url,
-                                            call_id=call_id)
+        url = '{base_url}/{call_id}'.format(base_url=self.base_url, call_id=call_id)
 
         r = self.session.get(url, headers=self.headers)
 
@@ -52,16 +51,16 @@ class CallsCommand(RESTCommand):
         return r.json()
 
     def make_call(self, call):
-        r = self.session.post(self.base_url,
-                              json=call,
-                              headers=self.headers)
+        r = self.session.post(self.base_url, json=call, headers=self.headers)
 
         if r.status_code != 201:
             self.raise_from_response(r)
 
         return r.json()
 
-    def make_call_from_user(self, extension, variables=None, line_id=None, from_mobile=False):
+    def make_call_from_user(
+        self, extension, variables=None, line_id=None, from_mobile=False
+    ):
         body = {'extension': extension}
         if variables:
             body['variables'] = variables
@@ -69,9 +68,11 @@ class CallsCommand(RESTCommand):
             body['line_id'] = line_id
         if from_mobile:
             body['from_mobile'] = from_mobile
-        r = self.session.post(self._client.url('users', 'me', self.resource),
-                              json=body,
-                              headers=self.headers)
+        r = self.session.post(
+            self._client.url('users', 'me', self.resource),
+            json=body,
+            headers=self.headers,
+        )
 
         if r.status_code != 201:
             self.raise_from_response(r)
@@ -79,8 +80,7 @@ class CallsCommand(RESTCommand):
         return r.json()
 
     def hangup(self, call_id):
-        url = '{base_url}/{call_id}'.format(base_url=self.base_url,
-                                            call_id=call_id)
+        url = '{base_url}/{call_id}'.format(base_url=self.base_url, call_id=call_id)
 
         self.session.delete(url, headers=self.headers)
 
@@ -90,9 +90,9 @@ class CallsCommand(RESTCommand):
         self.session.delete(url)
 
     def connect_user(self, call_id, user_id):
-        url = '{base_url}/{call_id}/user/{user_id}'.format(base_url=self.base_url,
-                                                           call_id=call_id,
-                                                           user_id=user_id)
+        url = '{base_url}/{call_id}/user/{user_id}'.format(
+            base_url=self.base_url, call_id=call_id, user_id=user_id
+        )
 
         r = self.session.put(url, headers=self.headers)
 

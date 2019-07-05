@@ -15,10 +15,7 @@ class FaxesCommand(CalldCommand):
         url = self._client.url(self.resource)
         headers = dict(self.ro_headers)
         headers['Content-Type'] = 'application/pdf'
-        fax_infos = {
-            'context': context,
-            'extension': extension,
-        }
+        fax_infos = {'context': context, 'extension': extension}
         if caller_id:
             fax_infos['caller_id'] = caller_id
         r = self.session.post(url, headers=headers, params=fax_infos, data=fax_content)
@@ -30,9 +27,7 @@ class FaxesCommand(CalldCommand):
         url = self._client.url('users', 'me', self.resource)
         headers = dict(self.ro_headers)
         headers['Content-Type'] = 'application/pdf'
-        fax_infos = {
-            'extension': extension,
-        }
+        fax_infos = {'extension': extension}
         if caller_id:
             fax_infos['caller_id'] = caller_id
         r = self.session.post(url, headers=headers, params=fax_infos, data=fax_content)

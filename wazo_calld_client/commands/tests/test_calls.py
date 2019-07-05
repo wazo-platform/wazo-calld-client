@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2017 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from hamcrest import assert_that
@@ -20,10 +20,9 @@ class TestCalls(RESTCommandTestCase):
 
         self.session.get.assert_called_once_with(
             self.base_url,
-            headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json'},
-            params={'application': 'my-app',
-                    'application_instance': 'my-app-instance'})
+            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            params={'application': 'my-app', 'application_instance': 'my-app-instance'},
+        )
         assert_that(result, equal_to({'return': 'value'}))
 
     def test_list_calls_from_user(self):
@@ -33,10 +32,9 @@ class TestCalls(RESTCommandTestCase):
 
         self.session.get.assert_called_once_with(
             self.client.url('users', 'me', 'calls'),
-            headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json'},
-            params={'application': 'my-app',
-                    'application_instance': 'my-app-instance'})
+            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            params={'application': 'my-app', 'application_instance': 'my-app-instance'},
+        )
         assert_that(result, equal_to({'return': 'value'}))
 
     def test_get_call(self):
@@ -47,26 +45,32 @@ class TestCalls(RESTCommandTestCase):
 
         self.session.get.assert_called_once_with(
             '{base}/{call_id}'.format(base=self.base_url, call_id=call_id),
-            headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json'})
+            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+        )
         assert_that(result, equal_to({'return': 'value'}))
 
     def test_make_call(self):
-        self.session.post.return_value = self.new_response(201, json={'return': 'value'})
+        self.session.post.return_value = self.new_response(
+            201, json={'return': 'value'}
+        )
 
         result = self.command.make_call('my-call')
 
         self.session.post.assert_called_once_with(
             self.base_url,
             json='my-call',
-            headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json'})
+            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+        )
         assert_that(result, equal_to({'return': 'value'}))
 
     def test_make_call_from_user(self):
-        self.session.post.return_value = self.new_response(201, json={'return': 'value'})
+        self.session.post.return_value = self.new_response(
+            201, json={'return': 'value'}
+        )
 
-        result = self.command.make_call_from_user('1234', variables={'key': 'value'}, line_id=43, from_mobile=True)
+        result = self.command.make_call_from_user(
+            '1234', variables={'key': 'value'}, line_id=43, from_mobile=True
+        )
 
         expected_body = {
             'extension': '1234',
@@ -77,20 +81,22 @@ class TestCalls(RESTCommandTestCase):
         self.session.post.assert_called_once_with(
             self.client.url('users', 'me', 'calls'),
             json=expected_body,
-            headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json'})
+            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+        )
         assert_that(result, equal_to({'return': 'value'}))
 
     def test_hangup(self):
         call_id = 'call-id'
-        self.session.delete.return_value = self.new_response(200, json={'return': 'value'})
+        self.session.delete.return_value = self.new_response(
+            200, json={'return': 'value'}
+        )
 
         self.command.hangup(call_id)
 
         self.session.delete.assert_called_once_with(
             '{base}/{call_id}'.format(base=self.base_url, call_id=call_id),
-            headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json'})
+            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+        )
 
     def test_hangup_from_user(self):
         call_id = 'call-id'
@@ -109,7 +115,9 @@ class TestCalls(RESTCommandTestCase):
         result = self.command.connect_user(call_id, user_id)
 
         self.session.put.assert_called_once_with(
-            '{base}/{call_id}/user/{user_id}'.format(base=self.base_url, call_id=call_id, user_id=user_id),
-            headers={'Accept': 'application/json',
-                     'Content-Type': 'application/json'})
+            '{base}/{call_id}/user/{user_id}'.format(
+                base=self.base_url, call_id=call_id, user_id=user_id
+            ),
+            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+        )
         assert_that(result, equal_to({'return': 'value'}))

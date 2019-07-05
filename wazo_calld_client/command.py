@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017 The Wazo Authors  (see AUTHORS file)
+# Copyright 2017-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from xivo_lib_rest_client.command import RESTCommand
@@ -9,7 +9,6 @@ from .exceptions import InvalidCalldError
 
 
 class CalldCommand(RESTCommand):
-
     @staticmethod
     def raise_from_response(response):
         try:

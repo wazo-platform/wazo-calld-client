@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017 The Wazo Authors  (see AUTHORS file)
+# Copyright 2017-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from requests import HTTPError
 
 
 class CalldError(HTTPError):
-
     def __init__(self, response):
         try:
             body = response.json()
