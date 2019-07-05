@@ -3,24 +3,16 @@
 # Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from setuptools import (
-    setup,
-    find_packages,
-)
+from setuptools import setup, find_packages
 
 setup(
     name='wazo_calld_client',
     version='0.1',
-
     description='a simple client library for the wazo-calld HTTP interface',
-
     author='Wazo Authors',
     author_email='dev@wazo.community',
-
     url='http://wazo.community',
-
     packages=find_packages(),
-
     entry_points={
         'calld_client.commands': [
             'applications = wazo_calld_client.commands.applications:ApplicationsCommand',
@@ -31,6 +23,6 @@ setup(
             'transfers = wazo_calld_client.commands.transfers:TransfersCommand',
             'switchboards = wazo_calld_client.commands.switchboards:SwitchboardsCommand',
             'voicemails = wazo_calld_client.commands.voicemails:VoicemailsCommand',
-        ],
-    }
+        ]
+    },
 )

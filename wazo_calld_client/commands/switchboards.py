@@ -20,7 +20,9 @@ class SwitchboardsCommand(RESTCommand):
         return r.json()
 
     def answer_queued_call_from_user(self, switchboard_uuid, call_id):
-        url = self._client.url(self.resource, switchboard_uuid, 'calls', 'queued', call_id, 'answer')
+        url = self._client.url(
+            self.resource, switchboard_uuid, 'calls', 'queued', call_id, 'answer'
+        )
         r = self.session.put(url)
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -29,7 +31,9 @@ class SwitchboardsCommand(RESTCommand):
 
     def hold_call(self, switchboard_uuid, call_id, tenant_uuid=None):
         headers = self._get_headers(accept=False, tenant_uuid=tenant_uuid)
-        url = self._client.url(self.resource, switchboard_uuid, 'calls', 'held', call_id)
+        url = self._client.url(
+            self.resource, switchboard_uuid, 'calls', 'held', call_id
+        )
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
@@ -44,7 +48,9 @@ class SwitchboardsCommand(RESTCommand):
         return r.json()
 
     def answer_held_call_from_user(self, switchboard_uuid, call_id):
-        url = self._client.url(self.resource, switchboard_uuid, 'calls', 'held', call_id, 'answer')
+        url = self._client.url(
+            self.resource, switchboard_uuid, 'calls', 'held', call_id, 'answer'
+        )
         r = self.session.put(url)
         if r.status_code != 200:
             self.raise_from_response(r)

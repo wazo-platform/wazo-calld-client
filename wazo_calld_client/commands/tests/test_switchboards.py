@@ -20,7 +20,7 @@ class TestSwitchboards(RESTCommandTestCase):
 
         self.session.get.assert_called_once_with(
             self.client.url('switchboards', 'my-switchboard', 'calls', 'queued'),
-            headers={'Accept': 'application/json'}
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -30,7 +30,9 @@ class TestSwitchboards(RESTCommandTestCase):
         result = self.command.answer_queued_call_from_user('my-switchboard', 'call-id')
 
         self.session.put.assert_called_once_with(
-            self.client.url('switchboards', 'my-switchboard', 'calls', 'queued', 'call-id', 'answer'),
+            self.client.url(
+                'switchboards', 'my-switchboard', 'calls', 'queued', 'call-id', 'answer'
+            )
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -40,8 +42,10 @@ class TestSwitchboards(RESTCommandTestCase):
         self.command.hold_call('my-switchboard', 'call-id')
 
         self.session.put.assert_called_once_with(
-            self.client.url('switchboards', 'my-switchboard', 'calls', 'queued', 'call-id'),
-            headers={}
+            self.client.url(
+                'switchboards', 'my-switchboard', 'calls', 'queued', 'call-id'
+            ),
+            headers={},
         )
 
     def test_list_held_calls(self):
@@ -51,7 +55,7 @@ class TestSwitchboards(RESTCommandTestCase):
 
         self.session.get.assert_called_once_with(
             self.client.url('switchboards', 'my-switchboard', 'calls', 'held'),
-            headers={'Accept': 'application/json'}
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -61,6 +65,8 @@ class TestSwitchboards(RESTCommandTestCase):
         result = self.command.answer_held_call_from_user('my-switchboard', 'call-id')
 
         self.session.put.assert_called_once_with(
-            self.client.url('switchboards', 'my-switchboard', 'calls', 'held', 'call-id', 'answer'),
+            self.client.url(
+                'switchboards', 'my-switchboard', 'calls', 'held', 'call-id', 'answer'
+            )
         )
         assert_that(result, equal_to({'return': 'value'}))
