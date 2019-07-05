@@ -2,10 +2,10 @@
 # Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from xivo_lib_rest_client import RESTCommand
+from ..command import CalldCommand
 
 
-class CallsCommand(RESTCommand):
+class CallsCommand(CalldCommand):
 
     resource = 'calls'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}

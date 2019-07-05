@@ -2,10 +2,10 @@
 # Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from xivo_lib_rest_client import RESTCommand
+from ..command import CalldCommand
 
 
-class TransfersCommand(RESTCommand):
+class TransfersCommand(CalldCommand):
 
     resource = 'transfers'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
@@ -74,23 +74,31 @@ class TransfersCommand(RESTCommand):
         return r.json()
 
     def complete_transfer(self, transfer_id):
-        self.session.put(
+        r = self.session.put(
             '{url}/{transfer_id}/complete'.format(
                 url=self.base_url, transfer_id=transfer_id
             ),
             headers=self.headers,
         )
+        if r.status_code != 204:
+            self.raise_from_response(r)
 
     def complete_transfer_from_user(self, transfer_id):
         url = self._client.url('users', 'me', self.resource, transfer_id, 'complete')
-        self.session.put(url, headers=self.headers)
+        r = self.session.put(url, headers=self.headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
 
     def cancel_transfer(self, transfer_id):
-        self.session.delete(
+        r = self.session.delete(
             '{url}/{transfer_id}'.format(url=self.base_url, transfer_id=transfer_id),
             headers=self.headers,
         )
+        if r.status_code != 204:
+            self.raise_from_response(r)
 
     def cancel_transfer_from_user(self, transfer_id):
         url = self._client.url('users', 'me', self.resource, transfer_id)
-        self.session.delete(url, headers=self.headers)
+        r = self.session.delete(url, headers=self.headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
