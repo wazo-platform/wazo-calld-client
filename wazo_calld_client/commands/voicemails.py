@@ -88,15 +88,25 @@ class VoicemailsCommand(CalldCommand):
         url = self._client.url('users', 'me', 'voicemails', 'greetings', greeting)
         return self._get_recording(url)
 
+    def create_voicemail_greeting(self, voicemail_id, greeting, data):
+        url = '{url}/{voicemail_id}/greetings/{greeting}'.format(
+            url=self.base_url, voicemail_id=voicemail_id, greeting=greeting
+        )
+        self._create_recording(url, data)
+
+    def create_voicemail_greeting_from_user(self, greeting, data):
+        url = self._client.url('users', 'me', 'voicemails', 'greetings', greeting)
+        self._create_recording(url, data)
+
     def update_voicemail_greeting(self, voicemail_id, greeting, data):
         url = '{url}/{voicemail_id}/greetings/{greeting}'.format(
             url=self.base_url, voicemail_id=voicemail_id, greeting=greeting
         )
-        return self._put_recording(url, data)
+        self._put_recording(url, data)
 
     def update_voicemail_greeting_from_user(self, greeting, data):
         url = self._client.url('users', 'me', 'voicemails', 'greetings', greeting)
-        return self._put_recording(url, data)
+        self._put_recording(url, data)
 
     def delete_voicemail_greeting(self, voicemail_id, greeting):
         url = '{url}/{voicemail_id}/greetings/{greeting}'.format(
@@ -125,6 +135,11 @@ class VoicemailsCommand(CalldCommand):
             'users', 'me', 'voicemails', 'greetings', greeting, 'copy'
         )
         r = self.session.post(url, json={'dest_greeting': dest_greeting})
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def _create_recording(self, url, data):
+        r = self.session.post(url, headers={'Content-type': 'audio/wav'}, data=data)
         if r.status_code != 204:
             self.raise_from_response(r)
 
