@@ -2,10 +2,10 @@
 # Copyright 2017-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from xivo_lib_rest_client import RESTCommand
+from ..command import CalldCommand
 
 
-class SwitchboardsCommand(RESTCommand):
+class SwitchboardsCommand(CalldCommand):
 
     resource = 'switchboards'
     headers = {'Accept': 'application/json'}

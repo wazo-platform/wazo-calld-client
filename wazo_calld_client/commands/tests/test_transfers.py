@@ -92,6 +92,10 @@ class TestTransfers(RESTCommandTestCase):
     def test_cancel_transfer(self):
         transfer_id = 'transfer-id'
 
+        self.session.delete.return_value = self.new_response(
+            204, json={'return': 'value'}
+        )
+
         self.command.cancel_transfer(transfer_id)
 
         self.session.delete.assert_called_once_with(
@@ -102,6 +106,10 @@ class TestTransfers(RESTCommandTestCase):
     def test_cancel_transfer_from_user(self):
         transfer_id = 'transfer-id'
 
+        self.session.delete.return_value = self.new_response(
+            204, json={'return': 'value'}
+        )
+
         self.command.cancel_transfer_from_user(transfer_id)
 
         self.session.delete.assert_called_once_with(
@@ -111,6 +119,8 @@ class TestTransfers(RESTCommandTestCase):
 
     def test_complete_transfer(self):
         transfer_id = 'transfer-id'
+
+        self.session.put.return_value = self.new_response(204, json={'return': 'value'})
 
         self.command.complete_transfer(transfer_id)
 
@@ -123,6 +133,8 @@ class TestTransfers(RESTCommandTestCase):
 
     def test_complete_transfer_from_user(self):
         transfer_id = 'transfer-id'
+
+        self.session.put.return_value = self.new_response(204, json={'return': 'value'})
 
         self.command.complete_transfer_from_user(transfer_id)
 
