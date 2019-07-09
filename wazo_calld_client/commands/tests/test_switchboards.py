@@ -33,7 +33,7 @@ class TestSwitchboards(RESTCommandTestCase):
             self.client.url(
                 'switchboards', 'my-switchboard', 'calls', 'queued', 'call-id', 'answer'
             ),
-            json=None,
+            params=None,
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -84,7 +84,7 @@ class TestSwitchboards(RESTCommandTestCase):
             self.client.url(
                 'switchboards', 'my-switchboard', 'calls', 'held', 'call-id', 'answer'
             ),
-            json=None,
+            params=None,
         )
         assert_that(result, equal_to({'return': 'value'}))
 
