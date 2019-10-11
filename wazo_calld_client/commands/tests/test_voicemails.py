@@ -5,7 +5,7 @@
 from hamcrest import assert_that
 from hamcrest import equal_to
 from mock import ANY
-from xivo_lib_rest_client.tests.command import RESTCommandTestCase
+from wazo_lib_rest_client.tests.command import RESTCommandTestCase
 
 from ..voicemails import VoicemailsCommand
 
