@@ -14,7 +14,7 @@ setup(
     url='http://wazo.community',
     packages=find_packages(),
     entry_points={
-        'calld_client.commands': [
+        'wazo_calld_client.commands': [
             'applications = wazo_calld_client.commands.applications:ApplicationsCommand',
             'calls = wazo_calld_client.commands.calls:CallsCommand',
             'conferences = wazo_calld_client.commands.conferences:ConferencesCommand',
