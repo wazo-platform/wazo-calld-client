@@ -8,8 +8,6 @@ from ..command import CalldCommand
 class ConferencesCommand(CalldCommand):
 
     resource = 'conferences'
-    ro_headers = {'Accept': 'application/json'}
-    rw_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
     def list_participants(self, conference_id):
         url = self._client.url(self.resource, conference_id, 'participants')
