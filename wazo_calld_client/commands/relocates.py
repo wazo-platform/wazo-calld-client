@@ -8,8 +8,6 @@ from ..command import CalldCommand
 class RelocatesCommand(CalldCommand):
 
     resource = 'relocates'
-    ro_headers = {'Accept': 'application/json'}
-    rw_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
     def list_from_user(self):
         url = self._client.url('users', 'me', self.resource)

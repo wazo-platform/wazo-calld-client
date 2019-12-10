@@ -9,8 +9,6 @@ class FaxesCommand(CalldCommand):
 
     resource = 'faxes'
 
-    ro_headers = {'Accept': 'application/json'}
-
     def send(self, fax_content, context, extension, caller_id=None):
         url = self._client.url(self.resource)
         headers = dict(self.ro_headers)

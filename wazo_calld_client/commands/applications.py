@@ -8,8 +8,6 @@ from wazo_lib_rest_client import RESTCommand
 class ApplicationsCommand(RESTCommand):
 
     resource = 'applications'
-    ro_headers = {'Accept': 'application/json'}
-    rw_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
     def create_node(self, application_uuid, call_ids):
         url = self._client.url(self.resource, application_uuid, 'nodes')

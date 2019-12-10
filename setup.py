@@ -21,6 +21,7 @@ setup(
             'faxes = wazo_calld_client.commands.faxes:FaxesCommand',
             'relocates = wazo_calld_client.commands.relocates:RelocatesCommand',
             'transfers = wazo_calld_client.commands.transfers:TransfersCommand',
+            'trunks = wazo_calld_client.commands.trunks:TrunksCommand',
             'switchboards = wazo_calld_client.commands.switchboards:SwitchboardsCommand',
             'voicemails = wazo_calld_client.commands.voicemails:VoicemailsCommand',
         ]
