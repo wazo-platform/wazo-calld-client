@@ -2,10 +2,10 @@
 # Copyright 2018-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from wazo_lib_rest_client import RESTCommand
+from ..command import CalldCommand
 
 
-class ApplicationsCommand(RESTCommand):
+class ApplicationsCommand(CalldCommand):
 
     resource = 'applications'
 
