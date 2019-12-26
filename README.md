@@ -108,6 +108,7 @@ c.applications.start_moh(application['uuid'], call['id'], moh_uuid)
 c.applications.stop_moh(application['uuid'], call['id'])
 
 c.applications.send_playback(application['uuid'], call['id'], playback)
+c.applications.delete_playback(application['uuid'], playback_uuid)
 
 node = c.applications.create_node(application['uuid'], [call['id']])
 call_args = {

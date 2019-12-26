@@ -104,6 +104,15 @@ class ApplicationsCommand(CalldCommand):
 
         return r.json()
 
+    def delete_playback(self, application_uuid, playback_uuid):
+        url = self._client.url(
+            self.resource, application_uuid, 'playbacks', playback_uuid
+        )
+        r = self.session.delete(url, headers=self.rw_headers)
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
     def snoops(self, application_uuid, call_id, snoop):
         url = self._client.url(
             self.resource, application_uuid, 'calls', call_id, 'snoops'
