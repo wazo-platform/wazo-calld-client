@@ -130,3 +130,51 @@ class ApplicationsCommand(CalldCommand):
         r = self.session.put(url, headers=self.ro_headers)
         if r.status_code != 204:
             self.raise_from_response(r)
+
+    def start_hold(self, application_uuid, call_id):
+        url = self._client.url(
+            self.resource, application_uuid, 'calls', call_id, 'hold', 'start'
+        )
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def stop_hold(self, application_uuid, call_id):
+        url = self._client.url(
+            self.resource, application_uuid, 'calls', call_id, 'hold', 'stop'
+        )
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def start_moh(self, application_uuid, call_id, moh_uuid):
+        url = self._client.url(
+            self.resource, application_uuid, 'calls', call_id, 'moh', moh_uuid, 'start'
+        )
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def stop_moh(self, application_uuid, call_id):
+        url = self._client.url(
+            self.resource, application_uuid, 'calls', call_id, 'moh', 'stop'
+        )
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def start_mute(self, application_uuid, call_id):
+        url = self._client.url(
+            self.resource, application_uuid, 'calls', call_id, 'mute', 'start'
+        )
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def stop_mute(self, application_uuid, call_id):
+        url = self._client.url(
+            self.resource, application_uuid, 'calls', call_id, 'mute', 'stop'
+        )
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)

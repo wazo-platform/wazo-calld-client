@@ -100,6 +100,12 @@ call = c.applications.make_call(application['uuid'], call_args)
 c.applications.answer_call(application['uuid'], call['id'])
 c.applications.start_progress(application['uuid'], call['id'])
 c.applications.stop_progress(application['uuid'], call['id'])
+c.applications.start_hold(application['uuid'], call['id'])
+c.applications.stop_hold(application['uuid'], call['id'])
+c.applications.start_mute(application['uuid'], call['id'])
+c.applications.stop_mute(application['uuid'], call['id'])
+c.applications.start_moh(application['uuid'], call['id'], moh_uuid)
+c.applications.stop_moh(application['uuid'], call['id'])
 
 node = c.applications.create_node(application['uuid'], [call['id']])
 call_args = {
