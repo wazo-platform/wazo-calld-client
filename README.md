@@ -127,6 +127,10 @@ snoop_args = {
     'whisper_mode': None,
 }
 snoop = c.applications.snoops(application['uuid'], call['id'], snoop_args)
+c.applications.update_snoop(application['uuid'], snoop['uuid'], snoop_args)
+c.applications.delete_snoop(application['uuid'], snoop['uuid'])
+c.applications.get_snoop(application['uuid'], snoop['uuid'])
+c.applications.list_snoop(application['uuid'])
 
 participants = c.conferences.list_participants(conference_id)
 participants = c.conferences.user_list_participants(conference_id)  # user may only list if participant himself
