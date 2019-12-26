@@ -9,6 +9,9 @@ from wazo_calld_client import Client
 
 c = Client('localhost', token='the-one-ring', verify_certificate='</path/to/trusted/certificate>')
 
+# Get wazo-calld status
+status = c.status.get()
+
 optional_args = {
     'application': 'switchboard',
     'application_instance': 'switchboard_blue',
