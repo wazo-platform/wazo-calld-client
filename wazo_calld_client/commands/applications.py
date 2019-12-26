@@ -106,7 +106,7 @@ class ApplicationsCommand(CalldCommand):
         url = self._client.url(
             self.resource, application_uuid, 'playbacks', playback_uuid
         )
-        r = self.session.delete(url, headers=self.rw_headers)
+        r = self.session.delete(url, headers=self.ro_headers)
 
         if r.status_code != 204:
             self.raise_from_response(r)
@@ -135,7 +135,7 @@ class ApplicationsCommand(CalldCommand):
         url = self._client.url(
             self.resource, application_uuid, 'snoops', snoop_uuid
         )
-        r = self.session.delete(url, headers=self.rw_headers)
+        r = self.session.delete(url, headers=self.ro_headers)
 
         if r.status_code != 204:
             self.raise_from_response(r)
@@ -155,7 +155,7 @@ class ApplicationsCommand(CalldCommand):
         url = self._client.url(
             self.resource, application_uuid, 'snoops'
         )
-        r = self.session.get(url, headers=self.rw_headers)
+        r = self.session.get(url, headers=self.ro_headers)
 
         if r.status_code != 200:
             self.raise_from_response(r)
