@@ -107,6 +107,8 @@ c.applications.stop_mute(application['uuid'], call['id'])
 c.applications.start_moh(application['uuid'], call['id'], moh_uuid)
 c.applications.stop_moh(application['uuid'], call['id'])
 
+c.applications.send_playback(application['uuid'], call['id'], playback)
+
 node = c.applications.create_node(application['uuid'], [call['id']])
 call_args = {
     'user_uuid': 'my-user-uuid',
