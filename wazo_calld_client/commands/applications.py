@@ -41,14 +41,12 @@ class ApplicationsCommand(CalldCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def join_node(self, application_uuid, node_uuid, exten, context, auto_answer=False):
+    def join_node(self, application_uuid, node_uuid, call_id):
         url = self._client.url(
-            self.resource, application_uuid, 'nodes', node_uuid, 'calls'
+            self.resource, application_uuid, 'nodes', node_uuid, 'calls', call_id
         )
-        body = {'exten': exten, 'context': context, 'auto_answer': auto_answer}
-
-        r = self.session.post(url, json=body, headers=self.rw_headers)
-        if r.status_code != 200:
+        r = self.session.put(url, headers=self.rw_headers)
+        if r.status_code != 204:
             self.raise_from_response(r)
 
         return r.json()

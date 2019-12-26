@@ -117,6 +117,7 @@ call_args = {
 }
 call = c.applications.make_call_user_to_node(application['uuid'], node['uuid'], call_args)
 call = c.applications.make_call_to_node(application['uuid'], node['uuid'], call_args)
+c.applications.join_node(application['uuid'], node['uuid'], call['id'])
 
 snooping_call_args = {
     'context': 'my-context',
