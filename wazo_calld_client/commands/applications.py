@@ -19,8 +19,32 @@ class ApplicationsCommand(CalldCommand):
 
         return r.json()
 
+    def delete_node(self, application_uuid, node_uuid):
+        url = self._client.url(self.resource, application_uuid, 'nodes', node_uuid)
+        r = self.session.delete(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def get(self, application_uuid):
         url = self._client.url(self.resource, application_uuid)
+        r = self.session.get(url, headers=self.ro_headers)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def list_nodes(self, application_uuid):
+        url = self._client.url(self.resource, application_uuid, 'nodes')
+        r = self.session.get(url, headers=self.ro_headers)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def get_node(self, application_uuid, node_uuid):
+        url = self._client.url(self.resource, application_uuid, 'nodes', node_uuid)
         r = self.session.get(url, headers=self.ro_headers)
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -76,6 +100,17 @@ class ApplicationsCommand(CalldCommand):
         r = self.session.post(url, json=call, headers=self.rw_headers)
 
         if r.status_code != 201:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def delete_call_from_node(self, application_uuid, node_uuid, call_id):
+        url = self._client.url(
+            self.resource, application_uuid, 'nodes', node_uuid, 'calls', call_id
+        )
+        r = self.session.post(url, headers=self.ro_headers)
+
+        if r.status_code != 204:
             self.raise_from_response(r)
 
         return r.json()

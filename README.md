@@ -118,6 +118,10 @@ call_args = {
 call = c.applications.make_call_user_to_node(application['uuid'], node['uuid'], call_args)
 call = c.applications.make_call_to_node(application['uuid'], node['uuid'], call_args)
 c.applications.join_node(application['uuid'], node['uuid'], call['id'])
+nodes = c.applications.list_nodes(application['uuid'])
+node = c.applications.get_node(application['uuid'], node['uuid'])
+c.applications.delete_node(application['uuid'], node['uuid'])
+c.applications.delete_call_from_node(application['uuid'], node['uuid'], call['id'])
 
 snooping_call_args = {
     'context': 'my-context',
