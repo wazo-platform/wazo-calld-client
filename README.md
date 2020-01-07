@@ -128,6 +128,11 @@ c.faxes.send(pdf_content, context, extension, caller_id='number 12 <12>')
 
 # This does the same thing, but derives the user UUID from the auth token
 c.faxes.send_from_user(pdf_content, extension, caller_id='number 12 <12>')
+
+
+# Endpoint status
+lines = c.lines.list_lines()
+trunks = c.trunks.list_trunks()
 ```
 
 ## Running unit tests
