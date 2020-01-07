@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2018-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2018-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from ..command import CalldCommand
@@ -158,27 +158,21 @@ class ApplicationsCommand(CalldCommand):
         return r.json()
 
     def update_snoop(self, application_uuid, snoop_uuid, snoop):
-        url = self._client.url(
-            self.resource, application_uuid, 'snoops', snoop_uuid
-        )
+        url = self._client.url(self.resource, application_uuid, 'snoops', snoop_uuid)
         r = self.session.put(url, json=snoop, headers=self.rw_headers)
 
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def delete_snoop(self, application_uuid, snoop_uuid):
-        url = self._client.url(
-            self.resource, application_uuid, 'snoops', snoop_uuid
-        )
+        url = self._client.url(self.resource, application_uuid, 'snoops', snoop_uuid)
         r = self.session.delete(url, headers=self.ro_headers)
 
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def get_snoop(self, application_uuid, snoop_uuid):
-        url = self._client.url(
-            self.resource, application_uuid, 'snoops', snoop_uuid
-        )
+        url = self._client.url(self.resource, application_uuid, 'snoops', snoop_uuid)
         r = self.session.get(url, headers=self.rw_headers)
 
         if r.status_code != 200:
@@ -187,9 +181,7 @@ class ApplicationsCommand(CalldCommand):
         return r.json()
 
     def list_snoops(self, application_uuid):
-        url = self._client.url(
-            self.resource, application_uuid, 'snoops'
-        )
+        url = self._client.url(self.resource, application_uuid, 'snoops')
         r = self.session.get(url, headers=self.ro_headers)
 
         if r.status_code != 200:
