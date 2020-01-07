@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from setuptools import setup, find_packages
@@ -19,6 +19,7 @@ setup(
             'calls = wazo_calld_client.commands.calls:CallsCommand',
             'conferences = wazo_calld_client.commands.conferences:ConferencesCommand',
             'faxes = wazo_calld_client.commands.faxes:FaxesCommand',
+            'lines = wazo_calld_client.commands.lines:LinesCommand',
             'relocates = wazo_calld_client.commands.relocates:RelocatesCommand',
             'transfers = wazo_calld_client.commands.transfers:TransfersCommand',
             'trunks = wazo_calld_client.commands.trunks:TrunksCommand',
