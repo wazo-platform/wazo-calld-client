@@ -9,6 +9,9 @@ from wazo_calld_client import Client
 
 c = Client('localhost', token='the-one-ring', verify_certificate='</path/to/trusted/certificate>')
 
+# Get wazo-calld status
+status = c.status.get()
+
 optional_args = {
     'application': 'switchboard',
     'application_instance': 'switchboard_blue',
@@ -97,6 +100,15 @@ call = c.applications.make_call(application['uuid'], call_args)
 c.applications.answer_call(application['uuid'], call['id'])
 c.applications.start_progress(application['uuid'], call['id'])
 c.applications.stop_progress(application['uuid'], call['id'])
+c.applications.start_hold(application['uuid'], call['id'])
+c.applications.stop_hold(application['uuid'], call['id'])
+c.applications.start_mute(application['uuid'], call['id'])
+c.applications.stop_mute(application['uuid'], call['id'])
+c.applications.start_moh(application['uuid'], call['id'], moh_uuid)
+c.applications.stop_moh(application['uuid'], call['id'])
+
+c.applications.send_playback(application['uuid'], call['id'], playback)
+c.applications.delete_playback(application['uuid'], playback_uuid)
 
 node = c.applications.create_node(application['uuid'], [call['id']])
 call_args = {
@@ -104,6 +116,12 @@ call_args = {
     'autoanswer': False,  # Defaults to False
 }
 call = c.applications.make_call_user_to_node(application['uuid'], node['uuid'], call_args)
+call = c.applications.make_call_to_node(application['uuid'], node['uuid'], call_args)
+c.applications.join_node(application['uuid'], node['uuid'], call['id'])
+nodes = c.applications.list_nodes(application['uuid'])
+node = c.applications.get_node(application['uuid'], node['uuid'])
+c.applications.delete_node(application['uuid'], node['uuid'])
+c.applications.delete_call_from_node(application['uuid'], node['uuid'], call['id'])
 
 snooping_call_args = {
     'context': 'my-context',
@@ -116,6 +134,10 @@ snoop_args = {
     'whisper_mode': None,
 }
 snoop = c.applications.snoops(application['uuid'], call['id'], snoop_args)
+c.applications.update_snoop(application['uuid'], snoop['uuid'], snoop_args)
+c.applications.delete_snoop(application['uuid'], snoop['uuid'])
+c.applications.get_snoop(application['uuid'], snoop['uuid'])
+c.applications.list_snoop(application['uuid'])
 
 participants = c.conferences.list_participants(conference_id)
 participants = c.conferences.user_list_participants(conference_id)  # user may only list if participant himself
