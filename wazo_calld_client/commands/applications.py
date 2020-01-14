@@ -25,8 +25,6 @@ class ApplicationsCommand(CalldCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-        return r.json()
-
     def get(self, application_uuid):
         url = self._client.url(self.resource, application_uuid)
         r = self.session.get(url, headers=self.ro_headers)
@@ -73,8 +71,6 @@ class ApplicationsCommand(CalldCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-        return r.json()
-
     def list_calls(self, application_uuid):
         url = self._client.url(self.resource, application_uuid, 'calls')
 
@@ -108,7 +104,7 @@ class ApplicationsCommand(CalldCommand):
         url = self._client.url(
             self.resource, application_uuid, 'nodes', node_uuid, 'calls', call_id
         )
-        r = self.session.post(url, headers=self.ro_headers)
+        r = self.session.delete(url, headers=self.ro_headers)
 
         if r.status_code != 204:
             self.raise_from_response(r)
