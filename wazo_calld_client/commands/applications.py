@@ -109,8 +109,6 @@ class ApplicationsCommand(CalldCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-        return r.json()
-
     def make_call_user_to_node(self, application_uuid, node_uuid, call):
         url = self._client.url(
             self.resource, application_uuid, 'nodes', node_uuid, 'calls', 'user'
