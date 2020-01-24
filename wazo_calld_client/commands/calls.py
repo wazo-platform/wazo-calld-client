@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from ..command import CalldCommand
@@ -100,3 +100,15 @@ class CallsCommand(CalldCommand):
             self.raise_from_response(r)
 
         return r.json()
+
+    def start_mute(self, call_id):
+        url = self._client.url(self.resource, call_id, 'mute', 'start')
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def stop_mute(self, call_id):
+        url = self._client.url(self.resource, call_id, 'mute', 'stop')
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
