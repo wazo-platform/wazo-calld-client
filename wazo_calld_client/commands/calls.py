@@ -112,3 +112,15 @@ class CallsCommand(CalldCommand):
         r = self.session.put(url, headers=self.ro_headers)
         if r.status_code != 204:
             self.raise_from_response(r)
+
+    def start_mute_from_user(self, call_id):
+        url = self._client.url('users', 'me', self.resource, call_id, 'mute', 'start')
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def stop_mute_from_user(self, call_id):
+        url = self._client.url('users', 'me', self.resource, call_id, 'mute', 'stop')
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
