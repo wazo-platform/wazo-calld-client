@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2016-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2016-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from ..command import CalldCommand
@@ -44,11 +44,15 @@ class VoicemailsCommand(CalldCommand):
         url = '{url}/{voicemail_id}/messages/{message_id}'.format(
             url=self.base_url, voicemail_id=voicemail_id, message_id=message_id
         )
-        self.session.delete(url)
+        r = self.session.delete(url)
+        if r.status_code != 204:
+            self.raise_from_response(r)
 
     def delete_voicemail_message_from_user(self, message_id):
         url = self._client.url('users', 'me', 'voicemails', 'messages', message_id)
-        self.session.delete(url)
+        r = self.session.delete(url)
+        if r.status_code != 204:
+            self.raise_from_response(r)
 
     def move_voicemail_message(self, voicemail_id, message_id, dest_folder_id):
         url = '{url}/{voicemail_id}/messages/{message_id}'.format(
