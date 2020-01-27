@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2016-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2016-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from hamcrest import assert_that
@@ -10,7 +10,7 @@ from wazo_lib_rest_client.tests.command import RESTCommandTestCase
 from ..voicemails import VoicemailsCommand
 
 
-class TestTransfers(RESTCommandTestCase):
+class TestVoicemails(RESTCommandTestCase):
 
     Command = VoicemailsCommand
 
@@ -81,6 +81,7 @@ class TestTransfers(RESTCommandTestCase):
         assert_that(result, equal_to({'return': 'value'}))
 
     def test_delete_voicemail_message(self):
+        self.session.delete.return_value = self.new_response(204)
         self.command.delete_voicemail_message(42, '123')
 
         self.session.delete.assert_called_once_with(
@@ -88,6 +89,7 @@ class TestTransfers(RESTCommandTestCase):
         )
 
     def test_delete_voicemail_message_from_user(self):
+        self.session.delete.return_value = self.new_response(204)
         self.command.delete_voicemail_message_from_user('123')
 
         self.session.delete.assert_called_once_with(ANY)

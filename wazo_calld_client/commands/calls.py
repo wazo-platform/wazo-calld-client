@@ -81,13 +81,15 @@ class CallsCommand(CalldCommand):
 
     def hangup(self, call_id):
         url = '{base_url}/{call_id}'.format(base_url=self.base_url, call_id=call_id)
-
-        self.session.delete(url, headers=self.headers)
+        r = self.session.delete(url, headers=self.headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
 
     def hangup_from_user(self, call_id):
         url = self._client.url('users', 'me', self.resource, call_id)
-
-        self.session.delete(url)
+        r = self.session.delete(url)
+        if r.status_code != 204:
+            self.raise_from_response(r)
 
     def connect_user(self, call_id, user_id):
         url = '{base_url}/{call_id}/user/{user_id}'.format(
