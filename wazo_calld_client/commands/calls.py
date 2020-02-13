@@ -59,7 +59,12 @@ class CallsCommand(CalldCommand):
         return r.json()
 
     def make_call_from_user(
-        self, extension, variables=None, line_id=None, from_mobile=False
+        self,
+        extension,
+        variables=None,
+        line_id=None,
+        from_mobile=False,
+        all_lines=False,
     ):
         body = {'extension': extension}
         if variables:
@@ -68,6 +73,8 @@ class CallsCommand(CalldCommand):
             body['line_id'] = line_id
         if from_mobile:
             body['from_mobile'] = from_mobile
+        if all_lines:
+            body['all_lines'] = all_lines
         r = self.session.post(
             self._client.url('users', 'me', self.resource),
             json=body,

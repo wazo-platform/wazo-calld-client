@@ -69,7 +69,11 @@ class TestCalls(RESTCommandTestCase):
         )
 
         result = self.command.make_call_from_user(
-            '1234', variables={'key': 'value'}, line_id=43, from_mobile=True
+            '1234',
+            variables={'key': 'value'},
+            line_id=43,
+            from_mobile=True,
+            all_lines=True,
         )
 
         expected_body = {
@@ -77,6 +81,7 @@ class TestCalls(RESTCommandTestCase):
             'variables': {'key': 'value'},
             'line_id': 43,
             'from_mobile': True,
+            'all_lines': True,
         }
         self.session.post.assert_called_once_with(
             self.client.url('users', 'me', 'calls'),
