@@ -26,7 +26,13 @@ class RelocatesCommand(CalldCommand):
         return r.json()
 
     def create_from_user(
-        self, initiator, destination, location=None, completions=None, timeout=None
+        self,
+        initiator,
+        destination,
+        location=None,
+        completions=None,
+        timeout=None,
+        auto_answer=None,
     ):
         body = {'initiator_call': initiator, 'destination': destination}
         if location:
@@ -35,6 +41,8 @@ class RelocatesCommand(CalldCommand):
             body['completions'] = completions
         if timeout:
             body['timeout'] = timeout
+        if auto_answer:
+            body['auto_answer'] = auto_answer
 
         r = self.session.post(
             self._client.url('users', 'me', self.resource),
