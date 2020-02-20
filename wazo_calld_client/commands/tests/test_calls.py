@@ -74,6 +74,7 @@ class TestCalls(RESTCommandTestCase):
             line_id=43,
             from_mobile=True,
             all_lines=True,
+            auto_answer_caller=True,
         )
 
         expected_body = {
@@ -82,6 +83,7 @@ class TestCalls(RESTCommandTestCase):
             'line_id': 43,
             'from_mobile': True,
             'all_lines': True,
+            'auto_answer_caller': True,
         }
         self.session.post.assert_called_once_with(
             self.client.url('users', 'me', 'calls'),

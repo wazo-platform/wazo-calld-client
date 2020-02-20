@@ -65,6 +65,7 @@ class CallsCommand(CalldCommand):
         line_id=None,
         from_mobile=False,
         all_lines=False,
+        auto_answer_caller=False,
     ):
         body = {'extension': extension}
         if variables:
@@ -75,6 +76,8 @@ class CallsCommand(CalldCommand):
             body['from_mobile'] = from_mobile
         if all_lines:
             body['all_lines'] = all_lines
+        if auto_answer_caller:
+            body['auto_answer_caller'] = auto_answer_caller
         r = self.session.post(
             self._client.url('users', 'me', self.resource),
             json=body,
