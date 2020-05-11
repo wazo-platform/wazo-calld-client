@@ -144,6 +144,7 @@ c.applications.update_snoop(application['uuid'], snoop['uuid'], snoop_args)
 c.applications.delete_snoop(application['uuid'], snoop['uuid'])
 c.applications.get_snoop(application['uuid'], snoop['uuid'])
 c.applications.list_snoop(application['uuid'])
+c.applications.send_dtmf_digits(application['uuid'], call['id'], '1234567890*#')
 
 participants = c.conferences.list_participants(conference_id)
 participants = c.conferences.user_list_participants(conference_id)  # user may only list if participant himself
