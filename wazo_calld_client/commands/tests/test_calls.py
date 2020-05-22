@@ -128,3 +128,25 @@ class TestCalls(RESTCommandTestCase):
             headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
+
+    def test_send_dtmf_digits(self):
+        call_id = 'call-id'
+        self.session.put.return_value = self.new_response(204)
+        self.command.send_dtmf_digits(call_id, '1234')
+        expected_url = self.client.url('calls', call_id, 'dtmf')
+        self.session.put.assert_called_once_with(
+            expected_url,
+            headers={'Accept': 'application/json'},
+            params={'digits': '1234'},
+        )
+
+    def test_send_dtmf_digits_from_user(self):
+        call_id = 'call-id'
+        self.session.put.return_value = self.new_response(204)
+        self.command.send_dtmf_digits_from_user(call_id, '1234')
+        expected_url = self.client.url('users', 'me', 'calls', call_id, 'dtmf')
+        self.session.put.assert_called_once_with(
+            expected_url,
+            headers={'Accept': 'application/json'},
+            params={'digits': '1234'},
+        )

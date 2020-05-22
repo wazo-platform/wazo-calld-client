@@ -246,3 +246,12 @@ class ApplicationsCommand(CalldCommand):
         r = self.session.put(url, headers=self.ro_headers)
         if r.status_code != 204:
             self.raise_from_response(r)
+
+    def send_dtmf_digits(self, application_uuid, call_id, digits):
+        url = self._client.url(
+            self.resource, application_uuid, 'calls', call_id, 'dtmf'
+        )
+        params = {'digits': digits}
+        r = self.session.put(url, headers=self.ro_headers, params=params)
+        if r.status_code != 204:
+            self.raise_from_response(r)

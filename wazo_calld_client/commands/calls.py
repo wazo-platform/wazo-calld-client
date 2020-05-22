@@ -136,3 +136,17 @@ class CallsCommand(CalldCommand):
         r = self.session.put(url, headers=self.ro_headers)
         if r.status_code != 204:
             self.raise_from_response(r)
+
+    def send_dtmf_digits(self, call_id, digits):
+        url = self._client.url(self.resource, call_id, 'dtmf')
+        params = {'digits': digits}
+        r = self.session.put(url, headers=self.ro_headers, params=params)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def send_dtmf_digits_from_user(self, call_id, digits):
+        url = self._client.url('users', 'me', self.resource, call_id, 'dtmf')
+        params = {'digits': digits}
+        r = self.session.put(url, headers=self.ro_headers, params=params)
+        if r.status_code != 204:
+            self.raise_from_response(r)
