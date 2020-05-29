@@ -82,6 +82,18 @@ class VoicemailsCommand(CalldCommand):
         )
         return self._get_recording(url)
 
+    def voicemail_greeting_exists(self, voicemail_id, greeting):
+        url = '{url}/{voicemail_id}/greetings/{greeting}'.format(
+            url=self.base_url, voicemail_id=voicemail_id, greeting=greeting
+        )
+        response = self.session.head(url, headers=self.headers)
+        # FIXME: invalid voicemail_id return 400 instead 404
+        if response.status_code in (404, 400):
+            return False
+        if response.status_code != 200:
+            self.raise_from_response(response)
+        return True
+
     def get_voicemail_greeting(self, voicemail_id, greeting):
         url = '{url}/{voicemail_id}/greetings/{greeting}'.format(
             url=self.base_url, voicemail_id=voicemail_id, greeting=greeting
