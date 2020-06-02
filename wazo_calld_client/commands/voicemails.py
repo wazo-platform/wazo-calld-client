@@ -100,6 +100,15 @@ class VoicemailsCommand(CalldCommand):
         )
         return self._get_recording(url)
 
+    def voicemail_greeting_from_user_exists(self, greeting):
+        url = self._client.url('users', 'me', 'voicemails', 'greetings', greeting)
+        response = self.session.head(url, headers=self.headers)
+        if response.status_code == 404:
+            return False
+        if response.status_code != 200:
+            self.raise_from_response(response)
+        return True
+
     def get_voicemail_greeting_from_user(self, greeting):
         url = self._client.url('users', 'me', 'voicemails', 'greetings', greeting)
         return self._get_recording(url)
