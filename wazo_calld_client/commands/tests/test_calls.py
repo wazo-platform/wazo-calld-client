@@ -150,3 +150,39 @@ class TestCalls(RESTCommandTestCase):
             headers={'Accept': 'application/json'},
             params={'digits': '1234'},
         )
+
+    def test_hold_call(self):
+        call_id = 'call-id'
+        self.session.put.return_value = self.new_response(204)
+        self.command.start_hold(call_id)
+        expected_url = self.client.url('calls', call_id, 'hold', 'start')
+        self.session.put.assert_called_once_with(
+            expected_url, headers={'Accept': 'application/json'},
+        )
+
+    def test_unhold_call(self):
+        call_id = 'call-id'
+        self.session.put.return_value = self.new_response(204)
+        self.command.stop_hold(call_id)
+        expected_url = self.client.url('calls', call_id, 'hold', 'stop')
+        self.session.put.assert_called_once_with(
+            expected_url, headers={'Accept': 'application/json'},
+        )
+
+    def test_hold_call_from_user(self):
+        call_id = 'call-id'
+        self.session.put.return_value = self.new_response(204)
+        self.command.start_hold_from_user(call_id)
+        expected_url = self.client.url('users', 'me', 'calls', call_id, 'hold', 'start')
+        self.session.put.assert_called_once_with(
+            expected_url, headers={'Accept': 'application/json'},
+        )
+
+    def test_unhold_call_from_user(self):
+        call_id = 'call-id'
+        self.session.put.return_value = self.new_response(204)
+        self.command.stop_hold_from_user(call_id)
+        expected_url = self.client.url('users', 'me', 'calls', call_id, 'hold', 'stop')
+        self.session.put.assert_called_once_with(
+            expected_url, headers={'Accept': 'application/json'},
+        )
