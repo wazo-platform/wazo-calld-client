@@ -166,6 +166,16 @@ c.faxes.send_from_user(pdf_content, extension, caller_id='number 12 <12>')
 # Endpoint status
 lines = c.lines.list_lines()
 trunks = c.trunks.list_trunks()
+
+# Adhoc conferences
+body = {
+    'host_call_id': '123456.789',  # member 1 of the conference
+    'participant_call_ids': [
+        '123458.789',  # member 2 of the conference (i.e. the call currently bridged with the host)
+        '123459.789',  # member 3 of the conference
+    ]
+}
+adhoc_conference = c.adhoc_conferences.create_from_user(body)
 ```
 
 ## Running unit tests
