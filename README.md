@@ -53,6 +53,7 @@ mycall
   ]
 }
 
+c.calls.answer(call['id'])
 c.calls.hangup('call_id')
 c.calls.hangup_from_user('call_id')   # Hangup calls of the authenticated user
 c.calls.start_mute(call['id'])
@@ -60,6 +61,7 @@ c.calls.stop_mute(call['id'])
 c.calls.send_dtmf_digits(call['id'], '1234567890*#')
 c.calls.start_hold(call['id'])
 c.calls.stop_hold(call['id'])
+c.calls.answer_from_user(call['id'])
 c.calls.start_mute_from_user(call['id'])
 c.calls.stop_mute_from_user(call['id'])
 c.calls.send_dtmf_digits_from_user(call['id'], '1234567890*#')
