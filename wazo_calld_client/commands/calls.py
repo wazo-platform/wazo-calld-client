@@ -174,3 +174,15 @@ class CallsCommand(CalldCommand):
         r = self.session.put(url, headers=self.ro_headers)
         if r.status_code != 204:
             self.raise_from_response(r)
+
+    def answer(self, call_id):
+        url = self._client.url(self.resource, call_id, 'answer')
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def answer_from_user(self, call_id):
+        url = self._client.url('users', 'me', self.resource, call_id, 'answer')
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
