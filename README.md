@@ -170,14 +170,14 @@ lines = c.lines.list_lines()
 trunks = c.trunks.list_trunks()
 
 # Adhoc conferences
-body = {
-    'host_call_id': '123456.789',  # member 1 of the conference
-    'participant_call_ids': [
-        '123458.789',  # member 2 of the conference (i.e. the call currently bridged with the host)
-        '123459.789',  # member 3 of the conference
-    ]
-}
-adhoc_conference = c.adhoc_conferences.create_from_user(body)
+adhoc_conference = c.adhoc_conferences.create_from_user(
+    host_call_id,
+    participant1_call_id,
+    participant2_call_id,
+    ...
+)
+c.adhoc_conferences.add_participant_from_user(adhoc_conference_id, call_id)
+c.adhoc_conferences.remove_participant_from_user(adhoc_conference_id, call_id)
 ```
 
 ## Running unit tests
