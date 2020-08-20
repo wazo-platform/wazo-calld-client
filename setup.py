@@ -15,6 +15,7 @@ setup(
     packages=find_packages(),
     entry_points={
         'wazo_calld_client.commands': [
+            'adhoc_conferences = wazo_calld_client.commands.adhoc_conferences:AdhocConferencesCommand',
             'applications = wazo_calld_client.commands.applications:ApplicationsCommand',
             'calls = wazo_calld_client.commands.calls:CallsCommand',
             'conferences = wazo_calld_client.commands.conferences:ConferencesCommand',
