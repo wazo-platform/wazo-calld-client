@@ -176,6 +176,7 @@ adhoc_conference = c.adhoc_conferences.create_from_user(
     participant2_call_id,
     ...
 )
+c.adhoc_conferences.delete_from_user(adhoc_conference_id)
 c.adhoc_conferences.add_participant_from_user(adhoc_conference_id, call_id)
 c.adhoc_conferences.remove_participant_from_user(adhoc_conference_id, call_id)
 ```
