@@ -24,3 +24,37 @@ class AdhocConferencesCommand(CalldCommand):
             self.raise_from_response(r)
 
         return r.json()
+
+    def add_participant_from_user(self, adhoc_conference_id, call_id):
+        r = self.session.put(
+            self._client.url(
+                'users',
+                'me',
+                'conferences',
+                'adhoc',
+                adhoc_conference_id,
+                'participants',
+                call_id,
+            ),
+            headers=self.headers,
+        )
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def remove_participant_from_user(self, adhoc_conference_id, call_id):
+        r = self.session.delete(
+            self._client.url(
+                'users',
+                'me',
+                'conferences',
+                'adhoc',
+                adhoc_conference_id,
+                'participants',
+                call_id,
+            ),
+            headers=self.headers,
+        )
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
