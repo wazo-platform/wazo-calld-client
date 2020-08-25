@@ -9,9 +9,7 @@ class AdhocConferencesCommand(CalldCommand):
     resource = 'adhoc_conferences'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-    def create_from_user(
-        self, host_call_id, *participant_call_ids,
-    ):
+    def create_from_user(self, host_call_id, *participant_call_ids):
         body = {
             'host_call_id': host_call_id,
             'participant_call_ids': participant_call_ids,
