@@ -187,6 +187,18 @@ class CallsCommand(CalldCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
+    def start_record(self, call_id):
+        url = self._client.url(self.resource, call_id, 'record', 'start')
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def start_record_from_user(self, call_id):
+        url = self._client.url('users', 'me', self.resource, call_id, 'record', 'start')
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
     def stop_record(self, call_id):
         url = self._client.url(self.resource, call_id, 'record', 'stop')
         r = self.session.put(url, headers=self.ro_headers)
