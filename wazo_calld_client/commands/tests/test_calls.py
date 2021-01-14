@@ -157,7 +157,8 @@ class TestCalls(RESTCommandTestCase):
         self.command.start_hold(call_id)
         expected_url = self.client.url('calls', call_id, 'hold', 'start')
         self.session.put.assert_called_once_with(
-            expected_url, headers={'Accept': 'application/json'},
+            expected_url,
+            headers={'Accept': 'application/json'},
         )
 
     def test_unhold_call(self):
@@ -166,7 +167,8 @@ class TestCalls(RESTCommandTestCase):
         self.command.stop_hold(call_id)
         expected_url = self.client.url('calls', call_id, 'hold', 'stop')
         self.session.put.assert_called_once_with(
-            expected_url, headers={'Accept': 'application/json'},
+            expected_url,
+            headers={'Accept': 'application/json'},
         )
 
     def test_hold_call_from_user(self):
@@ -175,7 +177,8 @@ class TestCalls(RESTCommandTestCase):
         self.command.start_hold_from_user(call_id)
         expected_url = self.client.url('users', 'me', 'calls', call_id, 'hold', 'start')
         self.session.put.assert_called_once_with(
-            expected_url, headers={'Accept': 'application/json'},
+            expected_url,
+            headers={'Accept': 'application/json'},
         )
 
     def test_unhold_call_from_user(self):
@@ -184,7 +187,8 @@ class TestCalls(RESTCommandTestCase):
         self.command.stop_hold_from_user(call_id)
         expected_url = self.client.url('users', 'me', 'calls', call_id, 'hold', 'stop')
         self.session.put.assert_called_once_with(
-            expected_url, headers={'Accept': 'application/json'},
+            expected_url,
+            headers={'Accept': 'application/json'},
         )
 
     def test_answer_call(self):
@@ -193,7 +197,8 @@ class TestCalls(RESTCommandTestCase):
         self.command.answer(call_id)
         expected_url = self.client.url('calls', call_id, 'answer')
         self.session.put.assert_called_once_with(
-            expected_url, headers={'Accept': 'application/json'},
+            expected_url,
+            headers={'Accept': 'application/json'},
         )
 
     def test_answer_call_from_user(self):
@@ -202,5 +207,6 @@ class TestCalls(RESTCommandTestCase):
         self.command.answer_from_user(call_id)
         expected_url = self.client.url('users', 'me', 'calls', call_id, 'answer')
         self.session.put.assert_called_once_with(
-            expected_url, headers={'Accept': 'application/json'},
+            expected_url,
+            headers={'Accept': 'application/json'},
         )
