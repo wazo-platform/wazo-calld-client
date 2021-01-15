@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from ..command import CalldCommand
@@ -183,6 +183,30 @@ class CallsCommand(CalldCommand):
 
     def answer_from_user(self, call_id):
         url = self._client.url('users', 'me', self.resource, call_id, 'answer')
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def start_record(self, call_id):
+        url = self._client.url(self.resource, call_id, 'record', 'start')
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def start_record_from_user(self, call_id):
+        url = self._client.url('users', 'me', self.resource, call_id, 'record', 'start')
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def stop_record(self, call_id):
+        url = self._client.url(self.resource, call_id, 'record', 'stop')
+        r = self.session.put(url, headers=self.ro_headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def stop_record_from_user(self, call_id):
+        url = self._client.url('users', 'me', self.resource, call_id, 'record', 'stop')
         r = self.session.put(url, headers=self.ro_headers)
         if r.status_code != 204:
             self.raise_from_response(r)

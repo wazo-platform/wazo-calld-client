@@ -28,7 +28,11 @@ class AdhocConferencesCommand(CalldCommand):
     def delete_from_user(self, adhoc_conference_id):
         r = self.session.delete(
             self._client.url(
-                'users', 'me', 'conferences', 'adhoc', adhoc_conference_id,
+                'users',
+                'me',
+                'conferences',
+                'adhoc',
+                adhoc_conference_id,
             ),
             headers=self.headers,
         )
