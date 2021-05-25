@@ -183,6 +183,16 @@ adhoc_conference = c.adhoc_conferences.create_from_user(
 c.adhoc_conferences.delete_from_user(adhoc_conference_id)
 c.adhoc_conferences.add_participant_from_user(adhoc_conference_id, call_id)
 c.adhoc_conferences.remove_participant_from_user(adhoc_conference_id, call_id)
+
+# Config
+config = c.config.get()
+
+config_patch = {
+    'op': 'replace',
+    'path': '/debug',
+    'value': True,
+}
+c.config.patch(config_patch)
 ```
 
 ## Running unit tests
