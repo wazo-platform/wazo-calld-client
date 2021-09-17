@@ -22,6 +22,7 @@ setup(
             'config = wazo_calld_client.commands.config:ConfigCommand',
             'faxes = wazo_calld_client.commands.faxes:FaxesCommand',
             'lines = wazo_calld_client.commands.lines:LinesCommand',
+            'meetings = wazo_calld_client.commands.meetings:MeetingsCommand',
             'relocates = wazo_calld_client.commands.relocates:RelocatesCommand',
             'status = wazo_calld_client.commands.status:StatusCommand',
             'switchboards = wazo_calld_client.commands.switchboards:SwitchboardsCommand',
