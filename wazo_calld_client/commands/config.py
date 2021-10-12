@@ -9,17 +9,17 @@ from wazo_calld_client.command import CalldCommand
 class ConfigCommand(CalldCommand):
 
     resource = 'config'
-    _ro_headers = {'Accept': 'application/json'}
-    _rw_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
     def get(self):
-        r = self.session.get(self.base_url, headers=self._ro_headers)
+        headers = self.get_headers()
+        url = self.base_url
+        r = self.session.get(url, headers=headers)
         self.raise_from_response(r)
         return r.json()
 
     def patch(self, config_patch):
-        r = self.session.patch(
-            self.base_url, headers=self._rw_headers, json=config_patch
-        )
+        headers = self.get_headers()
+        url = self.base_url
+        r = self.session.patch(url, headers=headers, json=config_patch)
         self.raise_from_response(r)
         return r.json()

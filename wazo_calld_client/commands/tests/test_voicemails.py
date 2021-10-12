@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2016-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2016-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from hamcrest import assert_that
@@ -20,8 +20,8 @@ class TestVoicemails(RESTCommandTestCase):
         result = self.command.get_voicemail(42)
 
         self.session.get.assert_called_once_with(
-            '{url}/42'.format(url=self.base_url),
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            ANY,
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -32,7 +32,7 @@ class TestVoicemails(RESTCommandTestCase):
 
         self.session.get.assert_called_once_with(
             ANY,
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -42,8 +42,8 @@ class TestVoicemails(RESTCommandTestCase):
         result = self.command.get_voicemail_folder(42, 1)
 
         self.session.get.assert_called_once_with(
-            '{url}/42/folders/1'.format(url=self.base_url),
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            ANY,
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -54,7 +54,7 @@ class TestVoicemails(RESTCommandTestCase):
 
         self.session.get.assert_called_once_with(
             ANY,
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -64,8 +64,8 @@ class TestVoicemails(RESTCommandTestCase):
         result = self.command.get_voicemail_message(42, '123')
 
         self.session.get.assert_called_once_with(
-            '{url}/42/messages/123'.format(url=self.base_url),
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            ANY,
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -76,7 +76,7 @@ class TestVoicemails(RESTCommandTestCase):
 
         self.session.get.assert_called_once_with(
             ANY,
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -85,14 +85,18 @@ class TestVoicemails(RESTCommandTestCase):
         self.command.delete_voicemail_message(42, '123')
 
         self.session.delete.assert_called_once_with(
-            '{url}/42/messages/123'.format(url=self.base_url)
+            ANY,
+            headers={'Accept': 'application/json'},
         )
 
     def test_delete_voicemail_message_from_user(self):
         self.session.delete.return_value = self.new_response(204)
         self.command.delete_voicemail_message_from_user('123')
 
-        self.session.delete.assert_called_once_with(ANY)
+        self.session.delete.assert_called_once_with(
+            ANY,
+            headers={'Accept': 'application/json'},
+        )
 
     def test_move_voicemail_message(self):
         self.session.put.return_value = self.new_response(204)
@@ -100,9 +104,9 @@ class TestVoicemails(RESTCommandTestCase):
         self.command.move_voicemail_message(42, '123', 1337)
 
         self.session.put.assert_called_once_with(
-            '{url}/42/messages/123'.format(url=self.base_url),
+            ANY,
             json={'folder_id': 1337},
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            headers={'Accept': 'application/json'},
         )
 
     def test_move_voicemail_message_from_user(self):
@@ -113,7 +117,7 @@ class TestVoicemails(RESTCommandTestCase):
         self.session.put.assert_called_once_with(
             ANY,
             json={'folder_id': 1337},
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            headers={'Accept': 'application/json'},
         )
 
     def test_get_voicemail_recording(self):
@@ -122,7 +126,7 @@ class TestVoicemails(RESTCommandTestCase):
         result = self.command.get_voicemail_recording(42, '123')
 
         self.session.get.assert_called_once_with(
-            '{url}/42/messages/123/recording'.format(url=self.base_url),
+            ANY,
             headers={'Accept': 'audio/wav'},
         )
         assert_that(result, equal_to('blob'))

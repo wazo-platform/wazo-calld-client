@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from hamcrest import assert_that
@@ -20,7 +20,7 @@ class TestTransfers(RESTCommandTestCase):
 
         self.session.get.assert_called_once_with(
             self.client.url('users', 'me', 'transfers'),
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -31,8 +31,8 @@ class TestTransfers(RESTCommandTestCase):
         result = self.command.get_transfer(transfer_id)
 
         self.session.get.assert_called_once_with(
-            '{base}/{transfer_id}'.format(base=self.base_url, transfer_id=transfer_id),
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            self.client.url('transfers', transfer_id),
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -63,7 +63,7 @@ class TestTransfers(RESTCommandTestCase):
         self.session.post.assert_called_once_with(
             self.base_url,
             json=expected_body,
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -85,7 +85,7 @@ class TestTransfers(RESTCommandTestCase):
         self.session.post.assert_called_once_with(
             self.client.url('users', 'me', 'transfers'),
             json=expected_body,
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -99,8 +99,8 @@ class TestTransfers(RESTCommandTestCase):
         self.command.cancel_transfer(transfer_id)
 
         self.session.delete.assert_called_once_with(
-            '{base}/{transfer_id}'.format(base=self.base_url, transfer_id=transfer_id),
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            self.client.url('transfers', transfer_id),
+            headers={'Accept': 'application/json'},
         )
 
     def test_cancel_transfer_from_user(self):
@@ -114,7 +114,7 @@ class TestTransfers(RESTCommandTestCase):
 
         self.session.delete.assert_called_once_with(
             self.client.url('users', 'me', 'transfers', transfer_id),
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            headers={'Accept': 'application/json'},
         )
 
     def test_complete_transfer(self):
@@ -125,10 +125,8 @@ class TestTransfers(RESTCommandTestCase):
         self.command.complete_transfer(transfer_id)
 
         self.session.put.assert_called_once_with(
-            '{base}/{transfer_id}/complete'.format(
-                base=self.base_url, transfer_id=transfer_id
-            ),
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            self.client.url('transfers', transfer_id, 'complete'),
+            headers={'Accept': 'application/json'},
         )
 
     def test_complete_transfer_from_user(self):
@@ -140,5 +138,5 @@ class TestTransfers(RESTCommandTestCase):
 
         self.session.put.assert_called_once_with(
             self.client.url('users', 'me', 'transfers', transfer_id, 'complete'),
-            headers={'Accept': 'application/json', 'Content-Type': 'application/json'},
+            headers={'Accept': 'application/json'},
         )
