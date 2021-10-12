@@ -10,7 +10,7 @@ class RelocatesCommand(CalldCommand):
     resource = 'relocates'
 
     def list_from_user(self):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url('users', 'me', self.resource)
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
@@ -19,7 +19,7 @@ class RelocatesCommand(CalldCommand):
         return r.json()
 
     def get_from_user(self, relocate_uuid):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url('users', 'me', self.resource, relocate_uuid)
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
@@ -46,7 +46,7 @@ class RelocatesCommand(CalldCommand):
         if auto_answer:
             body['auto_answer'] = auto_answer
 
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url('users', 'me', self.resource)
         r = self.session.post(url, json=body, headers=headers)
 
@@ -56,14 +56,14 @@ class RelocatesCommand(CalldCommand):
         return r.json()
 
     def complete_from_user(self, relocate_uuid):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url('users', 'me', self.resource, relocate_uuid, 'complete')
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def cancel_from_user(self, relocate_uuid):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url('users', 'me', self.resource, relocate_uuid, 'cancel')
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:

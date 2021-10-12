@@ -35,14 +35,14 @@ class VoicemailsCommand(CalldCommand):
         return self._get(url)
 
     def delete_voicemail_message(self, voicemail_id, message_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, voicemail_id, 'messages', message_id)
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def delete_voicemail_message_from_user(self, message_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url('users', 'me', 'voicemails', 'messages', message_id)
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
@@ -57,7 +57,7 @@ class VoicemailsCommand(CalldCommand):
         return self._move_message(url, dest_folder_id)
 
     def _move_message(self, url, dest_folder_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         body = {'folder_id': dest_folder_id}
         r = self.session.put(url, json=body, headers=headers)
         if r.status_code != 204:
@@ -80,7 +80,7 @@ class VoicemailsCommand(CalldCommand):
         return self._get_recording(url)
 
     def voicemail_greeting_exists(self, voicemail_id, greeting):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, voicemail_id, 'greetings', greeting)
         response = self.session.head(url, headers=headers)
         # FIXME: invalid voicemail_id return 400 instead 404
@@ -95,7 +95,7 @@ class VoicemailsCommand(CalldCommand):
         return self._get_recording(url)
 
     def voicemail_greeting_from_user_exists(self, greeting):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url('users', 'me', 'voicemails', 'greetings', greeting)
         response = self.session.head(url, headers=headers)
         if response.status_code == 404:
@@ -125,21 +125,21 @@ class VoicemailsCommand(CalldCommand):
         self._put_recording(url, data)
 
     def delete_voicemail_greeting(self, voicemail_id, greeting):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, voicemail_id, 'greetings', greeting)
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def delete_voicemail_greeting_from_user(self, greeting):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url('users', 'me', 'voicemails', 'greetings', greeting)
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def copy_voicemail_greeting(self, voicemail_id, greeting, dest_greeting):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, voicemail_id, 'greetings', greeting, 'copy'
         )
@@ -149,7 +149,7 @@ class VoicemailsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def copy_voicemail_greeting_from_user(self, greeting, dest_greeting):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             'users', 'me', 'voicemails', 'greetings', greeting, 'copy'
         )
@@ -159,21 +159,21 @@ class VoicemailsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def _create_recording(self, url, data):
-        headers = self.get_headers()
+        headers = self._get_headers()
         headers['Content-type'] = 'audio/wav'
         r = self.session.post(url, headers=headers, data=data)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def _put_recording(self, url, data):
-        headers = self.get_headers()
+        headers = self._get_headers()
         headers['Content-type'] = 'audio/wav'
         r = self.session.put(url, headers=headers, data=data)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def _get_recording(self, url):
-        headers = self.get_headers()
+        headers = self._get_headers()
         headers['Accept'] = 'audio/wav'
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
@@ -181,7 +181,7 @@ class VoicemailsCommand(CalldCommand):
         return r.content
 
     def _get(self, url):
-        headers = self.get_headers()
+        headers = self._get_headers()
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
             self.raise_from_response(r)

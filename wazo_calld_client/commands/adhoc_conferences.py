@@ -13,7 +13,7 @@ class AdhocConferencesCommand(CalldCommand):
             'host_call_id': host_call_id,
             'participant_call_ids': participant_call_ids,
         }
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url('users', 'me', 'conferences', 'adhoc')
         r = self.session.post(url, json=body, headers=headers)
 
@@ -23,7 +23,7 @@ class AdhocConferencesCommand(CalldCommand):
         return r.json()
 
     def delete_from_user(self, adhoc_conference_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             'users',
             'me',
@@ -37,7 +37,7 @@ class AdhocConferencesCommand(CalldCommand):
             self.raise_from_response(r)
 
     def add_participant_from_user(self, adhoc_conference_id, call_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             'users',
             'me',
@@ -53,7 +53,7 @@ class AdhocConferencesCommand(CalldCommand):
             self.raise_from_response(r)
 
     def remove_participant_from_user(self, adhoc_conference_id, call_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             'users',
             'me',

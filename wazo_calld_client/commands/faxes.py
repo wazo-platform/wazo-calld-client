@@ -11,7 +11,7 @@ class FaxesCommand(CalldCommand):
 
     def send(self, fax_content, context, extension, caller_id=None):
         url = self._client.url(self.resource)
-        headers = self.get_headers()
+        headers = self._get_headers()
         headers['Content-Type'] = 'application/pdf'
         fax_infos = {'context': context, 'extension': extension}
         if caller_id:
@@ -23,7 +23,7 @@ class FaxesCommand(CalldCommand):
 
     def send_from_user(self, fax_content, extension, caller_id=None):
         url = self._client.url('users', 'me', self.resource)
-        headers = self.get_headers()
+        headers = self._get_headers()
         headers['Content-Type'] = 'application/pdf'
         fax_infos = {'extension': extension}
         if caller_id:

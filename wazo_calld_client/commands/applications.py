@@ -10,7 +10,7 @@ class ApplicationsCommand(CalldCommand):
     resource = 'applications'
 
     def create_node(self, application_uuid, call_ids):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, application_uuid, 'nodes')
         body = {'calls': [{'id': call_id} for call_id in call_ids]}
 
@@ -21,14 +21,14 @@ class ApplicationsCommand(CalldCommand):
         return r.json()
 
     def delete_node(self, application_uuid, node_uuid):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, application_uuid, 'nodes', node_uuid)
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def get(self, application_uuid):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, application_uuid)
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
@@ -37,7 +37,7 @@ class ApplicationsCommand(CalldCommand):
         return r.json()
 
     def list_nodes(self, application_uuid):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, application_uuid, 'nodes')
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
@@ -46,7 +46,7 @@ class ApplicationsCommand(CalldCommand):
         return r.json()
 
     def get_node(self, application_uuid, node_uuid):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, application_uuid, 'nodes', node_uuid)
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
@@ -55,7 +55,7 @@ class ApplicationsCommand(CalldCommand):
         return r.json()
 
     def answer_call(self, application_uuid, call_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'calls', call_id, 'answer'
         )
@@ -64,14 +64,14 @@ class ApplicationsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def hangup_call(self, application_uuid, call_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, application_uuid, 'calls', call_id)
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def join_node(self, application_uuid, node_uuid, call_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'nodes', node_uuid, 'calls', call_id
         )
@@ -80,7 +80,7 @@ class ApplicationsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def list_calls(self, application_uuid):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, application_uuid, 'calls')
 
         r = self.session.get(url, headers=headers)
@@ -90,7 +90,7 @@ class ApplicationsCommand(CalldCommand):
         return r.json()
 
     def make_call(self, application_uuid, call):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, application_uuid, 'calls')
         r = self.session.post(url, json=call, headers=headers)
 
@@ -100,7 +100,7 @@ class ApplicationsCommand(CalldCommand):
         return r.json()
 
     def make_call_to_node(self, application_uuid, node_uuid, call):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'nodes', node_uuid, 'calls'
         )
@@ -112,7 +112,7 @@ class ApplicationsCommand(CalldCommand):
         return r.json()
 
     def delete_call_from_node(self, application_uuid, node_uuid, call_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'nodes', node_uuid, 'calls', call_id
         )
@@ -122,7 +122,7 @@ class ApplicationsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def make_call_user_to_node(self, application_uuid, node_uuid, call):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'nodes', node_uuid, 'calls', 'user'
         )
@@ -134,7 +134,7 @@ class ApplicationsCommand(CalldCommand):
         return r.json()
 
     def send_playback(self, application_uuid, call_id, playback):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'calls', call_id, 'playbacks'
         )
@@ -146,7 +146,7 @@ class ApplicationsCommand(CalldCommand):
         return r.json()
 
     def delete_playback(self, application_uuid, playback_uuid):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'playbacks', playback_uuid
         )
@@ -156,7 +156,7 @@ class ApplicationsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def snoops(self, application_uuid, call_id, snoop):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'calls', call_id, 'snoops'
         )
@@ -168,7 +168,7 @@ class ApplicationsCommand(CalldCommand):
         return r.json()
 
     def update_snoop(self, application_uuid, snoop_uuid, snoop):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, application_uuid, 'snoops', snoop_uuid)
         r = self.session.put(url, json=snoop, headers=headers)
 
@@ -176,7 +176,7 @@ class ApplicationsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def delete_snoop(self, application_uuid, snoop_uuid):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, application_uuid, 'snoops', snoop_uuid)
         r = self.session.delete(url, headers=headers)
 
@@ -184,7 +184,7 @@ class ApplicationsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def get_snoop(self, application_uuid, snoop_uuid):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, application_uuid, 'snoops', snoop_uuid)
         r = self.session.get(url, headers=headers)
 
@@ -194,7 +194,7 @@ class ApplicationsCommand(CalldCommand):
         return r.json()
 
     def list_snoops(self, application_uuid):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, application_uuid, 'snoops')
         r = self.session.get(url, headers=headers)
 
@@ -204,7 +204,7 @@ class ApplicationsCommand(CalldCommand):
         return r.json()
 
     def start_progress(self, application_uuid, call_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'calls', call_id, 'progress', 'start'
         )
@@ -213,7 +213,7 @@ class ApplicationsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def stop_progress(self, application_uuid, call_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'calls', call_id, 'progress', 'stop'
         )
@@ -222,7 +222,7 @@ class ApplicationsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def start_hold(self, application_uuid, call_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'calls', call_id, 'hold', 'start'
         )
@@ -231,7 +231,7 @@ class ApplicationsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def stop_hold(self, application_uuid, call_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'calls', call_id, 'hold', 'stop'
         )
@@ -240,7 +240,7 @@ class ApplicationsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def start_moh(self, application_uuid, call_id, moh_uuid):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'calls', call_id, 'moh', moh_uuid, 'start'
         )
@@ -249,7 +249,7 @@ class ApplicationsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def stop_moh(self, application_uuid, call_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'calls', call_id, 'moh', 'stop'
         )
@@ -258,7 +258,7 @@ class ApplicationsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def start_mute(self, application_uuid, call_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'calls', call_id, 'mute', 'start'
         )
@@ -267,7 +267,7 @@ class ApplicationsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def stop_mute(self, application_uuid, call_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'calls', call_id, 'mute', 'stop'
         )
@@ -276,7 +276,7 @@ class ApplicationsCommand(CalldCommand):
             self.raise_from_response(r)
 
     def send_dtmf_digits(self, application_uuid, call_id, digits):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, application_uuid, 'calls', call_id, 'dtmf'
         )

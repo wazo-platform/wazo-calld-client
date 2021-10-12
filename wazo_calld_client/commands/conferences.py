@@ -10,7 +10,7 @@ class ConferencesCommand(CalldCommand):
     resource = 'conferences'
 
     def list_participants(self, conference_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, conference_id, 'participants')
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
@@ -19,7 +19,7 @@ class ConferencesCommand(CalldCommand):
         return r.json()
 
     def user_list_participants(self, conference_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             'users', 'me', self.resource, conference_id, 'participants'
         )
@@ -30,7 +30,7 @@ class ConferencesCommand(CalldCommand):
         return r.json()
 
     def kick_participant(self, conference_id, participant_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, conference_id, 'participants', participant_id
         )
@@ -39,7 +39,7 @@ class ConferencesCommand(CalldCommand):
             self.raise_from_response(r)
 
     def mute_participant(self, conference_id, participant_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, conference_id, 'participants', participant_id, 'mute'
         )
@@ -48,7 +48,7 @@ class ConferencesCommand(CalldCommand):
             self.raise_from_response(r)
 
     def unmute_participant(self, conference_id, participant_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(
             self.resource, conference_id, 'participants', participant_id, 'unmute'
         )
@@ -57,14 +57,14 @@ class ConferencesCommand(CalldCommand):
             self.raise_from_response(r)
 
     def record(self, conference_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, conference_id, 'record')
         r = self.session.post(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def stop_record(self, conference_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, conference_id, 'record')
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:

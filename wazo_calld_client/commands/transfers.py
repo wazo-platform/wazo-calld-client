@@ -10,7 +10,7 @@ class TransfersCommand(CalldCommand):
     resource = 'transfers'
 
     def list_transfers_from_user(self):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url('users', 'me', self.resource)
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
@@ -19,7 +19,7 @@ class TransfersCommand(CalldCommand):
         return r.json()
 
     def get_transfer(self, transfer_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, transfer_id)
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
@@ -47,7 +47,7 @@ class TransfersCommand(CalldCommand):
             'variables': variables,
             'timeout': timeout,
         }
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self.base_url
         r = self.session.post(url, json=body, headers=headers)
 
@@ -63,7 +63,7 @@ class TransfersCommand(CalldCommand):
             'flow': flow,
             'timeout': timeout,
         }
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url('users', 'me', self.resource)
         r = self.session.post(url, json=body, headers=headers)
         if r.status_code != 201:
@@ -72,28 +72,28 @@ class TransfersCommand(CalldCommand):
         return r.json()
 
     def complete_transfer(self, transfer_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, transfer_id, 'complete')
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def complete_transfer_from_user(self, transfer_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url('users', 'me', self.resource, transfer_id, 'complete')
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def cancel_transfer(self, transfer_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url(self.resource, transfer_id)
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def cancel_transfer_from_user(self, transfer_id):
-        headers = self.get_headers()
+        headers = self._get_headers()
         url = self._client.url('users', 'me', self.resource, transfer_id)
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:

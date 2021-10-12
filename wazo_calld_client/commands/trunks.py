@@ -10,7 +10,7 @@ class TrunksCommand(CalldCommand):
     resource = 'trunks'
 
     def list_trunks(self, tenant_uuid=None):
-        headers = self.get_headers(tenant_uuid=tenant_uuid)
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource)
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
