@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from ..command import CalldCommand
@@ -8,21 +8,20 @@ from ..command import CalldCommand
 class TransfersCommand(CalldCommand):
 
     resource = 'transfers'
-    headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
     def list_transfers_from_user(self):
+        headers = self._get_headers()
         url = self._client.url('users', 'me', self.resource)
-        r = self.session.get(url, headers=self.headers)
+        r = self.session.get(url, headers=headers)
         if r.status_code != 200:
             self.raise_from_response(r)
 
         return r.json()
 
     def get_transfer(self, transfer_id):
-        r = self.session.get(
-            '{url}/{transfer_id}'.format(url=self.base_url, transfer_id=transfer_id),
-            headers=self.headers,
-        )
+        headers = self._get_headers()
+        url = self._client.url(self.resource, transfer_id)
+        r = self.session.get(url, headers=headers)
         if r.status_code != 200:
             self.raise_from_response(r)
 
@@ -48,7 +47,9 @@ class TransfersCommand(CalldCommand):
             'variables': variables,
             'timeout': timeout,
         }
-        r = self.session.post(self.base_url, json=body, headers=self.headers)
+        headers = self._get_headers()
+        url = self.base_url
+        r = self.session.post(url, json=body, headers=headers)
 
         if r.status_code != 201:
             self.raise_from_response(r)
@@ -62,43 +63,38 @@ class TransfersCommand(CalldCommand):
             'flow': flow,
             'timeout': timeout,
         }
-        r = self.session.post(
-            self._client.url('users', 'me', self.resource),
-            json=body,
-            headers=self.headers,
-        )
-
+        headers = self._get_headers()
+        url = self._client.url('users', 'me', self.resource)
+        r = self.session.post(url, json=body, headers=headers)
         if r.status_code != 201:
             self.raise_from_response(r)
 
         return r.json()
 
     def complete_transfer(self, transfer_id):
-        r = self.session.put(
-            '{url}/{transfer_id}/complete'.format(
-                url=self.base_url, transfer_id=transfer_id
-            ),
-            headers=self.headers,
-        )
+        headers = self._get_headers()
+        url = self._client.url(self.resource, transfer_id, 'complete')
+        r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def complete_transfer_from_user(self, transfer_id):
+        headers = self._get_headers()
         url = self._client.url('users', 'me', self.resource, transfer_id, 'complete')
-        r = self.session.put(url, headers=self.headers)
+        r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def cancel_transfer(self, transfer_id):
-        r = self.session.delete(
-            '{url}/{transfer_id}'.format(url=self.base_url, transfer_id=transfer_id),
-            headers=self.headers,
-        )
+        headers = self._get_headers()
+        url = self._client.url(self.resource, transfer_id)
+        r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def cancel_transfer_from_user(self, transfer_id):
+        headers = self._get_headers()
         url = self._client.url('users', 'me', self.resource, transfer_id)
-        r = self.session.delete(url, headers=self.headers)
+        r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)

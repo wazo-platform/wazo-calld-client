@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2017-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from hamcrest import assert_that
@@ -34,6 +34,7 @@ class TestSwitchboards(RESTCommandTestCase):
                 'switchboards', 'my-switchboard', 'calls', 'queued', 'call-id', 'answer'
             ),
             params=None,
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -49,6 +50,7 @@ class TestSwitchboards(RESTCommandTestCase):
                 'switchboards', 'my-switchboard', 'calls', 'queued', 'call-id', 'answer'
             ),
             params={'line_id': 1},
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -61,7 +63,7 @@ class TestSwitchboards(RESTCommandTestCase):
             self.client.url(
                 'switchboards', 'my-switchboard', 'calls', 'queued', 'call-id'
             ),
-            headers={},
+            headers={'Accept': 'application/json'},
         )
 
     def test_list_held_calls(self):
@@ -85,6 +87,7 @@ class TestSwitchboards(RESTCommandTestCase):
                 'switchboards', 'my-switchboard', 'calls', 'held', 'call-id', 'answer'
             ),
             params=None,
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -100,5 +103,6 @@ class TestSwitchboards(RESTCommandTestCase):
                 'switchboards', 'my-switchboard', 'calls', 'held', 'call-id', 'answer'
             ),
             params={'line_id': 1},
+            headers={'Accept': 'application/json'},
         )
         assert_that(result, equal_to({'return': 'value'}))

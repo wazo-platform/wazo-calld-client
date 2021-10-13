@@ -10,18 +10,20 @@ class MeetingsCommand(CalldCommand):
     resource = 'meetings'
 
     def list_participants(self, meeting_uuid):
+        headers = self._get_headers()
         url = self._client.url(self.resource, meeting_uuid, 'participants')
-        r = self.session.get(url, headers=self.ro_headers)
+        r = self.session.get(url, headers=headers)
         if r.status_code != 200:
             self.raise_from_response(r)
 
         return r.json()
 
     def user_list_participants(self, meeting_uuid):
+        headers = self._get_headers()
         url = self._client.url(
             'users', 'me', self.resource, meeting_uuid, 'participants'
         )
-        r = self.session.get(url, headers=self.ro_headers)
+        r = self.session.get(url, headers=headers)
         if r.status_code != 200:
             self.raise_from_response(r)
 
