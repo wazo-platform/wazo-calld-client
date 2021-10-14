@@ -19,7 +19,7 @@ class VoicemailsCommand(CalldCommand):
         return self._get(url)
 
     def get_voicemail_folder(self, voicemail_id, folder_id):
-        url = self._client.url(self.resource, voicemail_id, 'folder', folder_id)
+        url = self._client.url(self.resource, voicemail_id, 'folders', folder_id)
         return self._get(url)
 
     def get_voicemail_folder_from_user(self, folder_id):
