@@ -1,5 +1,6 @@
 Format: http://dep.debian.net/deps/dep5
 Upstream-Name: wazo-calld-client
+Source: https://github.com/wazo-platform/wazo-calld-client.git
 
 Files: *
 Copyright: 2015-2019 The Wazo Authors
