@@ -9,7 +9,15 @@ class FaxesCommand(CalldCommand):
 
     resource = 'faxes'
 
-    def send(self, fax_content, context, extension, caller_id=None, ivr_extension=None, wait_time=None):
+    def send(
+        self,
+        fax_content,
+        context,
+        extension,
+        caller_id=None,
+        ivr_extension=None,
+        wait_time=None,
+    ):
         url = self._client.url(self.resource)
         headers = self._get_headers()
         headers['Content-Type'] = 'application/pdf'
@@ -25,7 +33,9 @@ class FaxesCommand(CalldCommand):
             self.raise_from_response(r)
         return r.json()
 
-    def send_from_user(self, fax_content, extension, caller_id=None, ivr_extension=None, wait_time=None):
+    def send_from_user(
+        self, fax_content, extension, caller_id=None, ivr_extension=None, wait_time=None
+    ):
         url = self._client.url('users', 'me', self.resource)
         headers = self._get_headers()
         headers['Content-Type'] = 'application/pdf'
