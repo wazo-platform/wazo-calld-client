@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2021 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2021-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from ..command import CalldCommand
@@ -8,6 +8,21 @@ from ..command import CalldCommand
 class MeetingsCommand(CalldCommand):
 
     resource = 'meetings'
+
+    def guest_status(self, meeting_uuid):
+        headers = self._get_headers()
+        url = self._client.url(
+            'guests',
+            'me',
+            self.resource,
+            meeting_uuid,
+            'status',
+        )
+        r = self.session.get(url, headers=headers)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
 
     def list_participants(self, meeting_uuid):
         headers = self._get_headers()
