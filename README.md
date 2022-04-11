@@ -198,6 +198,7 @@ c.config.patch(config_patch)
 # Meetings
 participants = c.meetings.list_participants(meeting_uuid)
 participants = c.meetings.user_list_participants(meeting_uuid)  # user may only list if participant himself
+c.meetings.kick_participant(meeting_uuid, participant_id)
 ```
 
 ## Running unit tests
