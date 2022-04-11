@@ -52,3 +52,12 @@ class MeetingsCommand(CalldCommand):
         r = self.session.delete(url, headers=headers)
         if r.status_code != 200:
             self.raise_from_response(r)
+
+    def user_kick_participant(self, meeting_uuid, participant_id):
+        headers = self._get_headers()
+        url = self._client.url(
+            'users', 'me', self.resource, meeting_uuid, 'participants', participant_id
+        )
+        r = self.session.delete(url, headers=headers)
+        if r.status_code != 200:
+            self.raise_from_response(r)
