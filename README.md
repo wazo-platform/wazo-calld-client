@@ -206,7 +206,7 @@ c.meetings.user_kick_participant(meeting_uuid, participant_id)  # user may only 
 
 ```
 pip install tox
-tox --recreate -e py27
+tox --recreate -e py37
 ```
 
 ## How to implement a new command

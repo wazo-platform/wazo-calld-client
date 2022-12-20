@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
-# Copyright 2016-2021 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2016-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from hamcrest import assert_that
 from hamcrest import equal_to
-from mock import ANY
+from unittest.mock import ANY
 from wazo_lib_rest_client.tests.command import RESTCommandTestCase
 
 from ..voicemails import VoicemailsCommand
