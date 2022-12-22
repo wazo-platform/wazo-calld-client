@@ -1,3 +1,2 @@
 pytest
-mock
-pyhamcrest<1.10.0  # to support python 2.7
+pyhamcrest
