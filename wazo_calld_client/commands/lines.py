@@ -1,11 +1,10 @@
-# Copyright 2020-2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2020-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from ..command import CalldCommand
 
 
 class LinesCommand(CalldCommand):
-
     resource = 'lines'
 
     def list_lines(self, tenant_uuid=None):

@@ -1,11 +1,10 @@
-# Copyright 2021-2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2021-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from ..command import CalldCommand
 
 
 class MeetingsCommand(CalldCommand):
-
     resource = 'meetings'
 
     def guest_status(self, meeting_uuid):
