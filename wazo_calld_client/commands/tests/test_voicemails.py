@@ -1,4 +1,4 @@
-# Copyright 2016-2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2016-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from hamcrest import assert_that
@@ -10,7 +10,6 @@ from ..voicemails import VoicemailsCommand
 
 
 class TestVoicemails(RESTCommandTestCase):
-
     Command = VoicemailsCommand
 
     def test_get_voicemail(self):

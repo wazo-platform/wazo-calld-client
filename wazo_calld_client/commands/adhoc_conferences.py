@@ -1,11 +1,10 @@
-# Copyright 2020-2021 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2020-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from ..command import CalldCommand
 
 
 class AdhocConferencesCommand(CalldCommand):
-
     resource = 'adhoc_conferences'
 
     def create_from_user(self, host_call_id, *participant_call_ids):
