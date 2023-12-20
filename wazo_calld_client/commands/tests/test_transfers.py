@@ -1,8 +1,7 @@
 # Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from hamcrest import assert_that
-from hamcrest import equal_to
+from hamcrest import assert_that, equal_to
 from wazo_lib_rest_client.tests.command import RESTCommandTestCase
 
 from ..transfers import TransfersCommand
