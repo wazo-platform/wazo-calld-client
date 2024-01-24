@@ -1,6 +1,8 @@
 # Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+from unittest.mock import ANY
+
 from hamcrest import assert_that, equal_to
 from wazo_lib_rest_client.tests.command import RESTCommandTestCase
 
@@ -124,6 +126,7 @@ class TestCalls(RESTCommandTestCase):
         self.session.put.assert_called_once_with(
             self.client.url('calls', call_id, 'user', user_id),
             headers={'Accept': 'application/json'},
+            json=ANY,
         )
         assert_that(result, equal_to({'return': 'value'}))
 
