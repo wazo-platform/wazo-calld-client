@@ -99,10 +99,10 @@ class CallsCommand(CalldCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def connect_user(self, call_id, user_id):
+    def connect_user(self, call_id, user_id, **kwargs):
         headers = self._get_headers()
         url = self._client.url(self.resource, call_id, 'user', user_id)
-        r = self.session.put(url, headers=headers)
+        r = self.session.put(url, headers=headers, json=kwargs if kwargs else None)
         if r.status_code != 200:
             self.raise_from_response(r)
         return r.json()
