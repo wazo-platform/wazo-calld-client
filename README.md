@@ -72,7 +72,7 @@ c.calls.stop_hold_from_user(call['id'])
 c.calls.start_record_from_user(call['id'])
 c.calls.stop_record_from_user(call['id'])
 
-c.calls.connect_user('call_id', 'user_uuid')
+c.calls.connect_user('call_id', 'user_uuid', timeout=15)
 
 transfers = c.transfers.list_transfers_from_user()  # Lists transfers of the authenticated user
 transfer = c.transfers.make_transfer(transferred='call_id',
