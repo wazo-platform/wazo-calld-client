@@ -9,7 +9,7 @@ from wazo_calld_client.command import CalldCommand
 
 
 class ParkingLotsCommand(CalldCommand):
-    resource = 'parking_lots'
+    resource = 'parkinglots'
 
     def get(self, parking_id: int) -> Mapping:
         headers = self._get_headers()
