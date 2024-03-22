@@ -252,9 +252,7 @@ class CallsCommand(CalldCommand):
         timeout: int | None = None,
     ) -> Mapping:
         headers = self._get_headers()
-        url = self._client.url(
-            'users', 'me', self.resource, call_id, 'collocutor', 'park'
-        )
+        url = self._client.url('users', 'me', self.resource, call_id, 'park')
         body = {
             'parking_id': parking_id,
             'preferred_slot': preferred_slot,
