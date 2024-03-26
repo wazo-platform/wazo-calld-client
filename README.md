@@ -200,6 +200,23 @@ participants = c.meetings.list_participants(meeting_uuid)
 participants = c.meetings.user_list_participants(meeting_uuid)  # user may only list if participant himself
 c.meetings.kick_participant(meeting_uuid, participant_id)
 c.meetings.user_kick_participant(meeting_uuid, participant_id)  # user may only kick if owner of the meeting
+
+
+# Parkings
+parked_call = {
+  'slot': '701',
+  'timeout_at': '2024-01-01T00:00:00',
+}
+
+parking = c.parking_lots.get('parking_id')
+parked_call = c.calls.park('call_id',  # Park the call in selected parking
+                           'parking_id',
+                           preferred_slot='501',
+                           timeout=30)
+parked_call = c.calls.park_from_user('call_id',  # Park the user's connected call in selected parking
+                                     'parking_id',
+                                     preferred_slot='502',
+                                     timeout=10)
 ```
 
 ## Running unit tests
