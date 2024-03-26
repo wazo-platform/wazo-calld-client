@@ -244,7 +244,7 @@ class CallsCommand(CalldCommand):
             self.raise_from_response(r)
         return r.json()
 
-    def park_collocutor_from_user(
+    def park_from_user(
         self,
         call_id: str,
         parking_id: str,
