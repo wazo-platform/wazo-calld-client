@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2024 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from setuptools import find_packages, setup
@@ -22,6 +22,7 @@ setup(
             'faxes = wazo_calld_client.commands.faxes:FaxesCommand',
             'lines = wazo_calld_client.commands.lines:LinesCommand',
             'meetings = wazo_calld_client.commands.meetings:MeetingsCommand',
+            'parking_lots = wazo_calld_client.commands.parking_lots:ParkingLotsCommand',
             'relocates = wazo_calld_client.commands.relocates:RelocatesCommand',
             'status = wazo_calld_client.commands.status:StatusCommand',
             'switchboards = wazo_calld_client.commands.switchboards:SwitchboardsCommand',

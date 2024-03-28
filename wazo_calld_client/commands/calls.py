@@ -1,5 +1,9 @@
-# Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2024 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
+
+from __future__ import annotations
+
+from collections.abc import Mapping
 
 from ..command import CalldCommand
 
@@ -220,3 +224,41 @@ class CallsCommand(CalldCommand):
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
+
+    def park(
+        self,
+        call_id: str,
+        parking_id: str,
+        preferred_slot: str | None = None,
+        timeout: int | None = None,
+    ) -> Mapping:
+        headers = self._get_headers()
+        url = self._client.url(self.resource, call_id, 'park')
+        body = {
+            'parking_id': parking_id,
+            'preferred_slot': preferred_slot,
+            'timeout': timeout,
+        }
+        r = self.session.put(url, headers=headers, json=body)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+        return r.json()
+
+    def park_from_user(
+        self,
+        call_id: str,
+        parking_id: str,
+        preferred_slot: str | None = None,
+        timeout: int | None = None,
+    ) -> Mapping:
+        headers = self._get_headers()
+        url = self._client.url('users', 'me', self.resource, call_id, 'park')
+        body = {
+            'parking_id': parking_id,
+            'preferred_slot': preferred_slot,
+            'timeout': timeout,
+        }
+        r = self.session.put(url, headers=headers, json=body)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+        return r.json()
