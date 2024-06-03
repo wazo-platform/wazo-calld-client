@@ -20,3 +20,13 @@ class ParkingLotsCommand(CalldCommand):
             self.raise_from_response(r)
 
         return r.json()
+
+    def list_(self) -> Mapping:
+        headers = self._get_headers()
+        url = self._client.url(self.resource)
+        r = self.session.get(url, headers=headers)
+
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
