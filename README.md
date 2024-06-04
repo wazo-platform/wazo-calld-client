@@ -208,6 +208,7 @@ parked_call = {
   'timeout_at': '2024-01-01T00:00:00',
 }
 
+parkings = c.parking_lots.list_()
 parking = c.parking_lots.get('parking_id')
 parked_call = c.calls.park('call_id',  # Park the call in selected parking
                            'parking_id',
