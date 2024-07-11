@@ -16,7 +16,7 @@ optional_args = {
     'application': 'switchboard',
     'application_instance': 'switchboard_blue',
 }
-calls = c.calls.list_calls(**optional_args)
+calls = c.calls.list_calls(recurse=False, **optional_args)
 mycalls = c.calls.list_calls_from_user(**optional_args)  # List calls of the authenticated user
 
 params = {

@@ -25,6 +25,8 @@ class CallsCommand(CalldCommand):
             params['application'] = application
         if application_instance:
             params['application_instance'] = application_instance
+        if recurse:
+            params['recurse'] = recurse
 
         r = self.session.get(url, headers=headers, params=params)
 
