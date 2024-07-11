@@ -11,8 +11,14 @@ from ..command import CalldCommand
 class CallsCommand(CalldCommand):
     resource = 'calls'
 
-    def list_calls(self, application=None, application_instance=None):
-        headers = self._get_headers()
+    def list_calls(
+        self,
+        application=None,
+        application_instance=None,
+        recurse=None,
+        tenant_uuid=None,
+    ):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource)
         params = {}
         if application:
@@ -43,8 +49,8 @@ class CallsCommand(CalldCommand):
 
         return r.json()
 
-    def get_call(self, call_id):
-        headers = self._get_headers()
+    def get_call(self, call_id, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource, call_id)
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
