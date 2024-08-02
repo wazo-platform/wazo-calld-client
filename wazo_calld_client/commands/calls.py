@@ -59,8 +59,8 @@ class CallsCommand(CalldCommand):
             self.raise_from_response(r)
         return r.json()
 
-    def make_call(self, call):
-        headers = self._get_headers()
+    def make_call(self, call, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource)
         r = self.session.post(url, json=call, headers=headers)
         if r.status_code != 201:
@@ -97,8 +97,8 @@ class CallsCommand(CalldCommand):
 
         return r.json()
 
-    def hangup(self, call_id):
-        headers = self._get_headers()
+    def hangup(self, call_id, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource, call_id)
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
@@ -111,23 +111,24 @@ class CallsCommand(CalldCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def connect_user(self, call_id, user_id, **kwargs):
-        headers = self._get_headers()
+    def connect_user(self, call_id, user_id, tenant_uuid=None, **kwargs):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource, call_id, 'user', user_id)
         r = self.session.put(url, headers=headers, json=kwargs if kwargs else None)
         if r.status_code != 200:
             self.raise_from_response(r)
         return r.json()
 
-    def start_mute(self, call_id):
-        headers = self._get_headers()
+    def start_mute(self, call_id, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource, call_id, 'mute', 'start')
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def stop_mute(self, call_id):
+    def stop_mute(self, call_id, tenant_uuid=None):
         headers = self._get_headers()
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource, call_id, 'mute', 'stop')
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
@@ -147,8 +148,8 @@ class CallsCommand(CalldCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def send_dtmf_digits(self, call_id, digits):
-        headers = self._get_headers()
+    def send_dtmf_digits(self, call_id, digits, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource, call_id, 'dtmf')
         params = {'digits': digits}
         r = self.session.put(url, headers=headers, params=params)
@@ -163,15 +164,15 @@ class CallsCommand(CalldCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def start_hold(self, call_id):
-        headers = self._get_headers()
+    def start_hold(self, call_id, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource, call_id, 'hold', 'start')
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def stop_hold(self, call_id):
-        headers = self._get_headers()
+    def stop_hold(self, call_id, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource, call_id, 'hold', 'stop')
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
@@ -191,8 +192,8 @@ class CallsCommand(CalldCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def answer(self, call_id):
-        headers = self._get_headers()
+    def answer(self, call_id, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource, call_id, 'answer')
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
@@ -205,8 +206,8 @@ class CallsCommand(CalldCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def start_record(self, call_id):
-        headers = self._get_headers()
+    def start_record(self, call_id, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource, call_id, 'record', 'start')
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
@@ -219,8 +220,8 @@ class CallsCommand(CalldCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def stop_record(self, call_id):
-        headers = self._get_headers()
+    def stop_record(self, call_id, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource, call_id, 'record', 'stop')
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
