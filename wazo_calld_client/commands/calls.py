@@ -240,8 +240,9 @@ class CallsCommand(CalldCommand):
         parking_id: str,
         preferred_slot: str | None = None,
         timeout: int | None = None,
+        tenant_uuid: str | None = None,
     ) -> Mapping:
-        headers = self._get_headers()
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url(self.resource, call_id, 'park')
         body = {
             'parking_id': parking_id,
