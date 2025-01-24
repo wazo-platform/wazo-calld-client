@@ -1,4 +1,4 @@
-# Copyright 2015-2024 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2025 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from __future__ import annotations
@@ -230,6 +230,36 @@ class CallsCommand(CalldCommand):
     def stop_record_from_user(self, call_id):
         headers = self._get_headers()
         url = self._client.url('users', 'me', self.resource, call_id, 'record', 'stop')
+        r = self.session.put(url, headers=headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def pause_record(self, call_id, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
+        url = self._client.url(self.resource, call_id, 'record', 'pause')
+        r = self.session.put(url, headers=headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def pause_record_from_user(self, call_id):
+        headers = self._get_headers()
+        url = self._client.url('users', 'me', self.resource, call_id, 'record', 'pause')
+        r = self.session.put(url, headers=headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def resume_record(self, call_id, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
+        url = self._client.url(self.resource, call_id, 'record', 'resume')
+        r = self.session.put(url, headers=headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def resume_record_from_user(self, call_id):
+        headers = self._get_headers()
+        url = self._client.url(
+            'users', 'me', self.resource, call_id, 'record', 'resume'
+        )
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
