@@ -246,7 +246,7 @@ parked_call = c.calls.park_from_user('call_id',  # Park the user's connected cal
 
 ```
 pip install tox
-tox --recreate -e py39
+tox --recreate -e py311
 ```
 
 ## How to implement a new command
