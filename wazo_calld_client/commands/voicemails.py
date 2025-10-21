@@ -1,4 +1,4 @@
-# Copyright 2016-2023 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2016-2025 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from ..command import CalldCommand
@@ -31,6 +31,10 @@ class VoicemailsCommand(CalldCommand):
     def get_voicemail_message_from_user(self, message_id):
         url = self._client.url('users', 'me', 'voicemails', 'messages', message_id)
         return self._get(url)
+
+    def get_all_voicemail_messages_from_user(self, voicemail_type='all'):
+        url = self._client.url('users', 'me', 'voicemails', 'messages')
+        return self._get(url, {"voicemail_type": voicemail_type})
 
     def delete_voicemail_message(self, voicemail_id, message_id):
         headers = self._get_headers()
@@ -178,9 +182,9 @@ class VoicemailsCommand(CalldCommand):
             self.raise_from_response(r)
         return r.content
 
-    def _get(self, url):
+    def _get(self, url, params: dict | None = None):
         headers = self._get_headers()
-        r = self.session.get(url, headers=headers)
+        r = self.session.get(url, headers=headers, params=params or {})
         if r.status_code != 200:
             self.raise_from_response(r)
         return r.json()
