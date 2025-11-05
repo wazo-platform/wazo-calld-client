@@ -32,9 +32,9 @@ class VoicemailsCommand(CalldCommand):
         url = self._client.url('users', 'me', 'voicemails', 'messages', message_id)
         return self._get(url)
 
-    def get_all_voicemail_messages_from_user(self, voicemail_type='all'):
+    def get_all_voicemail_messages_from_user(self, voicemail_type='all', **params):
         url = self._client.url('users', 'me', 'voicemails', 'messages')
-        return self._get(url, {"voicemail_type": voicemail_type})
+        return self._get(url, {"voicemail_type": voicemail_type} | params)
 
     def delete_voicemail_message(self, voicemail_id, message_id):
         headers = self._get_headers()
