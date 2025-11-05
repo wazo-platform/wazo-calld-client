@@ -184,7 +184,7 @@ class VoicemailsCommand(CalldCommand):
 
     def _get(self, url, params: dict | None = None):
         headers = self._get_headers()
-        r = self.session.get(url, headers=headers, params=params or {})
+        r = self.session.get(url, headers=headers, params=params)
         if r.status_code != 200:
             self.raise_from_response(r)
         return r.json()

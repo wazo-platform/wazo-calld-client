@@ -1,4 +1,4 @@
-# Copyright 2016-2023 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2016-2025 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from unittest.mock import ANY
@@ -20,6 +20,7 @@ class TestVoicemails(RESTCommandTestCase):
         self.session.get.assert_called_once_with(
             ANY,
             headers={'Accept': 'application/json'},
+            params=None,
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -31,6 +32,7 @@ class TestVoicemails(RESTCommandTestCase):
         self.session.get.assert_called_once_with(
             ANY,
             headers={'Accept': 'application/json'},
+            params=None,
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -42,6 +44,7 @@ class TestVoicemails(RESTCommandTestCase):
         self.session.get.assert_called_once_with(
             ANY,
             headers={'Accept': 'application/json'},
+            params=None,
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -53,6 +56,7 @@ class TestVoicemails(RESTCommandTestCase):
         self.session.get.assert_called_once_with(
             ANY,
             headers={'Accept': 'application/json'},
+            params=None,
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -64,6 +68,7 @@ class TestVoicemails(RESTCommandTestCase):
         self.session.get.assert_called_once_with(
             ANY,
             headers={'Accept': 'application/json'},
+            params=None,
         )
         assert_that(result, equal_to({'return': 'value'}))
 
@@ -75,6 +80,19 @@ class TestVoicemails(RESTCommandTestCase):
         self.session.get.assert_called_once_with(
             ANY,
             headers={'Accept': 'application/json'},
+            params=None,
+        )
+        assert_that(result, equal_to({'return': 'value'}))
+
+    def test_get_all_voicemail_messages_from_user(self):
+        self.session.get.return_value = self.new_response(200, json={'return': 'value'})
+
+        result = self.command.get_all_voicemail_messages_from_user(voicemail_type="all")
+
+        self.session.get.assert_called_once_with(
+            ANY,
+            headers={'Accept': 'application/json'},
+            params={'voicemail_type': 'all'},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
