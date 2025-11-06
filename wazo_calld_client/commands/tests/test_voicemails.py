@@ -84,10 +84,10 @@ class TestVoicemails(RESTCommandTestCase):
         )
         assert_that(result, equal_to({'return': 'value'}))
 
-    def test_get_all_voicemail_messages_from_user(self):
+    def test_list_voicemail_messages_from_user(self):
         self.session.get.return_value = self.new_response(200, json={'return': 'value'})
 
-        result = self.command.get_all_voicemail_messages_from_user(voicemail_type="all")
+        result = self.command.list_voicemail_messages_from_user(voicemail_type="all")
 
         self.session.get.assert_called_once_with(
             ANY,

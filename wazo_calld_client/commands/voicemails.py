@@ -32,7 +32,7 @@ class VoicemailsCommand(CalldCommand):
         url = self._client.url('users', 'me', 'voicemails', 'messages', message_id)
         return self._get(url)
 
-    def get_all_voicemail_messages_from_user(self, voicemail_type='all', **params):
+    def list_voicemail_messages_from_user(self, voicemail_type='all', **params):
         url = self._client.url('users', 'me', 'voicemails', 'messages')
         return self._get(url, params | {"voicemail_type": voicemail_type})
 
