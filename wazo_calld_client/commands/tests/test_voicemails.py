@@ -1,4 +1,4 @@
-# Copyright 2016-2025 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2016-2026 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from unittest.mock import ANY
@@ -93,6 +93,32 @@ class TestVoicemails(RESTCommandTestCase):
             ANY,
             headers={'Accept': 'application/json'},
             params={'voicemail_type': 'all'},
+        )
+        assert_that(result, equal_to({'return': 'value'}))
+
+    def test_list_voicemail_messages(self):
+        self.session.get.return_value = self.new_response(200, json={'return': 'value'})
+
+        result = self.command.list_voicemail_messages(
+            voicemail_type='personal', limit=10
+        )
+
+        self.session.get.assert_called_once_with(
+            ANY,
+            headers={'Accept': 'application/json'},
+            params={'voicemail_type': 'personal', 'limit': 10},
+        )
+        assert_that(result, equal_to({'return': 'value'}))
+
+    def test_list_voicemail_messages_no_params(self):
+        self.session.get.return_value = self.new_response(200, json={'return': 'value'})
+
+        result = self.command.list_voicemail_messages()
+
+        self.session.get.assert_called_once_with(
+            ANY,
+            headers={'Accept': 'application/json'},
+            params={},
         )
         assert_that(result, equal_to({'return': 'value'}))
 
